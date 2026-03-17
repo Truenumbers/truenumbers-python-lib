@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Python: module src.TruenumbersTriggerApi</title>
+</head><body>
+
+<table class="heading">
+<tr class="heading-text decor">
+<td class="title">&nbsp;<br><strong class="title"><a href="src.html" class="white">src</a>.TruenumbersTriggerApi</strong></td>
+<td class="extra"><a href=".">index</a><br><a href="file:c%3A%5Cusers%5Ctyler%5Cprojects%5Ctruenumbers%5Cpython-libs%5Csrc%5Ctruenumberstriggerapi.py">c:\users\tyler\projects\truenumbers\python-libs\src\truenumberstriggerapi.py</a></td></tr></table>
+    <p></p>
+<p>
+<table class="section">
+<tr class="decor pkg-content-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><strong class="bigsection">Modules</strong></td></tr>
+    
+<tr><td class="decor pkg-content-decor"><span class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td><td>&nbsp;</td>
+<td class="singlecolumn"><table><tr><td class="multicolumn"><a href="requests.html">requests</a><br>
+</td><td class="multicolumn"></td><td class="multicolumn"></td><td class="multicolumn"></td></tr></table></td></tr></table><p>
+<table class="section">
+<tr class="decor index-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><strong class="bigsection">Classes</strong></td></tr>
+    
+<tr><td class="decor index-decor"><span class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td><td>&nbsp;</td>
+<td class="singlecolumn"><dl>
+<dt class="heading-text"><a href="builtins.html#object">builtins.object</a>
+</dt><dd>
+<dl>
+<dt class="heading-text"><a href="src.TruenumbersTriggerApi.html#TruenumbersTriggerApi">TruenumbersTriggerApi</a>
+</dt></dl>
+</dd>
+</dl>
+ <p>
+<table class="section">
+<tr class="decor title-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><a name="TruenumbersTriggerApi">class <strong>TruenumbersTriggerApi</strong></a>(<a href="builtins.html#object">builtins.object</a>)</td></tr>
+    
+<tr><td class="decor title-decor" rowspan=2><span class="code">&nbsp;&nbsp;&nbsp;</span></td>
+<td class="decor title-decor" colspan=2><span class="code"><a href="#TruenumbersTriggerApi">TruenumbersTriggerApi</a>(**kwargs)<br>
+&nbsp;<br>
+<a href="#TruenumbersTriggerApi">TruenumbersTriggerApi</a>&nbsp;class&nbsp;for&nbsp;interacting&nbsp;with&nbsp;the&nbsp;Truenumbers&nbsp;Trigger&nbsp;API.<br>&nbsp;</span></td></tr>
+<tr><td>&nbsp;</td>
+<td class="singlecolumn">Methods defined here:<br>
+<dl><dt><a name="TruenumbersTriggerApi-__init__"><strong>__init__</strong></a>(self, **kwargs)</dt><dd><span class="code">Initializes&nbsp;the&nbsp;<a href="#TruenumbersTriggerApi">TruenumbersTriggerApi</a>.<br>
+:param&nbsp;base_url:&nbsp;str&nbsp;(required)&nbsp;-&nbsp;The&nbsp;base&nbsp;URL&nbsp;of&nbsp;the&nbsp;Truenumbers&nbsp;Trigger&nbsp;API.<br>
+:param&nbsp;shared_headers:&nbsp;dict&nbsp;(optional)&nbsp;-&nbsp;The&nbsp;shared&nbsp;headers&nbsp;to&nbsp;be&nbsp;used&nbsp;for&nbsp;all&nbsp;requests.</span></dd></dl>
+
+<dl><dt><a name="TruenumbersTriggerApi-create_trigger"><strong>create_trigger</strong></a>(self, **kwargs)</dt><dd><span class="code">Creates&nbsp;a&nbsp;trigger.<br>
+:param&nbsp;numberspace:&nbsp;str&nbsp;(required)&nbsp;-&nbsp;The&nbsp;numberspace&nbsp;to&nbsp;create&nbsp;the&nbsp;trigger&nbsp;in.<br>
+:param&nbsp;name:&nbsp;str&nbsp;(required)&nbsp;-&nbsp;The&nbsp;name&nbsp;of&nbsp;the&nbsp;trigger.<br>
+:param&nbsp;description:&nbsp;str&nbsp;(optional)&nbsp;-&nbsp;The&nbsp;description&nbsp;of&nbsp;the&nbsp;trigger.<br>
+:param&nbsp;tnql:&nbsp;str&nbsp;(optional)&nbsp;-&nbsp;The&nbsp;TNQL&nbsp;query&nbsp;to&nbsp;create&nbsp;the&nbsp;trigger&nbsp;with.&nbsp;Required&nbsp;for&nbsp;CREATE&nbsp;and&nbsp;TAG&nbsp;execute_on.<br>
+:param&nbsp;execute_on:&nbsp;list[str]&nbsp;(required)&nbsp;-&nbsp;The&nbsp;execute&nbsp;on&nbsp;of&nbsp;the&nbsp;trigger.&nbsp;CREATE,&nbsp;TAG,&nbsp;CRON<br>
+:param&nbsp;status:&nbsp;str&nbsp;(optional)&nbsp;-&nbsp;The&nbsp;status&nbsp;of&nbsp;the&nbsp;trigger.<br>
+:param&nbsp;tag_on_trigger:&nbsp;list[str]&nbsp;(optional)&nbsp;-&nbsp;The&nbsp;tag&nbsp;on&nbsp;trigger&nbsp;of&nbsp;the&nbsp;trigger.<br>
+:param&nbsp;load_historic_data:&nbsp;bool&nbsp;(optional)&nbsp;-&nbsp;The&nbsp;load&nbsp;historic&nbsp;data&nbsp;of&nbsp;the&nbsp;trigger.<br>
+:param&nbsp;destinations:&nbsp;list[dict]&nbsp;(optional)&nbsp;-&nbsp;The&nbsp;destinations&nbsp;of&nbsp;the&nbsp;trigger.&nbsp;KAFKA,&nbsp;CRON_SCRIPT_DESTINATION,&nbsp;or&nbsp;PYTHON_3<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;dict&nbsp;-&nbsp;The&nbsp;result&nbsp;of&nbsp;the&nbsp;trigger&nbsp;creation.</span></dd></dl>
+
+<dl><dt><a name="TruenumbersTriggerApi-delete_trigger"><strong>delete_trigger</strong></a>(self, **kwargs)</dt><dd><span class="code">Deletes&nbsp;a&nbsp;trigger.<br>
+:param&nbsp;id:&nbsp;str&nbsp;(required)&nbsp;-&nbsp;The&nbsp;id&nbsp;of&nbsp;the&nbsp;trigger&nbsp;to&nbsp;delete.<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;dict&nbsp;-&nbsp;The&nbsp;result&nbsp;of&nbsp;the&nbsp;trigger&nbsp;deletion.</span></dd></dl>
+
+<dl><dt><a name="TruenumbersTriggerApi-get_trigger_by_id"><strong>get_trigger_by_id</strong></a>(self, **kwargs)</dt><dd><span class="code">Gets&nbsp;a&nbsp;trigger&nbsp;by&nbsp;id.<br>
+:param&nbsp;id:&nbsp;str&nbsp;(required)&nbsp;-&nbsp;The&nbsp;id&nbsp;of&nbsp;the&nbsp;trigger&nbsp;to&nbsp;get.<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;dict&nbsp;-&nbsp;The&nbsp;result&nbsp;of&nbsp;the&nbsp;trigger&nbsp;retrieval.</span></dd></dl>
+
+<dl><dt><a name="TruenumbersTriggerApi-get_triggers"><strong>get_triggers</strong></a>(self, **kwargs)</dt><dd><span class="code">Gets&nbsp;the&nbsp;triggers.<br>
+:param&nbsp;numberspace:&nbsp;str&nbsp;(required)&nbsp;-&nbsp;The&nbsp;numberspace&nbsp;to&nbsp;get&nbsp;the&nbsp;triggers&nbsp;from.<br>
+:param&nbsp;name:&nbsp;str&nbsp;(optional)&nbsp;-&nbsp;The&nbsp;name&nbsp;of&nbsp;the&nbsp;trigger&nbsp;to&nbsp;get.<br>
+:param&nbsp;status:&nbsp;list[str]&nbsp;(optional)&nbsp;-&nbsp;The&nbsp;status&nbsp;of&nbsp;the&nbsp;triggers&nbsp;to&nbsp;get.<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;dict&nbsp;-&nbsp;The&nbsp;result&nbsp;of&nbsp;the&nbsp;trigger&nbsp;retrieval.</span></dd></dl>
+
+<dl><dt><a name="TruenumbersTriggerApi-update_trigger"><strong>update_trigger</strong></a>(self, **kwargs)</dt><dd><span class="code">Updates&nbsp;a&nbsp;trigger.<br>
+:param&nbsp;id:&nbsp;str&nbsp;(required)&nbsp;-&nbsp;The&nbsp;id&nbsp;of&nbsp;the&nbsp;trigger&nbsp;to&nbsp;update.<br>
+:param&nbsp;name:&nbsp;str&nbsp;(optional)&nbsp;-&nbsp;The&nbsp;name&nbsp;of&nbsp;the&nbsp;trigger&nbsp;to&nbsp;update.<br>
+:param&nbsp;description:&nbsp;str&nbsp;(optional)&nbsp;-&nbsp;The&nbsp;description&nbsp;of&nbsp;the&nbsp;trigger&nbsp;to&nbsp;update.<br>
+:param&nbsp;tnql:&nbsp;str&nbsp;(optional)&nbsp;-&nbsp;The&nbsp;TNQL&nbsp;query&nbsp;to&nbsp;update&nbsp;the&nbsp;trigger&nbsp;with.<br>
+:param&nbsp;execute_on:&nbsp;list[str]&nbsp;(optional)&nbsp;-&nbsp;The&nbsp;execute&nbsp;on&nbsp;of&nbsp;the&nbsp;trigger.<br>
+:param&nbsp;status:&nbsp;str&nbsp;(optional)&nbsp;-&nbsp;The&nbsp;status&nbsp;of&nbsp;the&nbsp;trigger.<br>
+:param&nbsp;tag_on_trigger:&nbsp;list[str]&nbsp;(optional)&nbsp;-&nbsp;The&nbsp;tag&nbsp;on&nbsp;trigger&nbsp;of&nbsp;the&nbsp;trigger.<br>
+:param&nbsp;destinations:&nbsp;list[dict]&nbsp;(optional)&nbsp;-&nbsp;The&nbsp;destinations&nbsp;of&nbsp;the&nbsp;trigger.&nbsp;KAFKA,&nbsp;CRON_SCRIPT_DESTINATION,&nbsp;or&nbsp;PYTHON_3<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;dict&nbsp;-&nbsp;The&nbsp;result&nbsp;of&nbsp;the&nbsp;trigger&nbsp;update.</span></dd></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><span class="code">dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</span></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><span class="code">list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</span></dd>
+</dl>
+<hr>
+Data and other attributes defined here:<br>
+<dl><dt><strong>__annotations__</strong> = {'base_url': &lt;class 'str'&gt;, 'shared_headers': &lt;class 'dict'&gt;}</dl>
+
+<dl><dt><strong>base_url</strong> = ''</dl>
+
+<dl><dt><strong>shared_headers</strong> = {'Accept': 'application/json', 'Content-Type': 'application/json'}</dl>
+
+</td></tr></table></td></tr></table>
+</body></html>
