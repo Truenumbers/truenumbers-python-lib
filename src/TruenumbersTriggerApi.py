@@ -2,7 +2,11 @@ import requests
 
 class TruenumbersTriggerApi:
     """
-    TruenumbersTriggerApi class for interacting with the Truenumbers Trigger API.
+    High-level client for the Truenumbers Trigger API.
+
+    This class wraps endpoints for managing trigger definitions. Methods raise
+    ``ValueError`` when required arguments are missing and ``Exception`` when
+    the underlying HTTP request returns a status code >= 400.
     """
     base_url: str = ""
     shared_headers: dict = {
@@ -11,30 +15,60 @@ class TruenumbersTriggerApi:
     }
     def __init__(self, **kwargs):
         """
-        Initializes the TruenumbersTriggerApi.
-        :param base_url: str (required) - The base URL of the Truenumbers Trigger API.
-        :param shared_headers: dict (optional) - The shared headers to be used for all requests.
+        Initialize a new Truenumbers Trigger API client.
+
+        Args:
+            base_url (str): Base URL of the Trigger API, for example
+                ``"https://api.truenumbers.com/truenumbers-trigger-api"``.
+                Required.
+            shared_headers (dict, optional): Extra HTTP headers to send with every
+                request (for example authentication headers). Supplied keys
+                override the defaults in ``shared_headers``.
+
+        Raises:
+            ValueError: If ``base_url`` is not provided.
         """
         base_url = kwargs.get("base_url")
         if not base_url:
             raise ValueError("base_url is required")
         self.base_url = base_url
         shared_headers = kwargs.get("shared_headers")
+        if shared_headers:
+            self.shared_headers.update(shared_headers)
 
     def create_trigger(self, **kwargs):
         """
-        Creates a trigger.
-        :param numberspace: str (required) - The numberspace to create the trigger in.
-        :param name: str (required) - The name of the trigger.
-        :param description: str (optional) - The description of the trigger.
-        :param tnql: str (optional) - The TNQL query to create the trigger with. Required for CREATE and TAG execute_on.
-        :param execute_on: list[str] (required) - The execute on of the trigger. CREATE, TAG, CRON
-        :param status: str (optional) - The status of the trigger.
-        :param tag_on_trigger: list[str] (optional) - The tag on trigger of the trigger.
-        :param load_historic_data: bool (optional) - The load historic data of the trigger.
-        :param destinations: list[dict] (optional) - The destinations of the trigger. KAFKA, CRON_SCRIPT_DESTINATION, or PYTHON_3
+        Create a trigger definition.
+
+        This wraps ``POST /v1/trigger-definition``.
+
+        Args:
+            numberspace (str): Numberspace where the trigger will be created.
+                Required.
+            name (str): Trigger name. Required.
+            description (str, optional): Human-readable description.
+            tnql (str, optional): TNQL query that selects which Truenumbers should
+                activate the trigger. Required when ``execute_on`` includes
+                ``"CREATE"`` or ``"TAG"``.
+            execute_on (list[str]): When the trigger fires. Common values include
+                ``"CREATE"``, ``"TAG"``, and ``"CRON"``. Required.
+            status (str, optional): Trigger status (for example enabled/disabled).
+            tag_on_trigger (list[str], optional): Tags that should be applied to
+                Truenumbers when the trigger executes (if supported by your server).
+            load_historic_data (bool, optional): If ``True``, the server may backfill
+                the trigger by evaluating historic matching Truenumbers.
+            destinations (list[dict], optional): Where trigger events are delivered.
+                Each destination is a JSON object; typical fields include ``"type"``
+                and destination-specific configuration.
+
         Returns:
-            dict - The result of the trigger creation.
+            dict: A JSON object representing the created trigger definition.
+            Common fields include ``"guid"``/``"id"``, ``"numberspace"``, ``"name"``,
+            ``"tnql"``, ``"executeOn"``, ``"status"``, ``"destinations"`` and timestamps.
+
+        Raises:
+            ValueError: If required arguments are missing or inconsistent.
+            Exception: If the API response status code is >= 400.
         """
         numberspace = kwargs.get("numberspace")
         if not numberspace:
@@ -77,12 +111,23 @@ class TruenumbersTriggerApi:
 
     def get_triggers(self, **kwargs):
         """
-        Gets the triggers.
-        :param numberspace: str (required) - The numberspace to get the triggers from.
-        :param name: str (optional) - The name of the trigger to get.
-        :param status: list[str] (optional) - The status of the triggers to get.
+        List trigger definitions for a numberspace.
+
+        This wraps ``GET /v1/trigger-definitions``.
+
+        Args:
+            numberspace (str): Numberspace to list triggers for. Required.
+            name (str, optional): If provided, filter results by trigger name.
+            status (list[str], optional): If provided, filter results by one or more
+                status values. The wrapper sends them as a comma-separated string.
+
         Returns:
-            dict - The result of the trigger retrieval.
+            dict: A JSON object containing a list of trigger definitions, typically
+            under a key like ``"items"`` or similar, plus optional paging metadata.
+
+        Raises:
+            ValueError: If ``numberspace`` is missing.
+            Exception: If the API response status code is >= 400.
         """
         numberspace = kwargs.get("numberspace")
         name = kwargs.get("name")
@@ -101,10 +146,21 @@ class TruenumbersTriggerApi:
 
     def get_trigger_by_id(self, **kwargs):
         """
-        Gets a trigger by id.
-        :param id: str (required) - The id of the trigger to get.
+        Retrieve a single trigger definition by GUID.
+
+        This wraps ``GET /v1/trigger-definitions/{guid}``.
+
+        Args:
+            id (str): GUID of the trigger definition. Required.
+
         Returns:
-            dict - The result of the trigger retrieval.
+            dict: A JSON object representing the trigger definition, including
+            fields such as ``"guid"``/``"id"``, ``"numberspace"``, ``"name"``,
+            ``"tnql"``, ``"executeOn"``, ``"status"``, and ``"destinations"``.
+
+        Raises:
+            ValueError: If ``id`` is missing.
+            Exception: If the API response status code is >= 400.
         """
         id = kwargs.get("id")
         if not id:
@@ -117,17 +173,27 @@ class TruenumbersTriggerApi:
 
     def update_trigger(self, **kwargs):
         """
-        Updates a trigger.
-        :param id: str (required) - The id of the trigger to update.
-        :param name: str (optional) - The name of the trigger to update.
-        :param description: str (optional) - The description of the trigger to update.
-        :param tnql: str (optional) - The TNQL query to update the trigger with.
-        :param execute_on: list[str] (optional) - The execute on of the trigger.
-        :param status: str (optional) - The status of the trigger.
-        :param tag_on_trigger: list[str] (optional) - The tag on trigger of the trigger.
-        :param destinations: list[dict] (optional) - The destinations of the trigger. KAFKA, CRON_SCRIPT_DESTINATION, or PYTHON_3
+        Partially update a trigger definition by GUID.
+
+        This wraps ``PATCH /v1/trigger-definitions/{guid}``.
+
+        Args:
+            id (str): GUID of the trigger definition to update. Required.
+            name (str, optional): New trigger name.
+            description (str, optional): New description.
+            tnql (str, optional): New TNQL query string.
+            execute_on (list[str], optional): New execute-on values, such as
+                ``["CREATE", "TAG"]``.
+            status (str, optional): New trigger status.
+            tag_on_trigger (list[str], optional): New tag-on-trigger values.
+            destinations (list[dict], optional): New destinations array.
+
         Returns:
-            dict - The result of the trigger update.
+            dict: A JSON object representing the updated trigger definition.
+
+        Raises:
+            ValueError: If ``id`` is missing.
+            Exception: If the API response status code is >= 400.
         """
         id = kwargs.get("id")
         if not id:
@@ -158,10 +224,19 @@ class TruenumbersTriggerApi:
 
     def delete_trigger(self, **kwargs):
         """
-        Deletes a trigger.
-        :param id: str (required) - The id of the trigger to delete.
+        Delete a trigger definition by GUID.
+
+        This wraps ``DELETE /v1/trigger-definitions/{guid}``.
+
+        Args:
+            id (str): GUID of the trigger definition to delete. Required.
+
         Returns:
-            dict - The result of the trigger deletion.
+            dict: A JSON object confirming deletion and any status details.
+
+        Raises:
+            ValueError: If ``id`` is missing.
+            Exception: If the API response status code is >= 400.
         """
         id = kwargs.get("id")
         if not id:

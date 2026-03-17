@@ -245,14 +245,32 @@ class TruenumbersRestApi:
 
         def create_truenumbers_from_json(self, **kwargs):
             """
-            Creates truenumbers from a JSON payload.
-            :param numberspace: str (required) - The numberspace to create the truenumbers in.
-            :param truenumbers_json: str (required) - The JSON payload to create the truenumbers from.
-            :param noReturn: bool (optional) - Whether to return the truenumbers. default is False.
-            :param skipStore: bool (optional) - Whether to skip storing the truenumbers. default is False.
-            :param tags: list (optional) - The tags to add to the truenumbers. default is [].
+            Create one or more Truenumbers from a JSON payload.
+
+            This method maps to the
+            ``POST /v2/numberflow/numbers`` *Create Truenumbers* endpoint and uses
+            the ``truenumbers`` field of the request body.
+
+            Args:
+                numberspace (str): Numberspace in which the new Truenumbers will
+                    be created. Required.
+                truenumbers_json (list[dict]): List of JSON objects representing Truenumbers to create. Required.
+                noReturn (bool, optional): If ``True``, the API will not return the
+                    created Truenumbers in the response. Defaults to ``False``.
+                skipStore (bool, optional): If ``True``, creates Truenumbers
+                    without storing them. Defaults to ``False``.
+                tags (list, optional): Additional tags to attach to every created
+                    Truenumber. Defaults to an empty list.
+
             Returns:
-                dict - The result of the truenumbers creation.
+                dict: A JSON object representing the created Truenumbers, typically
+                containing a list of Truenumber objects with fields such as
+                ``"guid"``, ``"subject"``, ``"property"``, ``"value"`` and
+                ``"tags"``.
+
+            Raises:
+                ValueError: If ``numberspace`` or ``truenumbers_json`` is missing.
+                Exception: If the API response status code is >= 400.
             """
             numberspace = kwargs.get("numberspace")
             if not numberspace:
