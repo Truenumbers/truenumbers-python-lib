@@ -6,4 +6,4 @@ python -m pydoc -w src
 # python -m pydoc -w src.TruenumbersArtifactApi
 mv *.html docs
 mv docs/src.html docs/index.html
-# python convert_pydoc_to_md.py
+python prepare_html_docs.py
