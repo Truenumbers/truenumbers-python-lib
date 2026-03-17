@@ -39,54 +39,127 @@
 <tr><td class="decor title-decor" rowspan=2><span class="code">&nbsp;&nbsp;&nbsp;</span></td>
 <td class="decor title-decor" colspan=2><span class="code"><a href="#TruenumbersTriggerApi">TruenumbersTriggerApi</a>(**kwargs)<br>
 &nbsp;<br>
-<a href="#TruenumbersTriggerApi">TruenumbersTriggerApi</a>&nbsp;class&nbsp;for&nbsp;interacting&nbsp;with&nbsp;the&nbsp;Truenumbers&nbsp;Trigger&nbsp;API.<br>&nbsp;</span></td></tr>
+High-level&nbsp;client&nbsp;for&nbsp;the&nbsp;Truenumbers&nbsp;Trigger&nbsp;API.<br>
+&nbsp;<br>
+This&nbsp;class&nbsp;wraps&nbsp;endpoints&nbsp;for&nbsp;managing&nbsp;trigger&nbsp;definitions.&nbsp;Methods&nbsp;raise<br>
+``ValueError``&nbsp;when&nbsp;required&nbsp;arguments&nbsp;are&nbsp;missing&nbsp;and&nbsp;``Exception``&nbsp;when<br>
+the&nbsp;underlying&nbsp;HTTP&nbsp;request&nbsp;returns&nbsp;a&nbsp;status&nbsp;code&nbsp;&gt;=&nbsp;400.<br>&nbsp;</span></td></tr>
 <tr><td>&nbsp;</td>
 <td class="singlecolumn">Methods defined here:<br>
-<dl><dt><a name="TruenumbersTriggerApi-__init__"><strong>__init__</strong></a>(self, **kwargs)</dt><dd><span class="code">Initializes&nbsp;the&nbsp;<a href="#TruenumbersTriggerApi">TruenumbersTriggerApi</a>.<br>
-:param&nbsp;base_url:&nbsp;str&nbsp;(required)&nbsp;-&nbsp;The&nbsp;base&nbsp;URL&nbsp;of&nbsp;the&nbsp;Truenumbers&nbsp;Trigger&nbsp;API.<br>
-:param&nbsp;shared_headers:&nbsp;dict&nbsp;(optional)&nbsp;-&nbsp;The&nbsp;shared&nbsp;headers&nbsp;to&nbsp;be&nbsp;used&nbsp;for&nbsp;all&nbsp;requests.</span></dd></dl>
+<dl><dt><a name="TruenumbersTriggerApi-__init__"><strong>__init__</strong></a>(self, **kwargs)</dt><dd><span class="code">Initialize&nbsp;a&nbsp;new&nbsp;Truenumbers&nbsp;Trigger&nbsp;API&nbsp;client.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;base_url&nbsp;(str):&nbsp;Base&nbsp;URL&nbsp;of&nbsp;the&nbsp;Trigger&nbsp;API,&nbsp;for&nbsp;example<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;``"<a href="https://api.truenumbers.com/truenumbers-trigger-api">https://api.truenumbers.com/truenumbers-trigger-api</a>"``.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Required.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;shared_headers&nbsp;(dict,&nbsp;optional):&nbsp;Extra&nbsp;HTTP&nbsp;headers&nbsp;to&nbsp;send&nbsp;with&nbsp;every<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;request&nbsp;(for&nbsp;example&nbsp;authentication&nbsp;headers).&nbsp;Supplied&nbsp;keys<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;override&nbsp;the&nbsp;defaults&nbsp;in&nbsp;``shared_headers``.<br>
+&nbsp;<br>
+Raises:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ValueError:&nbsp;If&nbsp;``base_url``&nbsp;is&nbsp;not&nbsp;provided.</span></dd></dl>
 
-<dl><dt><a name="TruenumbersTriggerApi-create_trigger"><strong>create_trigger</strong></a>(self, **kwargs)</dt><dd><span class="code">Creates&nbsp;a&nbsp;trigger.<br>
-:param&nbsp;numberspace:&nbsp;str&nbsp;(required)&nbsp;-&nbsp;The&nbsp;numberspace&nbsp;to&nbsp;create&nbsp;the&nbsp;trigger&nbsp;in.<br>
-:param&nbsp;name:&nbsp;str&nbsp;(required)&nbsp;-&nbsp;The&nbsp;name&nbsp;of&nbsp;the&nbsp;trigger.<br>
-:param&nbsp;description:&nbsp;str&nbsp;(optional)&nbsp;-&nbsp;The&nbsp;description&nbsp;of&nbsp;the&nbsp;trigger.<br>
-:param&nbsp;tnql:&nbsp;str&nbsp;(optional)&nbsp;-&nbsp;The&nbsp;TNQL&nbsp;query&nbsp;to&nbsp;create&nbsp;the&nbsp;trigger&nbsp;with.&nbsp;Required&nbsp;for&nbsp;CREATE&nbsp;and&nbsp;TAG&nbsp;execute_on.<br>
-:param&nbsp;execute_on:&nbsp;list[str]&nbsp;(required)&nbsp;-&nbsp;The&nbsp;execute&nbsp;on&nbsp;of&nbsp;the&nbsp;trigger.&nbsp;CREATE,&nbsp;TAG,&nbsp;CRON<br>
-:param&nbsp;status:&nbsp;str&nbsp;(optional)&nbsp;-&nbsp;The&nbsp;status&nbsp;of&nbsp;the&nbsp;trigger.<br>
-:param&nbsp;tag_on_trigger:&nbsp;list[str]&nbsp;(optional)&nbsp;-&nbsp;The&nbsp;tag&nbsp;on&nbsp;trigger&nbsp;of&nbsp;the&nbsp;trigger.<br>
-:param&nbsp;load_historic_data:&nbsp;bool&nbsp;(optional)&nbsp;-&nbsp;The&nbsp;load&nbsp;historic&nbsp;data&nbsp;of&nbsp;the&nbsp;trigger.<br>
-:param&nbsp;destinations:&nbsp;list[dict]&nbsp;(optional)&nbsp;-&nbsp;The&nbsp;destinations&nbsp;of&nbsp;the&nbsp;trigger.&nbsp;KAFKA,&nbsp;CRON_SCRIPT_DESTINATION,&nbsp;or&nbsp;PYTHON_3<br>
+<dl><dt><a name="TruenumbersTriggerApi-create_trigger"><strong>create_trigger</strong></a>(self, **kwargs)</dt><dd><span class="code">Create&nbsp;a&nbsp;trigger&nbsp;definition.<br>
+&nbsp;<br>
+This&nbsp;wraps&nbsp;``POST&nbsp;/v1/trigger-definition``.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;numberspace&nbsp;(str):&nbsp;Numberspace&nbsp;where&nbsp;the&nbsp;trigger&nbsp;will&nbsp;be&nbsp;created.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Required.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;name&nbsp;(str):&nbsp;Trigger&nbsp;name.&nbsp;Required.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;description&nbsp;(str,&nbsp;optional):&nbsp;Human-readable&nbsp;description.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;tnql&nbsp;(str,&nbsp;optional):&nbsp;TNQL&nbsp;query&nbsp;that&nbsp;selects&nbsp;which&nbsp;Truenumbers&nbsp;should<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;activate&nbsp;the&nbsp;trigger.&nbsp;Required&nbsp;when&nbsp;``execute_on``&nbsp;includes<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;``"CREATE"``&nbsp;or&nbsp;``"TAG"``.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;execute_on&nbsp;(list[str]):&nbsp;When&nbsp;the&nbsp;trigger&nbsp;fires.&nbsp;Common&nbsp;values&nbsp;include<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;``"CREATE"``,&nbsp;``"TAG"``,&nbsp;and&nbsp;``"CRON"``.&nbsp;Required.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;status&nbsp;(str,&nbsp;optional):&nbsp;Trigger&nbsp;status&nbsp;(for&nbsp;example&nbsp;enabled/disabled).<br>
+&nbsp;&nbsp;&nbsp;&nbsp;tag_on_trigger&nbsp;(list[str],&nbsp;optional):&nbsp;Tags&nbsp;that&nbsp;should&nbsp;be&nbsp;applied&nbsp;to<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Truenumbers&nbsp;when&nbsp;the&nbsp;trigger&nbsp;executes&nbsp;(if&nbsp;supported&nbsp;by&nbsp;your&nbsp;server).<br>
+&nbsp;&nbsp;&nbsp;&nbsp;load_historic_data&nbsp;(bool,&nbsp;optional):&nbsp;If&nbsp;``True``,&nbsp;the&nbsp;server&nbsp;may&nbsp;backfill<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;trigger&nbsp;by&nbsp;evaluating&nbsp;historic&nbsp;matching&nbsp;Truenumbers.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;destinations&nbsp;(list[dict],&nbsp;optional):&nbsp;Where&nbsp;trigger&nbsp;events&nbsp;are&nbsp;delivered.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Each&nbsp;destination&nbsp;is&nbsp;a&nbsp;JSON&nbsp;<a href="builtins.html#object">object</a>;&nbsp;typical&nbsp;fields&nbsp;include&nbsp;``"type"``<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and&nbsp;destination-specific&nbsp;configuration.<br>
+&nbsp;<br>
 Returns:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;dict&nbsp;-&nbsp;The&nbsp;result&nbsp;of&nbsp;the&nbsp;trigger&nbsp;creation.</span></dd></dl>
+&nbsp;&nbsp;&nbsp;&nbsp;dict:&nbsp;A&nbsp;JSON&nbsp;<a href="builtins.html#object">object</a>&nbsp;representing&nbsp;the&nbsp;created&nbsp;trigger&nbsp;definition.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Common&nbsp;fields&nbsp;include&nbsp;``"guid"``/``"id"``,&nbsp;``"numberspace"``,&nbsp;``"name"``,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;``"tnql"``,&nbsp;``"executeOn"``,&nbsp;``"status"``,&nbsp;``"destinations"``&nbsp;and&nbsp;timestamps.<br>
+&nbsp;<br>
+Raises:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ValueError:&nbsp;If&nbsp;required&nbsp;arguments&nbsp;are&nbsp;missing&nbsp;or&nbsp;inconsistent.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Exception:&nbsp;If&nbsp;the&nbsp;API&nbsp;response&nbsp;status&nbsp;code&nbsp;is&nbsp;&gt;=&nbsp;400.</span></dd></dl>
 
-<dl><dt><a name="TruenumbersTriggerApi-delete_trigger"><strong>delete_trigger</strong></a>(self, **kwargs)</dt><dd><span class="code">Deletes&nbsp;a&nbsp;trigger.<br>
-:param&nbsp;id:&nbsp;str&nbsp;(required)&nbsp;-&nbsp;The&nbsp;id&nbsp;of&nbsp;the&nbsp;trigger&nbsp;to&nbsp;delete.<br>
+<dl><dt><a name="TruenumbersTriggerApi-delete_trigger"><strong>delete_trigger</strong></a>(self, **kwargs)</dt><dd><span class="code">Delete&nbsp;a&nbsp;trigger&nbsp;definition&nbsp;by&nbsp;GUID.<br>
+&nbsp;<br>
+This&nbsp;wraps&nbsp;``DELETE&nbsp;/v1/trigger-definitions/{guid}``.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;id&nbsp;(str):&nbsp;GUID&nbsp;of&nbsp;the&nbsp;trigger&nbsp;definition&nbsp;to&nbsp;delete.&nbsp;Required.<br>
+&nbsp;<br>
 Returns:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;dict&nbsp;-&nbsp;The&nbsp;result&nbsp;of&nbsp;the&nbsp;trigger&nbsp;deletion.</span></dd></dl>
+&nbsp;&nbsp;&nbsp;&nbsp;dict:&nbsp;A&nbsp;JSON&nbsp;<a href="builtins.html#object">object</a>&nbsp;confirming&nbsp;deletion&nbsp;and&nbsp;any&nbsp;status&nbsp;details.<br>
+&nbsp;<br>
+Raises:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ValueError:&nbsp;If&nbsp;``id``&nbsp;is&nbsp;missing.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Exception:&nbsp;If&nbsp;the&nbsp;API&nbsp;response&nbsp;status&nbsp;code&nbsp;is&nbsp;&gt;=&nbsp;400.</span></dd></dl>
 
-<dl><dt><a name="TruenumbersTriggerApi-get_trigger_by_id"><strong>get_trigger_by_id</strong></a>(self, **kwargs)</dt><dd><span class="code">Gets&nbsp;a&nbsp;trigger&nbsp;by&nbsp;id.<br>
-:param&nbsp;id:&nbsp;str&nbsp;(required)&nbsp;-&nbsp;The&nbsp;id&nbsp;of&nbsp;the&nbsp;trigger&nbsp;to&nbsp;get.<br>
+<dl><dt><a name="TruenumbersTriggerApi-get_trigger_by_id"><strong>get_trigger_by_id</strong></a>(self, **kwargs)</dt><dd><span class="code">Retrieve&nbsp;a&nbsp;single&nbsp;trigger&nbsp;definition&nbsp;by&nbsp;GUID.<br>
+&nbsp;<br>
+This&nbsp;wraps&nbsp;``GET&nbsp;/v1/trigger-definitions/{guid}``.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;id&nbsp;(str):&nbsp;GUID&nbsp;of&nbsp;the&nbsp;trigger&nbsp;definition.&nbsp;Required.<br>
+&nbsp;<br>
 Returns:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;dict&nbsp;-&nbsp;The&nbsp;result&nbsp;of&nbsp;the&nbsp;trigger&nbsp;retrieval.</span></dd></dl>
+&nbsp;&nbsp;&nbsp;&nbsp;dict:&nbsp;A&nbsp;JSON&nbsp;<a href="builtins.html#object">object</a>&nbsp;representing&nbsp;the&nbsp;trigger&nbsp;definition,&nbsp;including<br>
+&nbsp;&nbsp;&nbsp;&nbsp;fields&nbsp;such&nbsp;as&nbsp;``"guid"``/``"id"``,&nbsp;``"numberspace"``,&nbsp;``"name"``,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;``"tnql"``,&nbsp;``"executeOn"``,&nbsp;``"status"``,&nbsp;and&nbsp;``"destinations"``.<br>
+&nbsp;<br>
+Raises:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ValueError:&nbsp;If&nbsp;``id``&nbsp;is&nbsp;missing.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Exception:&nbsp;If&nbsp;the&nbsp;API&nbsp;response&nbsp;status&nbsp;code&nbsp;is&nbsp;&gt;=&nbsp;400.</span></dd></dl>
 
-<dl><dt><a name="TruenumbersTriggerApi-get_triggers"><strong>get_triggers</strong></a>(self, **kwargs)</dt><dd><span class="code">Gets&nbsp;the&nbsp;triggers.<br>
-:param&nbsp;numberspace:&nbsp;str&nbsp;(required)&nbsp;-&nbsp;The&nbsp;numberspace&nbsp;to&nbsp;get&nbsp;the&nbsp;triggers&nbsp;from.<br>
-:param&nbsp;name:&nbsp;str&nbsp;(optional)&nbsp;-&nbsp;The&nbsp;name&nbsp;of&nbsp;the&nbsp;trigger&nbsp;to&nbsp;get.<br>
-:param&nbsp;status:&nbsp;list[str]&nbsp;(optional)&nbsp;-&nbsp;The&nbsp;status&nbsp;of&nbsp;the&nbsp;triggers&nbsp;to&nbsp;get.<br>
+<dl><dt><a name="TruenumbersTriggerApi-get_triggers"><strong>get_triggers</strong></a>(self, **kwargs)</dt><dd><span class="code">List&nbsp;trigger&nbsp;definitions&nbsp;for&nbsp;a&nbsp;numberspace.<br>
+&nbsp;<br>
+This&nbsp;wraps&nbsp;``GET&nbsp;/v1/trigger-definitions``.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;numberspace&nbsp;(str):&nbsp;Numberspace&nbsp;to&nbsp;list&nbsp;triggers&nbsp;for.&nbsp;Required.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;name&nbsp;(str,&nbsp;optional):&nbsp;If&nbsp;provided,&nbsp;filter&nbsp;results&nbsp;by&nbsp;trigger&nbsp;name.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;status&nbsp;(list[str],&nbsp;optional):&nbsp;If&nbsp;provided,&nbsp;filter&nbsp;results&nbsp;by&nbsp;one&nbsp;or&nbsp;more<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;status&nbsp;values.&nbsp;The&nbsp;wrapper&nbsp;sends&nbsp;them&nbsp;as&nbsp;a&nbsp;comma-separated&nbsp;string.<br>
+&nbsp;<br>
 Returns:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;dict&nbsp;-&nbsp;The&nbsp;result&nbsp;of&nbsp;the&nbsp;trigger&nbsp;retrieval.</span></dd></dl>
+&nbsp;&nbsp;&nbsp;&nbsp;dict:&nbsp;A&nbsp;JSON&nbsp;<a href="builtins.html#object">object</a>&nbsp;containing&nbsp;a&nbsp;list&nbsp;of&nbsp;trigger&nbsp;definitions,&nbsp;typically<br>
+&nbsp;&nbsp;&nbsp;&nbsp;under&nbsp;a&nbsp;key&nbsp;like&nbsp;``"items"``&nbsp;or&nbsp;similar,&nbsp;plus&nbsp;optional&nbsp;paging&nbsp;metadata.<br>
+&nbsp;<br>
+Raises:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ValueError:&nbsp;If&nbsp;``numberspace``&nbsp;is&nbsp;missing.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Exception:&nbsp;If&nbsp;the&nbsp;API&nbsp;response&nbsp;status&nbsp;code&nbsp;is&nbsp;&gt;=&nbsp;400.</span></dd></dl>
 
-<dl><dt><a name="TruenumbersTriggerApi-update_trigger"><strong>update_trigger</strong></a>(self, **kwargs)</dt><dd><span class="code">Updates&nbsp;a&nbsp;trigger.<br>
-:param&nbsp;id:&nbsp;str&nbsp;(required)&nbsp;-&nbsp;The&nbsp;id&nbsp;of&nbsp;the&nbsp;trigger&nbsp;to&nbsp;update.<br>
-:param&nbsp;name:&nbsp;str&nbsp;(optional)&nbsp;-&nbsp;The&nbsp;name&nbsp;of&nbsp;the&nbsp;trigger&nbsp;to&nbsp;update.<br>
-:param&nbsp;description:&nbsp;str&nbsp;(optional)&nbsp;-&nbsp;The&nbsp;description&nbsp;of&nbsp;the&nbsp;trigger&nbsp;to&nbsp;update.<br>
-:param&nbsp;tnql:&nbsp;str&nbsp;(optional)&nbsp;-&nbsp;The&nbsp;TNQL&nbsp;query&nbsp;to&nbsp;update&nbsp;the&nbsp;trigger&nbsp;with.<br>
-:param&nbsp;execute_on:&nbsp;list[str]&nbsp;(optional)&nbsp;-&nbsp;The&nbsp;execute&nbsp;on&nbsp;of&nbsp;the&nbsp;trigger.<br>
-:param&nbsp;status:&nbsp;str&nbsp;(optional)&nbsp;-&nbsp;The&nbsp;status&nbsp;of&nbsp;the&nbsp;trigger.<br>
-:param&nbsp;tag_on_trigger:&nbsp;list[str]&nbsp;(optional)&nbsp;-&nbsp;The&nbsp;tag&nbsp;on&nbsp;trigger&nbsp;of&nbsp;the&nbsp;trigger.<br>
-:param&nbsp;destinations:&nbsp;list[dict]&nbsp;(optional)&nbsp;-&nbsp;The&nbsp;destinations&nbsp;of&nbsp;the&nbsp;trigger.&nbsp;KAFKA,&nbsp;CRON_SCRIPT_DESTINATION,&nbsp;or&nbsp;PYTHON_3<br>
+<dl><dt><a name="TruenumbersTriggerApi-update_trigger"><strong>update_trigger</strong></a>(self, **kwargs)</dt><dd><span class="code">Partially&nbsp;update&nbsp;a&nbsp;trigger&nbsp;definition&nbsp;by&nbsp;GUID.<br>
+&nbsp;<br>
+This&nbsp;wraps&nbsp;``PATCH&nbsp;/v1/trigger-definitions/{guid}``.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;id&nbsp;(str):&nbsp;GUID&nbsp;of&nbsp;the&nbsp;trigger&nbsp;definition&nbsp;to&nbsp;update.&nbsp;Required.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;name&nbsp;(str,&nbsp;optional):&nbsp;New&nbsp;trigger&nbsp;name.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;description&nbsp;(str,&nbsp;optional):&nbsp;New&nbsp;description.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;tnql&nbsp;(str,&nbsp;optional):&nbsp;New&nbsp;TNQL&nbsp;query&nbsp;string.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;execute_on&nbsp;(list[str],&nbsp;optional):&nbsp;New&nbsp;execute-on&nbsp;values,&nbsp;such&nbsp;as<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;``["CREATE",&nbsp;"TAG"]``.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;status&nbsp;(str,&nbsp;optional):&nbsp;New&nbsp;trigger&nbsp;status.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;tag_on_trigger&nbsp;(list[str],&nbsp;optional):&nbsp;New&nbsp;tag-on-trigger&nbsp;values.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;destinations&nbsp;(list[dict],&nbsp;optional):&nbsp;New&nbsp;destinations&nbsp;array.<br>
+&nbsp;<br>
 Returns:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;dict&nbsp;-&nbsp;The&nbsp;result&nbsp;of&nbsp;the&nbsp;trigger&nbsp;update.</span></dd></dl>
+&nbsp;&nbsp;&nbsp;&nbsp;dict:&nbsp;A&nbsp;JSON&nbsp;<a href="builtins.html#object">object</a>&nbsp;representing&nbsp;the&nbsp;updated&nbsp;trigger&nbsp;definition.<br>
+&nbsp;<br>
+Raises:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ValueError:&nbsp;If&nbsp;``id``&nbsp;is&nbsp;missing.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Exception:&nbsp;If&nbsp;the&nbsp;API&nbsp;response&nbsp;status&nbsp;code&nbsp;is&nbsp;&gt;=&nbsp;400.</span></dd></dl>
 
 <hr>
 Data descriptors defined here:<br>
