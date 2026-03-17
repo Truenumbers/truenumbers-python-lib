@@ -1,6 +1,5 @@
 #!/bin/bash
 
-python -m pydoc -w src.TruenumbersRestApi
-python -m pydoc -w src.TruenumbersTriggerApi
-python -m pydoc -w src.TruenumbersArtifactApi
-mv *.html docs
+pydoc-markdown -I ./src/TruenumbersRestApi > docs/TruenumbersRestApi.md
+pydoc-markdown -I ./src/TruenumbersTriggerApi > docs/TruenumbersTriggerApi.md
+pydoc-markdown -I ./src/TruenumbersArtifactApi > docs/TruenumbersArtifactApi.md
