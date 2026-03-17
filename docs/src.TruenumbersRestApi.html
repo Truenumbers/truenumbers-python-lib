@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Python: module src.TruenumbersRestApi</title>
+</head><body>
+
+<table class="heading">
+<tr class="heading-text decor">
+<td class="title">&nbsp;<br><strong class="title"><a href="src.html" class="white">src</a>.TruenumbersRestApi</strong></td>
+<td class="extra"><a href=".">index</a><br><a href="file:c%3A%5Cusers%5Ctyler%5Cprojects%5Ctruenumbers%5Cpython-libs%5Csrc%5Ctruenumbersrestapi.py">c:\users\tyler\projects\truenumbers\python-libs\src\truenumbersrestapi.py</a></td></tr></table>
+    <p></p>
+<p>
+<table class="section">
+<tr class="decor pkg-content-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><strong class="bigsection">Modules</strong></td></tr>
+    
+<tr><td class="decor pkg-content-decor"><span class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td><td>&nbsp;</td>
+<td class="singlecolumn"><table><tr><td class="multicolumn"><a href="requests.html">requests</a><br>
+</td><td class="multicolumn"></td><td class="multicolumn"></td><td class="multicolumn"></td></tr></table></td></tr></table><p>
+<table class="section">
+<tr class="decor index-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><strong class="bigsection">Classes</strong></td></tr>
+    
+<tr><td class="decor index-decor"><span class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td><td>&nbsp;</td>
+<td class="singlecolumn"><dl>
+<dt class="heading-text"><a href="builtins.html#object">builtins.object</a>
+</dt><dd>
+<dl>
+<dt class="heading-text"><a href="src.TruenumbersRestApi.html#TruenumbersRestApi">TruenumbersRestApi</a>
+</dt></dl>
+</dd>
+</dl>
+ <p>
+<table class="section">
+<tr class="decor title-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><a name="TruenumbersRestApi">class <strong>TruenumbersRestApi</strong></a>(<a href="builtins.html#object">builtins.object</a>)</td></tr>
+    
+<tr><td class="decor title-decor" rowspan=2><span class="code">&nbsp;&nbsp;&nbsp;</span></td>
+<td class="decor title-decor" colspan=2><span class="code"><a href="#TruenumbersRestApi">TruenumbersRestApi</a>(**kwargs)<br>
+&nbsp;<br>
+<a href="#TruenumbersRestApi">TruenumbersRestApi</a>&nbsp;class&nbsp;for&nbsp;interacting&nbsp;with&nbsp;the&nbsp;Truenumbers&nbsp;REST&nbsp;API.<br>&nbsp;</span></td></tr>
+<tr><td>&nbsp;</td>
+<td class="singlecolumn">Methods defined here:<br>
+<dl><dt><a name="TruenumbersRestApi-__init__"><strong>__init__</strong></a>(self, **kwargs)</dt><dd><span class="code">Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;base_url:&nbsp;str<br>
+&nbsp;&nbsp;&nbsp;&nbsp;shared_headers:&nbsp;dict&nbsp;-&nbsp;Headers&nbsp;to&nbsp;send&nbsp;in&nbsp;all&nbsp;requests&nbsp;made&nbsp;within&nbsp;this&nbsp;class.<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;None</span></dd></dl>
+
+<dl><dt><a name="TruenumbersRestApi-batched_truenumber_operations"><strong>batched_truenumber_operations</strong></a>(self, **kwargs)</dt><dd><span class="code">Batches&nbsp;truenumber&nbsp;operations.<br>
+:param&nbsp;numberspace:&nbsp;str&nbsp;(required)&nbsp;-&nbsp;The&nbsp;numberspace&nbsp;to&nbsp;batch&nbsp;the&nbsp;truenumber&nbsp;operations&nbsp;in.<br>
+:param&nbsp;operations:&nbsp;list[dict]&nbsp;(required)&nbsp;-&nbsp;The&nbsp;operations&nbsp;to&nbsp;batch.<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;dict&nbsp;-&nbsp;The&nbsp;result&nbsp;of&nbsp;the&nbsp;truenumber&nbsp;operations&nbsp;batching.</span></dd></dl>
+
+<dl><dt><a name="TruenumbersRestApi-create_numberspace"><strong>create_numberspace</strong></a>(self, numberspace: str)</dt></dl>
+
+<dl><dt><a name="TruenumbersRestApi-create_saved_query"><strong>create_saved_query</strong></a>(self, **kwargs)</dt><dd><span class="code">Creates&nbsp;a&nbsp;saved&nbsp;query.<br>
+:param&nbsp;numberspace:&nbsp;str&nbsp;(required)&nbsp;-&nbsp;The&nbsp;numberspace&nbsp;to&nbsp;create&nbsp;the&nbsp;saved&nbsp;query&nbsp;in.<br>
+:param&nbsp;name:&nbsp;str&nbsp;(required)&nbsp;-&nbsp;The&nbsp;name&nbsp;of&nbsp;the&nbsp;saved&nbsp;query.<br>
+:param&nbsp;tnql:&nbsp;str&nbsp;(required)&nbsp;-&nbsp;The&nbsp;TNQL&nbsp;query&nbsp;to&nbsp;create&nbsp;the&nbsp;saved&nbsp;query&nbsp;with.<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;dict&nbsp;-&nbsp;The&nbsp;result&nbsp;of&nbsp;the&nbsp;saved&nbsp;query&nbsp;creation.</span></dd></dl>
+
+<dl><dt><a name="TruenumbersRestApi-create_truenumbers_from_statement"><strong>create_truenumbers_from_statement</strong></a>(self, **kwargs)</dt><dd><span class="code">Creates&nbsp;truenumbers&nbsp;from&nbsp;a&nbsp;true&nbsp;statement.<br>
+:param&nbsp;numberspace:&nbsp;str&nbsp;(required)&nbsp;-&nbsp;The&nbsp;numberspace&nbsp;to&nbsp;create&nbsp;the&nbsp;truenumbers&nbsp;in.<br>
+:param&nbsp;true_statement:&nbsp;str&nbsp;(required)&nbsp;-&nbsp;The&nbsp;true&nbsp;statement&nbsp;to&nbsp;create&nbsp;the&nbsp;truenumbers&nbsp;from.<br>
+:param&nbsp;noReturn:&nbsp;bool&nbsp;(optional)&nbsp;-&nbsp;Whether&nbsp;to&nbsp;return&nbsp;the&nbsp;truenumbers.&nbsp;default&nbsp;is&nbsp;False.<br>
+:param&nbsp;skipStore:&nbsp;bool&nbsp;(optional)&nbsp;-&nbsp;Whether&nbsp;to&nbsp;skip&nbsp;storing&nbsp;the&nbsp;truenumbers.&nbsp;default&nbsp;is&nbsp;False.<br>
+:param&nbsp;tags:&nbsp;list&nbsp;(optional)&nbsp;-&nbsp;The&nbsp;tags&nbsp;to&nbsp;add&nbsp;to&nbsp;the&nbsp;truenumbers.&nbsp;default&nbsp;is&nbsp;[].<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;dict&nbsp;-&nbsp;The&nbsp;result&nbsp;of&nbsp;the&nbsp;truenumbers&nbsp;creation.</span></dd></dl>
+
+<dl><dt><a name="TruenumbersRestApi-delete_numberspace"><strong>delete_numberspace</strong></a>(self, numberspace: str)</dt></dl>
+
+<dl><dt><a name="TruenumbersRestApi-delete_saved_query"><strong>delete_saved_query</strong></a>(self, **kwargs)</dt><dd><span class="code">Deletes&nbsp;a&nbsp;saved&nbsp;query.<br>
+:param&nbsp;numberspace:&nbsp;str&nbsp;(required)&nbsp;-&nbsp;The&nbsp;numberspace&nbsp;to&nbsp;delete&nbsp;the&nbsp;saved&nbsp;query&nbsp;from.<br>
+:param&nbsp;id:&nbsp;str&nbsp;(required)&nbsp;-&nbsp;The&nbsp;ID&nbsp;of&nbsp;the&nbsp;saved&nbsp;query&nbsp;to&nbsp;delete.<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;dict&nbsp;-&nbsp;The&nbsp;result&nbsp;of&nbsp;the&nbsp;saved&nbsp;query&nbsp;deletion.</span></dd></dl>
+
+<dl><dt><a name="TruenumbersRestApi-delete_truenumbers"><strong>delete_truenumbers</strong></a>(self, **kwargs)</dt><dd><span class="code">Deletes&nbsp;truenumbers&nbsp;from&nbsp;a&nbsp;numberspace.<br>
+:param&nbsp;numberspace:&nbsp;str&nbsp;(required)&nbsp;-&nbsp;The&nbsp;numberspace&nbsp;to&nbsp;delete&nbsp;the&nbsp;truenumbers&nbsp;from.<br>
+:param&nbsp;tnql:&nbsp;str&nbsp;(required)&nbsp;-&nbsp;The&nbsp;TNQL&nbsp;query&nbsp;to&nbsp;delete&nbsp;the&nbsp;truenumbers&nbsp;from.<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;dict&nbsp;-&nbsp;The&nbsp;result&nbsp;of&nbsp;the&nbsp;truenumbers&nbsp;deletion.</span></dd></dl>
+
+<dl><dt><a name="TruenumbersRestApi-delete_truenumbers_by_id"><strong>delete_truenumbers_by_id</strong></a>(self, **kwargs)</dt><dd><span class="code">Deletes&nbsp;truenumbers&nbsp;from&nbsp;a&nbsp;numberspace&nbsp;by&nbsp;ID.<br>
+:param&nbsp;numberspace:&nbsp;str&nbsp;(required)&nbsp;-&nbsp;The&nbsp;numberspace&nbsp;to&nbsp;delete&nbsp;the&nbsp;truenumbers&nbsp;from.<br>
+:param&nbsp;id:&nbsp;str&nbsp;(required)&nbsp;-&nbsp;The&nbsp;ID&nbsp;of&nbsp;the&nbsp;truenumbers&nbsp;to&nbsp;delete.<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;dict&nbsp;-&nbsp;The&nbsp;result&nbsp;of&nbsp;the&nbsp;truenumbers&nbsp;deletion.</span></dd></dl>
+
+<dl><dt><a name="TruenumbersRestApi-execute_saved_query_by_id"><strong>execute_saved_query_by_id</strong></a>(self, **kwargs)</dt><dd><span class="code">Executes&nbsp;a&nbsp;saved&nbsp;query&nbsp;by&nbsp;ID.<br>
+:param&nbsp;numberspace:&nbsp;str&nbsp;(required)&nbsp;-&nbsp;The&nbsp;numberspace&nbsp;to&nbsp;execute&nbsp;the&nbsp;saved&nbsp;query&nbsp;in.<br>
+:param&nbsp;id:&nbsp;str&nbsp;(required)&nbsp;-&nbsp;The&nbsp;ID&nbsp;of&nbsp;the&nbsp;saved&nbsp;query&nbsp;to&nbsp;execute.<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;dict&nbsp;-&nbsp;The&nbsp;result&nbsp;of&nbsp;the&nbsp;saved&nbsp;query&nbsp;execution.</span></dd></dl>
+
+<dl><dt><a name="TruenumbersRestApi-get_numberspace"><strong>get_numberspace</strong></a>(self, numberspace: str)</dt></dl>
+
+<dl><dt><a name="TruenumbersRestApi-get_numberspaces"><strong>get_numberspaces</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="TruenumbersRestApi-get_saved_queries"><strong>get_saved_queries</strong></a>(self, numberspace: str)</dt><dd><span class="code">Gets&nbsp;saved&nbsp;queries.<br>
+:param&nbsp;numberspace:&nbsp;str&nbsp;(required)&nbsp;-&nbsp;The&nbsp;numberspace&nbsp;to&nbsp;get&nbsp;the&nbsp;saved&nbsp;queries&nbsp;from.<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;dict&nbsp;-&nbsp;The&nbsp;result&nbsp;of&nbsp;the&nbsp;saved&nbsp;queries&nbsp;retrieval.</span></dd></dl>
+
+<dl><dt><a name="TruenumbersRestApi-get_truenumber_by_id"><strong>get_truenumber_by_id</strong></a>(self, **kwargs)</dt><dd><span class="code">Gets&nbsp;a&nbsp;truenumber&nbsp;by&nbsp;ID.<br>
+:param&nbsp;numberspace:&nbsp;str&nbsp;(required)&nbsp;-&nbsp;The&nbsp;numberspace&nbsp;to&nbsp;get&nbsp;the&nbsp;truenumber&nbsp;from.<br>
+:param&nbsp;id:&nbsp;str&nbsp;(required)&nbsp;-&nbsp;The&nbsp;ID&nbsp;of&nbsp;the&nbsp;truenumber&nbsp;to&nbsp;get.<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;dict&nbsp;-&nbsp;The&nbsp;result&nbsp;of&nbsp;the&nbsp;truenumber&nbsp;retrieval.</span></dd></dl>
+
+<dl><dt><a name="TruenumbersRestApi-login_user"><strong>login_user</strong></a>(self, **kwargs)</dt><dd><span class="code">Logs&nbsp;in&nbsp;a&nbsp;user.<br>
+:param&nbsp;email:&nbsp;str&nbsp;(required)&nbsp;-&nbsp;The&nbsp;email&nbsp;of&nbsp;the&nbsp;user&nbsp;to&nbsp;login.<br>
+:param&nbsp;password:&nbsp;str&nbsp;(required)&nbsp;-&nbsp;The&nbsp;password&nbsp;of&nbsp;the&nbsp;user&nbsp;to&nbsp;login.<br>
+:param&nbsp;organization:&nbsp;str&nbsp;(required)&nbsp;-&nbsp;The&nbsp;organization&nbsp;of&nbsp;the&nbsp;user&nbsp;to&nbsp;login.<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;dict&nbsp;-&nbsp;The&nbsp;result&nbsp;of&nbsp;the&nbsp;user&nbsp;login.</span></dd></dl>
+
+<dl><dt><a name="TruenumbersRestApi-register_user"><strong>register_user</strong></a>(self, **kwargs)</dt><dd><span class="code">Registers&nbsp;a&nbsp;user.<br>
+:param&nbsp;email:&nbsp;str&nbsp;(required)&nbsp;-&nbsp;The&nbsp;email&nbsp;of&nbsp;the&nbsp;user&nbsp;to&nbsp;register.<br>
+:param&nbsp;password:&nbsp;str&nbsp;(required)&nbsp;-&nbsp;The&nbsp;password&nbsp;of&nbsp;the&nbsp;user&nbsp;to&nbsp;register.<br>
+:param&nbsp;organization:&nbsp;str&nbsp;(required)&nbsp;-&nbsp;The&nbsp;organization&nbsp;of&nbsp;the&nbsp;user&nbsp;to&nbsp;register.<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;dict&nbsp;-&nbsp;The&nbsp;result&nbsp;of&nbsp;the&nbsp;user&nbsp;registration.</span></dd></dl>
+
+<dl><dt><a name="TruenumbersRestApi-remove_tags_from_truenumber_by_id"><strong>remove_tags_from_truenumber_by_id</strong></a>(self, **kwargs)</dt><dd><span class="code">Removes&nbsp;tags&nbsp;from&nbsp;a&nbsp;truenumber&nbsp;by&nbsp;ID.<br>
+:param&nbsp;numberspace:&nbsp;str&nbsp;(required)&nbsp;-&nbsp;The&nbsp;numberspace&nbsp;to&nbsp;remove&nbsp;the&nbsp;tags&nbsp;from.<br>
+:param&nbsp;id:&nbsp;str&nbsp;(required)&nbsp;-&nbsp;The&nbsp;ID&nbsp;of&nbsp;the&nbsp;truenumber&nbsp;to&nbsp;remove&nbsp;the&nbsp;tags&nbsp;from.<br>
+:param&nbsp;tags:&nbsp;list[str]&nbsp;(required)&nbsp;-&nbsp;The&nbsp;tags&nbsp;to&nbsp;remove&nbsp;from&nbsp;the&nbsp;truenumber.<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;dict&nbsp;-&nbsp;The&nbsp;result&nbsp;of&nbsp;the&nbsp;truenumber&nbsp;tagging.</span></dd></dl>
+
+<dl><dt><a name="TruenumbersRestApi-remove_tags_from_truenumbers"><strong>remove_tags_from_truenumbers</strong></a>(self, **kwargs)</dt><dd><span class="code">Removes&nbsp;tags&nbsp;from&nbsp;truenumbers.<br>
+:param&nbsp;numberspace:&nbsp;str&nbsp;(required)&nbsp;-&nbsp;The&nbsp;numberspace&nbsp;to&nbsp;remove&nbsp;the&nbsp;tags&nbsp;from.<br>
+:param&nbsp;tnql:&nbsp;str&nbsp;(required)&nbsp;-&nbsp;The&nbsp;TNQL&nbsp;query&nbsp;to&nbsp;remove&nbsp;the&nbsp;tags&nbsp;from.<br>
+:param&nbsp;tags:&nbsp;list[str]&nbsp;(required)&nbsp;-&nbsp;The&nbsp;tags&nbsp;to&nbsp;remove&nbsp;from&nbsp;the&nbsp;truenumbers.<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;dict&nbsp;-&nbsp;The&nbsp;result&nbsp;of&nbsp;the&nbsp;truenumbers&nbsp;tagging.</span></dd></dl>
+
+<dl><dt><a name="TruenumbersRestApi-tag_truenumber_by_id"><strong>tag_truenumber_by_id</strong></a>(self, **kwargs)</dt><dd><span class="code">Tags&nbsp;a&nbsp;truenumber&nbsp;by&nbsp;ID.<br>
+:param&nbsp;numberspace:&nbsp;str&nbsp;(required)&nbsp;-&nbsp;The&nbsp;numberspace&nbsp;to&nbsp;tag&nbsp;the&nbsp;truenumber&nbsp;in.<br>
+:param&nbsp;id:&nbsp;str&nbsp;(required)&nbsp;-&nbsp;The&nbsp;ID&nbsp;of&nbsp;the&nbsp;truenumber&nbsp;to&nbsp;tag.<br>
+:param&nbsp;tags:&nbsp;list[str]&nbsp;(required)&nbsp;-&nbsp;The&nbsp;tags&nbsp;to&nbsp;add&nbsp;to&nbsp;the&nbsp;truenumber.<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;dict&nbsp;-&nbsp;The&nbsp;result&nbsp;of&nbsp;the&nbsp;truenumber&nbsp;tagging.</span></dd></dl>
+
+<dl><dt><a name="TruenumbersRestApi-tag_truenumbers"><strong>tag_truenumbers</strong></a>(self, **kwargs)</dt><dd><span class="code">Tags&nbsp;truenumbers.<br>
+:param&nbsp;numberspace:&nbsp;str&nbsp;(required)&nbsp;-&nbsp;The&nbsp;numberspace&nbsp;to&nbsp;tag&nbsp;the&nbsp;truenumbers&nbsp;in.<br>
+:param&nbsp;tnql:&nbsp;str&nbsp;(required)&nbsp;-&nbsp;The&nbsp;TNQL&nbsp;query&nbsp;to&nbsp;tag&nbsp;the&nbsp;truenumbers&nbsp;with.<br>
+:param&nbsp;tags:&nbsp;list[str]&nbsp;(required)&nbsp;-&nbsp;The&nbsp;tags&nbsp;to&nbsp;add&nbsp;to&nbsp;the&nbsp;truenumbers.<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;dict&nbsp;-&nbsp;The&nbsp;result&nbsp;of&nbsp;the&nbsp;truenumbers&nbsp;tagging.</span></dd></dl>
+
+<dl><dt><a name="TruenumbersRestApi-tnql"><strong>tnql</strong></a>(self, **kwargs)</dt><dd><span class="code">Executes&nbsp;a&nbsp;TNQL&nbsp;query.<br>
+:param&nbsp;numberspace:&nbsp;str&nbsp;(required)&nbsp;-&nbsp;The&nbsp;numberspace&nbsp;to&nbsp;execute&nbsp;the&nbsp;TNQL&nbsp;query&nbsp;on.<br>
+:param&nbsp;tnql:&nbsp;str&nbsp;(required)&nbsp;-&nbsp;The&nbsp;TNQL&nbsp;query&nbsp;to&nbsp;execute.<br>
+:param&nbsp;limit:&nbsp;int&nbsp;(optional)&nbsp;-&nbsp;The&nbsp;number&nbsp;of&nbsp;results&nbsp;to&nbsp;return.&nbsp;default&nbsp;is&nbsp;100.<br>
+:param&nbsp;offset:&nbsp;int&nbsp;(optional)&nbsp;-&nbsp;The&nbsp;offset&nbsp;of&nbsp;the&nbsp;results&nbsp;to&nbsp;return.&nbsp;default&nbsp;is&nbsp;0.<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;dict&nbsp;-&nbsp;The&nbsp;result&nbsp;of&nbsp;the&nbsp;TNQL&nbsp;query.</span></dd></dl>
+
+<dl><dt><a name="TruenumbersRestApi-tnql_group_by"><strong>tnql_group_by</strong></a>(self, **kwargs)</dt><dd><span class="code">Executes&nbsp;a&nbsp;TNQL&nbsp;group&nbsp;by&nbsp;query.<br>
+:param&nbsp;numberspace:&nbsp;str&nbsp;(required)&nbsp;-&nbsp;The&nbsp;numberspace&nbsp;to&nbsp;execute&nbsp;the&nbsp;TNQL&nbsp;group&nbsp;by&nbsp;query&nbsp;on.<br>
+:param&nbsp;tnql:&nbsp;str&nbsp;(required)&nbsp;-&nbsp;The&nbsp;TNQL&nbsp;query&nbsp;to&nbsp;execute.<br>
+:param&nbsp;limit:&nbsp;int&nbsp;(optional)&nbsp;-&nbsp;The&nbsp;number&nbsp;of&nbsp;results&nbsp;to&nbsp;return.&nbsp;default&nbsp;is&nbsp;100.<br>
+:param&nbsp;offset:&nbsp;int&nbsp;(optional)&nbsp;-&nbsp;The&nbsp;offset&nbsp;of&nbsp;the&nbsp;results&nbsp;to&nbsp;return.&nbsp;default&nbsp;is&nbsp;0.<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;dict&nbsp;-&nbsp;The&nbsp;result&nbsp;of&nbsp;the&nbsp;TNQL&nbsp;group&nbsp;by&nbsp;query.</span></dd></dl>
+
+<dl><dt><a name="TruenumbersRestApi-update_saved_query"><strong>update_saved_query</strong></a>(self, **kwargs)</dt><dd><span class="code">Updates&nbsp;a&nbsp;saved&nbsp;query.<br>
+:param&nbsp;numberspace:&nbsp;str&nbsp;(required)&nbsp;-&nbsp;The&nbsp;numberspace&nbsp;to&nbsp;update&nbsp;the&nbsp;saved&nbsp;query&nbsp;in.<br>
+:param&nbsp;id:&nbsp;str&nbsp;(required)&nbsp;-&nbsp;The&nbsp;ID&nbsp;of&nbsp;the&nbsp;saved&nbsp;query&nbsp;to&nbsp;update.<br>
+:param&nbsp;name:&nbsp;str&nbsp;(required)&nbsp;-&nbsp;The&nbsp;name&nbsp;of&nbsp;the&nbsp;saved&nbsp;query.<br>
+:param&nbsp;tnql:&nbsp;str&nbsp;(required)&nbsp;-&nbsp;The&nbsp;TNQL&nbsp;query&nbsp;to&nbsp;update&nbsp;the&nbsp;saved&nbsp;query&nbsp;with.<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;dict&nbsp;-&nbsp;The&nbsp;result&nbsp;of&nbsp;the&nbsp;saved&nbsp;query&nbsp;update.</span></dd></dl>
+
+<dl><dt><a name="TruenumbersRestApi-update_truenumber_values_by_json"><strong>update_truenumber_values_by_json</strong></a>(self, **kwargs)</dt><dd><span class="code">Updates&nbsp;the&nbsp;values&nbsp;of&nbsp;truenumbers&nbsp;by&nbsp;JSON.<br>
+:param&nbsp;numberspace:&nbsp;str&nbsp;(required)&nbsp;-&nbsp;The&nbsp;numberspace&nbsp;to&nbsp;update&nbsp;the&nbsp;truenumbers&nbsp;in.<br>
+:param&nbsp;truenumbers_json:&nbsp;str&nbsp;(required)&nbsp;-&nbsp;The&nbsp;JSON&nbsp;payload&nbsp;to&nbsp;update&nbsp;the&nbsp;truenumbers&nbsp;with.<br>
+:param&nbsp;tags:&nbsp;list[str]&nbsp;(required)&nbsp;-&nbsp;The&nbsp;tags&nbsp;to&nbsp;update&nbsp;the&nbsp;truenumbers&nbsp;with.<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;dict&nbsp;-&nbsp;The&nbsp;result&nbsp;of&nbsp;the&nbsp;truenumber&nbsp;values&nbsp;update.</span></dd></dl>
+
+<dl><dt><a name="TruenumbersRestApi-update_truenumber_values_by_statement"><strong>update_truenumber_values_by_statement</strong></a>(self, **kwargs)</dt><dd><span class="code">Updates&nbsp;the&nbsp;values&nbsp;of&nbsp;truenumbers&nbsp;by&nbsp;statement.<br>
+:param&nbsp;numberspace:&nbsp;str&nbsp;(required)&nbsp;-&nbsp;The&nbsp;numberspace&nbsp;to&nbsp;update&nbsp;the&nbsp;truenumbers&nbsp;in.<br>
+:param&nbsp;true_statement:&nbsp;str&nbsp;(required)&nbsp;-&nbsp;The&nbsp;true&nbsp;statement&nbsp;to&nbsp;update&nbsp;the&nbsp;truenumbers&nbsp;with.<br>
+:param&nbsp;tags:&nbsp;list[str]&nbsp;(required)&nbsp;-&nbsp;The&nbsp;tags&nbsp;to&nbsp;update&nbsp;the&nbsp;truenumbers&nbsp;with.<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;dict&nbsp;-&nbsp;The&nbsp;result&nbsp;of&nbsp;the&nbsp;truenumber&nbsp;values&nbsp;update.</span></dd></dl>
+
+<dl><dt><a name="TruenumbersRestApi-verify_user"><strong>verify_user</strong></a>(self)</dt></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><span class="code">dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</span></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><span class="code">list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</span></dd>
+</dl>
+<hr>
+Data and other attributes defined here:<br>
+<dl><dt><strong>__annotations__</strong> = {'base_url': &lt;class 'str'&gt;, 'shared_headers': &lt;class 'dict'&gt;}</dl>
+
+<dl><dt><strong>base_url</strong> = ''</dl>
+
+<dl><dt><strong>shared_headers</strong> = {'Accept': 'application/json', 'Content-Type': 'application/json'}</dl>
+
+</td></tr></table></td></tr></table>
+</body></html>
