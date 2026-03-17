@@ -1,8 +1,14 @@
 import requests
 
 class TruenumbersRestApi:
-    """ 
-    TruenumbersRestApi class for interacting with the Truenumbers REST API.
+    """
+    High‑level client for the Truenumbers REST API.
+
+    This class wraps the HTTP endpoints exposed by the Truenumbers backend and
+    provides convenient helpers for working with numberspaces, truenumbers,
+    saved queries, and user accounts. All methods raise ``ValueError`` when a
+    required argument is missing and ``Exception`` when the underlying HTTP
+    request returns a status code >= 400.
     """
     base_url: str = ""
     shared_headers: dict = {
@@ -12,11 +18,17 @@ class TruenumbersRestApi:
 
     def __init__(self, **kwargs):
         """
+        Initialize a new Truenumbers REST API client.
+
         Args:
-            base_url: str
-            shared_headers: dict - Headers to send in all requests made within this class.
-        Returns:
-            None
+            base_url (str): Base URL of the Truenumbers API, for example
+                ``"https://api.truenumbers.com"``. This value is required.
+            shared_headers (dict, optional): Extra HTTP headers to send with every
+                request (for example authentication headers). Supplied keys
+                override the defaults in ``shared_headers``.
+
+        Raises:
+            ValueError: If ``base_url`` is not provided.
         """
         base_url = kwargs.get("base_url")
         if not base_url:
@@ -28,13 +40,24 @@ class TruenumbersRestApi:
     
     def tnql(self, **kwargs):
         """
-        Executes a TNQL query.
-        :param numberspace: str (required) - The numberspace to execute the TNQL query on.
-        :param tnql: str (required) - The TNQL query to execute.
-        :param limit: int (optional) - The number of results to return. default is 100.
-        :param offset: int (optional) - The offset of the results to return. default is 0.
+        Execute a TNQL query against a numberspace.
+
+        Args:
+            numberspace (str): Name of the numberspace to query. Required.
+            tnql (str): TNQL query string to execute. Required.
+            limit (int, optional): Maximum number of rows to return.
+                Defaults to ``100``.
+            offset (int, optional): Number of rows to skip before returning
+                results. Defaults to ``0``.
+
         Returns:
-            dict - The result of the TNQL query.
+            dict: A JSON object with keys such as ``"columns"`` (list of column
+            names) and ``"rows"`` (list of result rows), along with any
+            additional metadata the server includes.
+
+        Raises:
+            ValueError: If ``numberspace`` or ``tnql`` is missing.
+            Exception: If the API response status code is >= 400.
         """
         numberspace = kwargs.get("numberspace")
         if not numberspace:
@@ -55,13 +78,27 @@ class TruenumbersRestApi:
 
     def tnql_group_by(self, **kwargs):
         """
-        Executes a TNQL group by query.
-        :param numberspace: str (required) - The numberspace to execute the TNQL group by query on.
-        :param tnql: str (required) - The TNQL query to execute.
-        :param limit: int (optional) - The number of results to return. default is 100.
-        :param offset: int (optional) - The offset of the results to return. default is 0.
+        Execute a TNQL ``GROUP BY`` query against a numberspace.
+
+        This has the same arguments as :meth:`tnql` but hits the ``group-by``
+        endpoint and returns grouped results.
+
+        Args:
+            numberspace (str): Name of the numberspace to query. Required.
+            tnql (str): TNQL query string containing a ``GROUP BY`` clause.
+                Required.
+            limit (int, optional): Maximum number of grouped rows to return.
+                Defaults to ``100``.
+            offset (int, optional): Number of groups to skip before returning
+                results. Defaults to ``0``.
+
         Returns:
-            dict - The result of the TNQL group by query.
+            dict: A JSON object describing grouped results, typically including
+            grouping keys, aggregated values, and any additional metadata.
+
+        Raises:
+            ValueError: If ``numberspace`` or ``tnql`` is missing.
+            Exception: If the API response status code is >= 400.
         """
         numberspace = kwargs.get("numberspace")
         if not numberspace:
@@ -81,6 +118,19 @@ class TruenumbersRestApi:
         return response.json()
 
     def create_numberspace(self, numberspace: str):
+        """
+        Create a new numberspace.
+
+        Args:
+            numberspace (str): Name of the numberspace to create.
+
+        Returns:
+            dict: A JSON object describing the created numberspace, for example
+            including ``"numberspace"`` and implementation‑specific metadata.
+
+        Raises:
+            Exception: If the API response status code is >= 400.
+        """
         url = f"{self.base_url}/v2/numberflow/numberspace"
         json_payload = { "numberspace": numberspace}
         response = requests.post(url, headers=self.shared_headers, json=json_payload)
@@ -89,6 +139,16 @@ class TruenumbersRestApi:
         return response.json()
 
     def get_numberspaces(self):
+        """
+        List all numberspaces visible to the current user.
+
+        Returns:
+            dict: A JSON object containing the list of numberspaces, typically
+            under a key like ``"items"`` or a similar collection field.
+
+        Raises:
+            Exception: If the API response status code is >= 400.
+        """
         url = f"{self.base_url}/v2/numberflow/numberspace"
         response = requests.get(url, headers=self.shared_headers)
         if response.status_code >= 400:
@@ -96,6 +156,19 @@ class TruenumbersRestApi:
         return response.json()
     
     def delete_numberspace(self, numberspace: str):
+        """
+        Delete an existing numberspace.
+
+        Args:
+            numberspace (str): Name of the numberspace to delete.
+
+        Returns:
+            dict: A JSON object indicating whether the numberspace was deleted
+            and any additional status information.
+
+        Raises:
+            Exception: If the API response status code is >= 400.
+        """
         url = f"{self.base_url}/v2/numberflow/numberspace"
         response = requests.delete(url, headers=self.shared_headers)
         if response.status_code >= 400:
@@ -103,6 +176,19 @@ class TruenumbersRestApi:
         return response.json()
     
     def get_numberspace(self, numberspace: str):
+        """
+        Retrieve a single numberspace by name.
+
+        Args:
+            numberspace (str): Name of the numberspace to retrieve.
+
+        Returns:
+            dict: A JSON object describing the numberspace, including its name
+            and associated metadata.
+
+        Raises:
+            Exception: If the API response status code is >= 400.
+        """
         url = f"{self.base_url}/v2/numberflow/numberspace"
         response = requests.get(url, headers=self.shared_headers)
         if response.status_code >= 400:
@@ -111,14 +197,33 @@ class TruenumbersRestApi:
 
     def create_truenumbers_from_statement(self, **kwargs):
         """
-        Creates truenumbers from a true statement.
-        :param numberspace: str (required) - The numberspace to create the truenumbers in.
-        :param true_statement: str (required) - The true statement to create the truenumbers from.
-        :param noReturn: bool (optional) - Whether to return the truenumbers. default is False.
-        :param skipStore: bool (optional) - Whether to skip storing the truenumbers. default is False.
-        :param tags: list (optional) - The tags to add to the truenumbers. default is [].
+        Create one or more Truenumbers from a natural‑language statement.
+
+        This method maps to the
+        ``POST /v2/numberflow/numbers`` *Create Truenumbers* endpoint and uses
+        the ``trueStatement`` field of the request body.
+
+        Args:
+            numberspace (str): Numberspace in which the new Truenumbers will
+                be created. Required.
+            true_statement (str): Human‑readable statement to parse into
+                Truenumbers. Required.
+            noReturn (bool, optional): If ``True``, the API will not return the
+                created Truenumbers in the response. Defaults to ``False``.
+            skipStore (bool, optional): If ``True``, creates Truenumbers
+                without storing them. Defaults to ``False``.
+            tags (list, optional): Additional tags to attach to every created
+                Truenumber. Defaults to an empty list.
+
         Returns:
-            dict - The result of the truenumbers creation.
+            dict: A JSON object representing the created Truenumbers, typically
+            containing a list of Truenumber objects with fields such as
+            ``"guid"``, ``"subject"``, ``"property"``, ``"value"`` and
+            ``"tags"``.
+
+        Raises:
+            ValueError: If ``numberspace`` or ``true_statement`` is missing.
+            Exception: If the API response status code is >= 400.
         """
         numberspace = kwargs.get("numberspace")
         if not numberspace:
@@ -169,11 +274,23 @@ class TruenumbersRestApi:
 
     def delete_truenumbers(self, **kwargs):
         """
-        Deletes truenumbers from a numberspace.
-        :param numberspace: str (required) - The numberspace to delete the truenumbers from.
-        :param tnql: str (required) - The TNQL query to delete the truenumbers from.
+        Delete Truenumbers that match a TNQL query.
+
+        This maps to ``DELETE /v2/numberflow/numbers`` in the REST API.
+
+        Args:
+            numberspace (str): Numberspace to delete Truenumbers from.
+                Required.
+            tnql (str): TNQL query that selects the Truenumbers to delete.
+                Required.
+
         Returns:
-            dict - The result of the truenumbers deletion.
+            dict: A JSON object describing what was deleted, for example counts
+            of affected Truenumbers and any additional deletion metadata.
+
+        Raises:
+            ValueError: If ``numberspace`` or ``tnql`` is missing.
+            Exception: If the API response status code is >= 400.
         """
         url = f"{self.base_url}/v2/numberflow/numbers"
         numberspace = kwargs.get("numberspace")
@@ -190,11 +307,22 @@ class TruenumbersRestApi:
 
     def delete_truenumbers_by_id(self, **kwargs):
         """
-        Deletes truenumbers from a numberspace by ID.
-        :param numberspace: str (required) - The numberspace to delete the truenumbers from.
-        :param id: str (required) - The ID of the truenumbers to delete.
+        Delete a single Truenumber by its unique identifier.
+
+        This maps to ``DELETE /v2/numberflow/numbers/{guid}``.
+
+        Args:
+            numberspace (str): Numberspace that owns the Truenumber.
+                Required.
+            id (str): GUID of the Truenumber to delete. Required.
+
         Returns:
-            dict - The result of the truenumbers deletion.
+            dict: A JSON object confirming deletion of the Truenumber and any
+            additional status information.
+
+        Raises:
+            ValueError: If ``numberspace`` or ``id`` is missing.
+            Exception: If the API response status code is >= 400.
         """
         numberspace = kwargs.get("numberspace")
         if not numberspace:
@@ -210,12 +338,25 @@ class TruenumbersRestApi:
 
     def tag_truenumbers(self, **kwargs):
         """
-        Tags truenumbers.
-        :param numberspace: str (required) - The numberspace to tag the truenumbers in.
-        :param tnql: str (required) - The TNQL query to tag the truenumbers with.
-        :param tags: list[str] (required) - The tags to add to the truenumbers.
+        Add tags to all Truenumbers that match a TNQL query.
+
+        This wraps ``PATCH /v2/numberflow/numbers/tags`` using the ``addTags``
+        field in the request body.
+
+        Args:
+            numberspace (str): Numberspace that contains the Truenumbers.
+                Required.
+            tnql (str): TNQL query that selects which Truenumbers to tag.
+                Required.
+            tags (list[str]): Tags to add. Required.
+
         Returns:
-            dict - The result of the truenumbers tagging.
+            dict: A JSON object indicating how many Truenumbers were updated
+            and which tags were added.
+
+        Raises:
+            ValueError: If any required argument is missing.
+            Exception: If the API response status code is >= 400.
         """
         numberspace = kwargs.get("numberspace")
         if not numberspace:
@@ -235,12 +376,25 @@ class TruenumbersRestApi:
 
     def remove_tags_from_truenumbers(self, **kwargs):
         """
-        Removes tags from truenumbers.
-        :param numberspace: str (required) - The numberspace to remove the tags from.
-        :param tnql: str (required) - The TNQL query to remove the tags from.
-        :param tags: list[str] (required) - The tags to remove from the truenumbers.
+        Remove tags from all Truenumbers that match a TNQL query.
+
+        This also uses ``PATCH /v2/numberflow/numbers/tags`` but sends
+        ``removeTags`` in the request body.
+
+        Args:
+            numberspace (str): Numberspace that contains the Truenumbers.
+                Required.
+            tnql (str): TNQL query that selects which Truenumbers to modify.
+                Required.
+            tags (list[str]): Tags to remove. Required.
+
         Returns:
-            dict - The result of the truenumbers tagging.
+            dict: A JSON object indicating how many Truenumbers were updated
+            and which tags were removed.
+
+        Raises:
+            ValueError: If any required argument is missing.
+            Exception: If the API response status code is >= 400.
         """
         numberspace = kwargs.get("numberspace")
         if not numberspace:
@@ -260,11 +414,23 @@ class TruenumbersRestApi:
 
     def get_truenumber_by_id(self, **kwargs):
         """
-        Gets a truenumber by ID.
-        :param numberspace: str (required) - The numberspace to get the truenumber from.
-        :param id: str (required) - The ID of the truenumber to get.
+        Fetch a single Truenumber by its GUID.
+
+        This wraps ``GET /v2/numberflow/numbers/{guid}``.
+
+        Args:
+            numberspace (str): Numberspace that contains the Truenumber.
+                Required.
+            id (str): GUID of the Truenumber to retrieve. Required.
+
         Returns:
-            dict - The result of the truenumber retrieval.
+            dict: A JSON object representing the requested Truenumber, with
+            fields such as ``"guid"``, ``"subject"``, ``"property"``, ``"value"``
+            and ``"tags"``.
+
+        Raises:
+            ValueError: If ``numberspace`` or ``id`` is missing.
+            Exception: If the API response status code is >= 400.
         """
         numberspace = kwargs.get("numberspace")
         if not numberspace:
@@ -280,12 +446,24 @@ class TruenumbersRestApi:
 
     def tag_truenumber_by_id(self, **kwargs):
         """
-        Tags a truenumber by ID.
-        :param numberspace: str (required) - The numberspace to tag the truenumber in.
-        :param id: str (required) - The ID of the truenumber to tag.
-        :param tags: list[str] (required) - The tags to add to the truenumber.
+        Add tags to a single Truenumber by GUID.
+
+        This maps to ``PATCH /v2/numberflow/numbers/{guid}/tags`` with the
+        ``addTags`` field.
+
+        Args:
+            numberspace (str): Numberspace that contains the Truenumber.
+                Required.
+            id (str): GUID of the Truenumber to tag. Required.
+            tags (list[str]): Tags to add. Required.
+
         Returns:
-            dict - The result of the truenumber tagging.
+            dict: A JSON object describing the tag update, including which tags
+            were added and how many Truenumbers were affected.
+
+        Raises:
+            ValueError: If any required argument is missing.
+            Exception: If the API response status code is >= 400.
         """
         numberspace = kwargs.get("numberspace")
         if not numberspace:
@@ -305,12 +483,24 @@ class TruenumbersRestApi:
     
     def remove_tags_from_truenumber_by_id(self, **kwargs):
         """
-        Removes tags from a truenumber by ID.
-        :param numberspace: str (required) - The numberspace to remove the tags from.
-        :param id: str (required) - The ID of the truenumber to remove the tags from.
-        :param tags: list[str] (required) - The tags to remove from the truenumber.
+        Remove tags from a single Truenumber by GUID.
+
+        This also maps to ``PATCH /v2/numberflow/numbers/{guid}/tags``, but
+        uses the ``removeTags`` field in the request body.
+
+        Args:
+            numberspace (str): Numberspace that contains the Truenumber.
+                Required.
+            id (str): GUID of the Truenumber to modify. Required.
+            tags (list[str]): Tags to remove. Required.
+
         Returns:
-            dict - The result of the truenumber tagging.
+            dict: A JSON object describing the tag update, including which tags
+            were removed and how many Truenumbers were affected.
+
+        Raises:
+            ValueError: If any required argument is missing.
+            Exception: If the API response status code is >= 400.
         """
         numberspace = kwargs.get("numberspace")
         if not numberspace:
@@ -330,12 +520,26 @@ class TruenumbersRestApi:
     
     def update_truenumber_values_by_statement(self, **kwargs):
         """
-        Updates the values of truenumbers by statement.
-        :param numberspace: str (required) - The numberspace to update the truenumbers in.
-        :param true_statement: str (required) - The true statement to update the truenumbers with.
-        :param tags: list[str] (required) - The tags to update the truenumbers with.
+        Update Truenumber values based on a natural‑language statement.
+
+        This wraps ``PUT /v2/numberflow/numbers/value`` using the
+        ``trueStatement`` representation of Truenumbers.
+
+        Args:
+            numberspace (str): Numberspace containing the Truenumbers to
+                update. Required.
+            true_statement (str): Statement that describes the new values.
+                Required.
+            tags (list[str]): Tags that help match and/or annotate updated
+                Truenumbers. Required.
+
         Returns:
-            dict - The result of the truenumber values update.
+            dict: A JSON object describing the value update, for example
+            including before/after values and counts of updated Truenumbers.
+
+        Raises:
+            ValueError: If any required argument is missing.
+            Exception: If the API response status code is >= 400.
         """
         numberspace = kwargs.get("numberspace")
         if not numberspace:
@@ -355,12 +559,26 @@ class TruenumbersRestApi:
     
     def update_truenumber_values_by_json(self, **kwargs):
         """
-        Updates the values of truenumbers by JSON.
-        :param numberspace: str (required) - The numberspace to update the truenumbers in.
-        :param truenumbers_json: str (required) - The JSON payload to update the truenumbers with.
-        :param tags: list[str] (required) - The tags to update the truenumbers with.
+        Update Truenumber values using an explicit JSON payload.
+
+        This also calls ``PUT /v2/numberflow/numbers/value``, but sends a
+        structured ``truenumbers`` array instead of a ``trueStatement``.
+
+        Args:
+            numberspace (str): Numberspace containing the Truenumbers to
+                update. Required.
+            truenumbers_json (str | dict | list): JSON structure describing
+                the Truenumbers and their new values. Required.
+            tags (list[str]): Tags that help match and/or annotate updated
+                Truenumbers. Required.
+
         Returns:
-            dict - The result of the truenumber values update.
+            dict: A JSON object describing the value update, for example
+            including before/after values and counts of updated Truenumbers.
+
+        Raises:
+            ValueError: If any required argument is missing.
+            Exception: If the API response status code is >= 400.
         """
         numberspace = kwargs.get("numberspace")
         if not numberspace:
@@ -380,11 +598,24 @@ class TruenumbersRestApi:
 
     def batched_truenumber_operations(self, **kwargs):
         """
-        Batches truenumber operations.
-        :param numberspace: str (required) - The numberspace to batch the truenumber operations in.
-        :param operations: list[dict] (required) - The operations to batch.
+        Execute a batch of heterogeneous Truenumber operations in one call.
+
+        This wraps ``POST /v2/numberflow/batch`` and accepts a list of
+        operations described by the ``BatchOperations`` schema.
+
+        Args:
+            numberspace (str): Numberspace in which to apply the operations.
+                Required.
+            operations (list[dict]): List of operation descriptors, each
+                conforming to the ``BatchOperations`` schema. Required.
+
         Returns:
-            dict - The result of the truenumber operations batching.
+            dict: A JSON object summarizing the result of each operation in the
+            batch, typically keyed by operation identifier.
+
+        Raises:
+            ValueError: If ``numberspace`` or ``operations`` is missing.
+            Exception: If the API response status code is >= 400.
         """
         numberspace = kwargs.get("numberspace")
         if not numberspace:
@@ -401,14 +632,20 @@ class TruenumbersRestApi:
 
     def get_saved_queries(self, numberspace: str):
         """
-        Gets saved queries.
-        :param numberspace: str (required) - The numberspace to get the saved queries from.
+        List saved queries in a numberspace.
+
+        This wraps ``GET /v2/numberflow/queries``.
+
+        Args:
+            numberspace (str): Numberspace to read saved queries from.
+
         Returns:
-            dict - The result of the saved queries retrieval.
+            dict: A JSON object containing saved query metadata such as
+            identifiers, names, TNQL bodies and timestamps.
+
+        Raises:
+            Exception: If the API response status code is >= 400.
         """
-        numberspace = kwargs.get("numberspace")
-        if not numberspace:
-            raise ValueError("numberspace is required")
         url = f"{self.base_url}/v2/numberflow/queries"
         response = requests.get(url, headers=self.shared_headers, params={"numberspace": numberspace})
         if response.status_code >= 400:
@@ -417,12 +654,23 @@ class TruenumbersRestApi:
 
     def create_saved_query(self, **kwargs):
         """
-        Creates a saved query.
-        :param numberspace: str (required) - The numberspace to create the saved query in.
-        :param name: str (required) - The name of the saved query.
-        :param tnql: str (required) - The TNQL query to create the saved query with.
+        Create a new saved query.
+
+        This wraps ``POST /v2/numberflow/queries``.
+
+        Args:
+            numberspace (str): Numberspace where the saved query will live.
+                Required.
+            name (str): Human‑friendly name for the saved query. Required.
+            tnql (str): TNQL string that defines the query. Required.
+
         Returns:
-            dict - The result of the saved query creation.
+            dict: A JSON object describing the created saved query, including
+            its identifier, name and TNQL body.
+
+        Raises:
+            ValueError: If any required argument is missing.
+            Exception: If the API response status code is >= 400.
         """
         numberspace = kwargs.get("numberspace")
         url = f"{self.base_url}/v2/numberflow/queries"
@@ -440,13 +688,24 @@ class TruenumbersRestApi:
     
     def update_saved_query(self, **kwargs):
         """
-        Updates a saved query.
-        :param numberspace: str (required) - The numberspace to update the saved query in.
-        :param id: str (required) - The ID of the saved query to update.
-        :param name: str (required) - The name of the saved query.
-        :param tnql: str (required) - The TNQL query to update the saved query with.
+        Update an existing saved query.
+
+        This wraps ``PUT /v2/numberflow/queries/{id}``.
+
+        Args:
+            numberspace (str): Numberspace that owns the saved query.
+                Required.
+            id (str): Identifier of the saved query to update. Required.
+            name (str): New name for the saved query. Required.
+            tnql (str): New TNQL body for the saved query. Required.
+
         Returns:
-            dict - The result of the saved query update.
+            dict: A JSON object describing the updated saved query, including
+            its identifier, name and TNQL body.
+
+        Raises:
+            ValueError: If any required argument is missing.
+            Exception: If the API response status code is >= 400.
         """
         numberspace = kwargs.get("numberspace")
         if not numberspace:
@@ -469,11 +728,22 @@ class TruenumbersRestApi:
     
     def delete_saved_query(self, **kwargs):
         """
-        Deletes a saved query.
-        :param numberspace: str (required) - The numberspace to delete the saved query from.
-        :param id: str (required) - The ID of the saved query to delete.
+        Delete a saved query by ID.
+
+        This wraps ``DELETE /v2/numberflow/queries/{id}``.
+
+        Args:
+            numberspace (str): Numberspace that owns the saved query.
+                Required.
+            id (str): Identifier of the saved query to delete. Required.
+
         Returns:
-            dict - The result of the saved query deletion.
+            dict: A JSON object confirming deletion of the saved query and any
+            additional status information.
+
+        Raises:
+            ValueError: If any required argument is missing.
+            Exception: If the API response status code is >= 400.
         """
         numberspace = kwargs.get("numberspace")
         if not numberspace:
@@ -489,11 +759,22 @@ class TruenumbersRestApi:
     
     def execute_saved_query_by_id(self, **kwargs):
         """
-        Executes a saved query by ID.
-        :param numberspace: str (required) - The numberspace to execute the saved query in.
-        :param id: str (required) - The ID of the saved query to execute.
+        Execute a saved query and return its results.
+
+        This wraps ``GET /v2/numberflow/queries/{id}/results``.
+
+        Args:
+            numberspace (str): Numberspace that owns the saved query.
+                Required.
+            id (str): Identifier of the saved query to execute. Required.
+
         Returns:
-            dict - The result of the saved query execution.
+            dict: A JSON object containing the saved query results, similar in
+            structure to :meth:`tnql` responses.
+
+        Raises:
+            ValueError: If any required argument is missing.
+            Exception: If the API response status code is >= 400.
         """
         numberspace = kwargs.get("numberspace")
         if not numberspace:
@@ -509,12 +790,23 @@ class TruenumbersRestApi:
 
     def login_user(self, **kwargs):
         """
-        Logs in a user.
-        :param email: str (required) - The email of the user to login.
-        :param password: str (required) - The password of the user to login.
-        :param organization: str (required) - The organization of the user to login.
+        Authenticate a user and obtain a session or token.
+
+        This maps to ``POST /v2/users/login``.
+
+        Args:
+            email (str): User email address. Required.
+            password (str): User password. Required.
+            organization (str): Product or organization code used for
+                multi‑tenant routing (``productCode`` in the API). Required.
+
         Returns:
-            dict - The result of the user login.
+            dict: A JSON object containing authentication details such as
+            access tokens, expiry information and user metadata.
+
+        Raises:
+            ValueError: If any required argument is missing.
+            Exception: If the API response status code is >= 400.
         """
         email = kwargs.get("email")
         if not email:
@@ -534,12 +826,23 @@ class TruenumbersRestApi:
     
     def register_user(self, **kwargs):
         """
-        Registers a user.
-        :param email: str (required) - The email of the user to register.
-        :param password: str (required) - The password of the user to register.
-        :param organization: str (required) - The organization of the user to register.
+        Register a new user account.
+
+        This maps to ``POST /v2/users/register``.
+
+        Args:
+            email (str): Email address for the new account. Required.
+            password (str): Password for the new account. Required.
+            organization (str): Product or organization code used for
+                multi‑tenant routing (``productCode`` in the API). Required.
+
         Returns:
-            dict - The result of the user registration.
+            dict: A JSON object describing the created user and any associated
+            verification or onboarding information.
+
+        Raises:
+            ValueError: If any required argument is missing.
+            Exception: If the API response status code is >= 400.
         """
         email = kwargs.get("email")
         if not email:
@@ -558,6 +861,19 @@ class TruenumbersRestApi:
         return response.json()
 
     def verify_user(self):
+        """
+        Verify the current authenticated user session.
+
+        This wraps ``GET /v2/users/verify`` and typically checks that the
+        supplied authentication headers/tokens are valid.
+
+        Returns:
+            dict: A JSON object describing the authenticated user or session
+            state (for example user id, email and token validity).
+
+        Raises:
+            Exception: If the API response status code is >= 400.
+        """
         url = f"{self.base_url}/v2/users/verify"
         response = requests.get(url, headers=self.shared_headers)
         if response.status_code >= 400:
