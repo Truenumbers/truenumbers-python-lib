@@ -114,7 +114,7 @@ class TruenumbersTriggerApi:
             raise ValueError('execute_on is required')
         if ('CREATE' in execute_on or 'TAG' in execute_on) and (not tnql):
             raise ValueError('tnql is required for CREATE or TAG execute_on')
-        params = {} if load_historic_data is None or load_historic_data is False else {'loadHistoricData': load_historic_data}
+        params = {} if load_historic_data is None or load_historic_data is False else {'loadHistoricData': 'true'}
         dest = destinations if destinations else [{'type': 'WEB_SOCKET'}]
         payload = {'numberspace': numberspace, 'name': name, 'description': description, 'tnql': tnql, 'executeOn': execute_on, 'status': status, 'tagOnTrigger': tag_on_trigger, 'destinations': dest}
         url = f'{self.base_url}/v1/trigger-definition'
