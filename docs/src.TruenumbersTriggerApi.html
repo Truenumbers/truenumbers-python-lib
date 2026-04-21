@@ -43,7 +43,20 @@ High-level&nbsp;client&nbsp;for&nbsp;the&nbsp;Truenumbers&nbsp;Trigger&nbsp;API.
 &nbsp;<br>
 This&nbsp;class&nbsp;wraps&nbsp;endpoints&nbsp;for&nbsp;managing&nbsp;trigger&nbsp;definitions.&nbsp;Methods&nbsp;raise<br>
 ``ValueError``&nbsp;when&nbsp;required&nbsp;arguments&nbsp;are&nbsp;missing&nbsp;and&nbsp;``Exception``&nbsp;when<br>
-the&nbsp;underlying&nbsp;HTTP&nbsp;request&nbsp;returns&nbsp;a&nbsp;status&nbsp;code&nbsp;&gt;=&nbsp;400.<br>&nbsp;</span></td></tr>
+the&nbsp;underlying&nbsp;HTTP&nbsp;request&nbsp;returns&nbsp;a&nbsp;status&nbsp;code&nbsp;&gt;=&nbsp;400.<br>
+&nbsp;<br>
+Example::<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;api&nbsp;=&nbsp;<a href="#TruenumbersTriggerApi">TruenumbersTriggerApi</a>(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;base_url="<a href="https://api.example.com/truenumbers-trigger-api">https://api.example.com/truenumbers-trigger-api</a>",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;shared_headers={"Authorization":&nbsp;"Bearer&nbsp;&lt;token&gt;"},<br>
+&nbsp;&nbsp;&nbsp;&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;created&nbsp;=&nbsp;api.<a href="#TruenumbersTriggerApi-create_trigger">create_trigger</a>(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;numberspace="my_space",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name="on_create",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tnql="*&nbsp;has&nbsp;*",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;execute_on=["CREATE"],<br>
+&nbsp;&nbsp;&nbsp;&nbsp;)<br>&nbsp;</span></td></tr>
 <tr><td>&nbsp;</td>
 <td class="singlecolumn">Methods defined here:<br>
 <dl><dt><a name="TruenumbersTriggerApi-__init__"><strong>__init__</strong></a>(self, **kwargs)</dt><dd><span class="code">Initialize&nbsp;a&nbsp;new&nbsp;Truenumbers&nbsp;Trigger&nbsp;API&nbsp;client.<br>
@@ -57,7 +70,17 @@ Args:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;override&nbsp;the&nbsp;defaults&nbsp;in&nbsp;``shared_headers``.<br>
 &nbsp;<br>
 Raises:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;ValueError:&nbsp;If&nbsp;``base_url``&nbsp;is&nbsp;not&nbsp;provided.</span></dd></dl>
+&nbsp;&nbsp;&nbsp;&nbsp;ValueError:&nbsp;If&nbsp;``base_url``&nbsp;is&nbsp;not&nbsp;provided.<br>
+&nbsp;<br>
+Example::<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;api&nbsp;=&nbsp;<a href="#TruenumbersTriggerApi">TruenumbersTriggerApi</a>(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;base_url="<a href="https://api.example.com/truenumbers-trigger-api">https://api.example.com/truenumbers-trigger-api</a>",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;api_auth&nbsp;=&nbsp;<a href="#TruenumbersTriggerApi">TruenumbersTriggerApi</a>(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;base_url="<a href="https://api.example.com/truenumbers-trigger-api">https://api.example.com/truenumbers-trigger-api</a>",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;shared_headers={"Authorization":&nbsp;"Bearer&nbsp;&lt;token&gt;"},<br>
+&nbsp;&nbsp;&nbsp;&nbsp;)</span></dd></dl>
 
 <dl><dt><a name="TruenumbersTriggerApi-create_trigger"><strong>create_trigger</strong></a>(self, **kwargs)</dt><dd><span class="code">Create&nbsp;a&nbsp;trigger&nbsp;definition.<br>
 &nbsp;<br>
@@ -89,7 +112,21 @@ Returns:<br>
 &nbsp;<br>
 Raises:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;ValueError:&nbsp;If&nbsp;required&nbsp;arguments&nbsp;are&nbsp;missing&nbsp;or&nbsp;inconsistent.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;Exception:&nbsp;If&nbsp;the&nbsp;API&nbsp;response&nbsp;status&nbsp;code&nbsp;is&nbsp;&gt;=&nbsp;400.</span></dd></dl>
+&nbsp;&nbsp;&nbsp;&nbsp;Exception:&nbsp;If&nbsp;the&nbsp;API&nbsp;response&nbsp;status&nbsp;code&nbsp;is&nbsp;&gt;=&nbsp;400.<br>
+&nbsp;<br>
+Example::<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;created&nbsp;=&nbsp;api.<a href="#TruenumbersTriggerApi-create_trigger">create_trigger</a>(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;numberspace="my_space",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name="tagged_items",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;description="Fires&nbsp;when&nbsp;matching&nbsp;Truenumbers&nbsp;are&nbsp;tagged",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tnql="*&nbsp;has&nbsp;*",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;execute_on=["TAG"],<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;status="ENABLED",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tag_on_trigger=["processed"],<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;load_historic_data=True,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;destinations=[{"type":&nbsp;"WEB_SOCKET"}],<br>
+&nbsp;&nbsp;&nbsp;&nbsp;)</span></dd></dl>
 
 <dl><dt><a name="TruenumbersTriggerApi-delete_trigger"><strong>delete_trigger</strong></a>(self, **kwargs)</dt><dd><span class="code">Delete&nbsp;a&nbsp;trigger&nbsp;definition&nbsp;by&nbsp;GUID.<br>
 &nbsp;<br>
@@ -103,7 +140,13 @@ Returns:<br>
 &nbsp;<br>
 Raises:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;ValueError:&nbsp;If&nbsp;``id``&nbsp;is&nbsp;missing.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;Exception:&nbsp;If&nbsp;the&nbsp;API&nbsp;response&nbsp;status&nbsp;code&nbsp;is&nbsp;&gt;=&nbsp;400.</span></dd></dl>
+&nbsp;&nbsp;&nbsp;&nbsp;Exception:&nbsp;If&nbsp;the&nbsp;API&nbsp;response&nbsp;status&nbsp;code&nbsp;is&nbsp;&gt;=&nbsp;400.<br>
+&nbsp;<br>
+Example::<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;result&nbsp;=&nbsp;api.<a href="#TruenumbersTriggerApi-delete_trigger">delete_trigger</a>(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;id="00000000-0000-0000-0000-000000000000",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;)</span></dd></dl>
 
 <dl><dt><a name="TruenumbersTriggerApi-get_trigger_by_id"><strong>get_trigger_by_id</strong></a>(self, **kwargs)</dt><dd><span class="code">Retrieve&nbsp;a&nbsp;single&nbsp;trigger&nbsp;definition&nbsp;by&nbsp;GUID.<br>
 &nbsp;<br>
@@ -119,7 +162,13 @@ Returns:<br>
 &nbsp;<br>
 Raises:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;ValueError:&nbsp;If&nbsp;``id``&nbsp;is&nbsp;missing.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;Exception:&nbsp;If&nbsp;the&nbsp;API&nbsp;response&nbsp;status&nbsp;code&nbsp;is&nbsp;&gt;=&nbsp;400.</span></dd></dl>
+&nbsp;&nbsp;&nbsp;&nbsp;Exception:&nbsp;If&nbsp;the&nbsp;API&nbsp;response&nbsp;status&nbsp;code&nbsp;is&nbsp;&gt;=&nbsp;400.<br>
+&nbsp;<br>
+Example::<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;trigger&nbsp;=&nbsp;api.<a href="#TruenumbersTriggerApi-get_trigger_by_id">get_trigger_by_id</a>(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;id="00000000-0000-0000-0000-000000000000",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;)</span></dd></dl>
 
 <dl><dt><a name="TruenumbersTriggerApi-get_triggers"><strong>get_triggers</strong></a>(self, **kwargs)</dt><dd><span class="code">List&nbsp;trigger&nbsp;definitions&nbsp;for&nbsp;a&nbsp;numberspace.<br>
 &nbsp;<br>
@@ -137,7 +186,16 @@ Returns:<br>
 &nbsp;<br>
 Raises:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;ValueError:&nbsp;If&nbsp;``numberspace``&nbsp;is&nbsp;missing.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;Exception:&nbsp;If&nbsp;the&nbsp;API&nbsp;response&nbsp;status&nbsp;code&nbsp;is&nbsp;&gt;=&nbsp;400.</span></dd></dl>
+&nbsp;&nbsp;&nbsp;&nbsp;Exception:&nbsp;If&nbsp;the&nbsp;API&nbsp;response&nbsp;status&nbsp;code&nbsp;is&nbsp;&gt;=&nbsp;400.<br>
+&nbsp;<br>
+Example::<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;all_triggers&nbsp;=&nbsp;api.<a href="#TruenumbersTriggerApi-get_triggers">get_triggers</a>(numberspace="my_space")<br>
+&nbsp;&nbsp;&nbsp;&nbsp;filtered&nbsp;=&nbsp;api.<a href="#TruenumbersTriggerApi-get_triggers">get_triggers</a>(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;numberspace="my_space",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name="on_create",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;status=["ENABLED",&nbsp;"DISABLED"],<br>
+&nbsp;&nbsp;&nbsp;&nbsp;)</span></dd></dl>
 
 <dl><dt><a name="TruenumbersTriggerApi-update_trigger"><strong>update_trigger</strong></a>(self, **kwargs)</dt><dd><span class="code">Partially&nbsp;update&nbsp;a&nbsp;trigger&nbsp;definition&nbsp;by&nbsp;GUID.<br>
 &nbsp;<br>
@@ -159,7 +217,17 @@ Returns:<br>
 &nbsp;<br>
 Raises:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;ValueError:&nbsp;If&nbsp;``id``&nbsp;is&nbsp;missing.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;Exception:&nbsp;If&nbsp;the&nbsp;API&nbsp;response&nbsp;status&nbsp;code&nbsp;is&nbsp;&gt;=&nbsp;400.</span></dd></dl>
+&nbsp;&nbsp;&nbsp;&nbsp;Exception:&nbsp;If&nbsp;the&nbsp;API&nbsp;response&nbsp;status&nbsp;code&nbsp;is&nbsp;&gt;=&nbsp;400.<br>
+&nbsp;<br>
+Example::<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;updated&nbsp;=&nbsp;api.<a href="#TruenumbersTriggerApi-update_trigger">update_trigger</a>(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;id="00000000-0000-0000-0000-000000000000",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name="tagged_items_v2",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tnql="*&nbsp;has&nbsp;*",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;execute_on=["TAG",&nbsp;"CREATE"],<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;status="ENABLED",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;)</span></dd></dl>
 
 <hr>
 Data descriptors defined here:<br>

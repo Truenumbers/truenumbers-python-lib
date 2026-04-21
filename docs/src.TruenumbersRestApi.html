@@ -45,7 +45,15 @@ This&nbsp;class&nbsp;wraps&nbsp;the&nbsp;HTTP&nbsp;endpoints&nbsp;exposed&nbsp;b
 provides&nbsp;convenient&nbsp;helpers&nbsp;for&nbsp;working&nbsp;with&nbsp;numberspaces,&nbsp;truenumbers,<br>
 saved&nbsp;queries,&nbsp;and&nbsp;user&nbsp;accounts.&nbsp;All&nbsp;methods&nbsp;raise&nbsp;``ValueError``&nbsp;when&nbsp;a<br>
 required&nbsp;argument&nbsp;is&nbsp;missing&nbsp;and&nbsp;``Exception``&nbsp;when&nbsp;the&nbsp;underlying&nbsp;HTTP<br>
-request&nbsp;returns&nbsp;a&nbsp;status&nbsp;code&nbsp;&gt;=&nbsp;400.<br>&nbsp;</span></td></tr>
+request&nbsp;returns&nbsp;a&nbsp;status&nbsp;code&nbsp;&gt;=&nbsp;400.<br>
+&nbsp;<br>
+Example::<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;api&nbsp;=&nbsp;<a href="#TruenumbersRestApi">TruenumbersRestApi</a>(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;base_url="<a href="https://api.example.com">https://api.example.com</a>",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;shared_headers={"Authorization":&nbsp;"Bearer&nbsp;&lt;token&gt;"},<br>
+&nbsp;&nbsp;&nbsp;&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;rows&nbsp;=&nbsp;api.<a href="#TruenumbersRestApi-tnql">tnql</a>(numberspace="my_space",&nbsp;tnql="*&nbsp;has&nbsp;*")<br>&nbsp;</span></td></tr>
 <tr><td>&nbsp;</td>
 <td class="singlecolumn">Methods defined here:<br>
 <dl><dt><a name="TruenumbersRestApi-__init__"><strong>__init__</strong></a>(self, **kwargs)</dt><dd><span class="code">Initialize&nbsp;a&nbsp;new&nbsp;Truenumbers&nbsp;REST&nbsp;API&nbsp;client.<br>
@@ -58,7 +66,15 @@ Args:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;override&nbsp;the&nbsp;defaults&nbsp;in&nbsp;``shared_headers``.<br>
 &nbsp;<br>
 Raises:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;ValueError:&nbsp;If&nbsp;``base_url``&nbsp;is&nbsp;not&nbsp;provided.</span></dd></dl>
+&nbsp;&nbsp;&nbsp;&nbsp;ValueError:&nbsp;If&nbsp;``base_url``&nbsp;is&nbsp;not&nbsp;provided.<br>
+&nbsp;<br>
+Example::<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;api&nbsp;=&nbsp;<a href="#TruenumbersRestApi">TruenumbersRestApi</a>(base_url="<a href="https://api.example.com">https://api.example.com</a>")<br>
+&nbsp;&nbsp;&nbsp;&nbsp;api_auth&nbsp;=&nbsp;<a href="#TruenumbersRestApi">TruenumbersRestApi</a>(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;base_url="<a href="https://api.example.com">https://api.example.com</a>",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;shared_headers={"Authorization":&nbsp;"Bearer&nbsp;&lt;token&gt;"},<br>
+&nbsp;&nbsp;&nbsp;&nbsp;)</span></dd></dl>
 
 <dl><dt><a name="TruenumbersRestApi-batched_truenumber_operations"><strong>batched_truenumber_operations</strong></a>(self, **kwargs)</dt><dd><span class="code">Execute&nbsp;a&nbsp;batch&nbsp;of&nbsp;heterogeneous&nbsp;Truenumber&nbsp;operations&nbsp;in&nbsp;one&nbsp;call.<br>
 &nbsp;<br>
@@ -77,7 +93,14 @@ Returns:<br>
 &nbsp;<br>
 Raises:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;ValueError:&nbsp;If&nbsp;``numberspace``&nbsp;or&nbsp;``operations``&nbsp;is&nbsp;missing.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;Exception:&nbsp;If&nbsp;the&nbsp;API&nbsp;response&nbsp;status&nbsp;code&nbsp;is&nbsp;&gt;=&nbsp;400.</span></dd></dl>
+&nbsp;&nbsp;&nbsp;&nbsp;Exception:&nbsp;If&nbsp;the&nbsp;API&nbsp;response&nbsp;status&nbsp;code&nbsp;is&nbsp;&gt;=&nbsp;400.<br>
+&nbsp;<br>
+Example::<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;result&nbsp;=&nbsp;api.<a href="#TruenumbersRestApi-batched_truenumber_operations">batched_truenumber_operations</a>(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;numberspace="my_space",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;operations=[{"type":&nbsp;"CreateTruenumbers",&nbsp;"payload":&nbsp;{}}],<br>
+&nbsp;&nbsp;&nbsp;&nbsp;)</span></dd></dl>
 
 <dl><dt><a name="TruenumbersRestApi-create_numberspace"><strong>create_numberspace</strong></a>(self, numberspace: str)</dt><dd><span class="code">Create&nbsp;a&nbsp;new&nbsp;numberspace.<br>
 &nbsp;<br>
@@ -89,7 +112,11 @@ Returns:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;including&nbsp;``"numberspace"``&nbsp;and&nbsp;implementation‑specific&nbsp;metadata.<br>
 &nbsp;<br>
 Raises:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;Exception:&nbsp;If&nbsp;the&nbsp;API&nbsp;response&nbsp;status&nbsp;code&nbsp;is&nbsp;&gt;=&nbsp;400.</span></dd></dl>
+&nbsp;&nbsp;&nbsp;&nbsp;Exception:&nbsp;If&nbsp;the&nbsp;API&nbsp;response&nbsp;status&nbsp;code&nbsp;is&nbsp;&gt;=&nbsp;400.<br>
+&nbsp;<br>
+Example::<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;created&nbsp;=&nbsp;api.<a href="#TruenumbersRestApi-create_numberspace">create_numberspace</a>("my_space")</span></dd></dl>
 
 <dl><dt><a name="TruenumbersRestApi-create_saved_query"><strong>create_saved_query</strong></a>(self, **kwargs)</dt><dd><span class="code">Create&nbsp;a&nbsp;new&nbsp;saved&nbsp;query.<br>
 &nbsp;<br>
@@ -107,7 +134,52 @@ Returns:<br>
 &nbsp;<br>
 Raises:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;ValueError:&nbsp;If&nbsp;any&nbsp;required&nbsp;argument&nbsp;is&nbsp;missing.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;Exception:&nbsp;If&nbsp;the&nbsp;API&nbsp;response&nbsp;status&nbsp;code&nbsp;is&nbsp;&gt;=&nbsp;400.</span></dd></dl>
+&nbsp;&nbsp;&nbsp;&nbsp;Exception:&nbsp;If&nbsp;the&nbsp;API&nbsp;response&nbsp;status&nbsp;code&nbsp;is&nbsp;&gt;=&nbsp;400.<br>
+&nbsp;<br>
+Example::<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;saved&nbsp;=&nbsp;api.<a href="#TruenumbersRestApi-create_saved_query">create_saved_query</a>(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;numberspace="my_space",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name="Monthly&nbsp;rollup",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tnql="*&nbsp;has&nbsp;*",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;)</span></dd></dl>
+
+<dl><dt><a name="TruenumbersRestApi-create_truenumbers_from_json"><strong>create_truenumbers_from_json</strong></a>(self, **kwargs)</dt><dd><span class="code">Create&nbsp;one&nbsp;or&nbsp;more&nbsp;Truenumbers&nbsp;from&nbsp;a&nbsp;JSON&nbsp;payload.<br>
+&nbsp;<br>
+This&nbsp;method&nbsp;maps&nbsp;to&nbsp;the<br>
+``POST&nbsp;/v2/numberflow/numbers``&nbsp;*Create&nbsp;Truenumbers*&nbsp;endpoint&nbsp;and&nbsp;uses<br>
+the&nbsp;``truenumbers``&nbsp;field&nbsp;of&nbsp;the&nbsp;request&nbsp;body.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;numberspace&nbsp;(str):&nbsp;Numberspace&nbsp;in&nbsp;which&nbsp;the&nbsp;new&nbsp;Truenumbers&nbsp;will<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;be&nbsp;created.&nbsp;Required.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;truenumbers_json&nbsp;(list[dict]):&nbsp;List&nbsp;of&nbsp;JSON&nbsp;objects&nbsp;representing&nbsp;Truenumbers&nbsp;to&nbsp;create.&nbsp;Required.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;noReturn&nbsp;(bool,&nbsp;optional):&nbsp;If&nbsp;``True``,&nbsp;the&nbsp;API&nbsp;will&nbsp;not&nbsp;return&nbsp;the<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;created&nbsp;Truenumbers&nbsp;in&nbsp;the&nbsp;response.&nbsp;Defaults&nbsp;to&nbsp;``False``.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;skipStore&nbsp;(bool,&nbsp;optional):&nbsp;If&nbsp;``True``,&nbsp;creates&nbsp;Truenumbers<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;without&nbsp;storing&nbsp;them.&nbsp;Defaults&nbsp;to&nbsp;``False``.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;tags&nbsp;(list,&nbsp;optional):&nbsp;Additional&nbsp;tags&nbsp;to&nbsp;attach&nbsp;to&nbsp;every&nbsp;created<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Truenumber.&nbsp;Defaults&nbsp;to&nbsp;an&nbsp;empty&nbsp;list.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;dict:&nbsp;A&nbsp;JSON&nbsp;<a href="builtins.html#object">object</a>&nbsp;representing&nbsp;the&nbsp;created&nbsp;Truenumbers,&nbsp;typically<br>
+&nbsp;&nbsp;&nbsp;&nbsp;containing&nbsp;a&nbsp;list&nbsp;of&nbsp;Truenumber&nbsp;objects&nbsp;with&nbsp;fields&nbsp;such&nbsp;as<br>
+&nbsp;&nbsp;&nbsp;&nbsp;``"guid"``,&nbsp;``"subject"``,&nbsp;``"property"``,&nbsp;``"value"``&nbsp;and<br>
+&nbsp;&nbsp;&nbsp;&nbsp;``"tags"``.<br>
+&nbsp;<br>
+Raises:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ValueError:&nbsp;If&nbsp;``numberspace``&nbsp;or&nbsp;``truenumbers_json``&nbsp;is&nbsp;missing.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Exception:&nbsp;If&nbsp;the&nbsp;API&nbsp;response&nbsp;status&nbsp;code&nbsp;is&nbsp;&gt;=&nbsp;400.<br>
+&nbsp;<br>
+Example::<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;created&nbsp;=&nbsp;api.<a href="#TruenumbersRestApi-create_truenumbers_from_json">create_truenumbers_from_json</a>(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;numberspace="my_space",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;truenumbers_json=[<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{"subject":&nbsp;"Acme",&nbsp;"property":&nbsp;"revenue",&nbsp;"value":&nbsp;"1.2e6&nbsp;USD"},<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;],<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tags=["bulk"],<br>
+&nbsp;&nbsp;&nbsp;&nbsp;)</span></dd></dl>
 
 <dl><dt><a name="TruenumbersRestApi-create_truenumbers_from_statement"><strong>create_truenumbers_from_statement</strong></a>(self, **kwargs)</dt><dd><span class="code">Create&nbsp;one&nbsp;or&nbsp;more&nbsp;Truenumbers&nbsp;from&nbsp;a&nbsp;natural‑language&nbsp;statement.<br>
 &nbsp;<br>
@@ -135,7 +207,15 @@ Returns:<br>
 &nbsp;<br>
 Raises:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;ValueError:&nbsp;If&nbsp;``numberspace``&nbsp;or&nbsp;``true_statement``&nbsp;is&nbsp;missing.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;Exception:&nbsp;If&nbsp;the&nbsp;API&nbsp;response&nbsp;status&nbsp;code&nbsp;is&nbsp;&gt;=&nbsp;400.</span></dd></dl>
+&nbsp;&nbsp;&nbsp;&nbsp;Exception:&nbsp;If&nbsp;the&nbsp;API&nbsp;response&nbsp;status&nbsp;code&nbsp;is&nbsp;&gt;=&nbsp;400.<br>
+&nbsp;<br>
+Example::<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;created&nbsp;=&nbsp;api.<a href="#TruenumbersRestApi-create_truenumbers_from_statement">create_truenumbers_from_statement</a>(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;numberspace="my_space",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;true_statement="Acme&nbsp;revenue&nbsp;is&nbsp;1.2&nbsp;million&nbsp;USD&nbsp;in&nbsp;2024",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tags=["imported"],<br>
+&nbsp;&nbsp;&nbsp;&nbsp;)</span></dd></dl>
 
 <dl><dt><a name="TruenumbersRestApi-delete_numberspace"><strong>delete_numberspace</strong></a>(self, numberspace: str)</dt><dd><span class="code">Delete&nbsp;an&nbsp;existing&nbsp;numberspace.<br>
 &nbsp;<br>
@@ -147,7 +227,11 @@ Returns:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;and&nbsp;any&nbsp;additional&nbsp;status&nbsp;information.<br>
 &nbsp;<br>
 Raises:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;Exception:&nbsp;If&nbsp;the&nbsp;API&nbsp;response&nbsp;status&nbsp;code&nbsp;is&nbsp;&gt;=&nbsp;400.</span></dd></dl>
+&nbsp;&nbsp;&nbsp;&nbsp;Exception:&nbsp;If&nbsp;the&nbsp;API&nbsp;response&nbsp;status&nbsp;code&nbsp;is&nbsp;&gt;=&nbsp;400.<br>
+&nbsp;<br>
+Example::<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;api.<a href="#TruenumbersRestApi-delete_numberspace">delete_numberspace</a>("old_space")</span></dd></dl>
 
 <dl><dt><a name="TruenumbersRestApi-delete_saved_query"><strong>delete_saved_query</strong></a>(self, **kwargs)</dt><dd><span class="code">Delete&nbsp;a&nbsp;saved&nbsp;query&nbsp;by&nbsp;ID.<br>
 &nbsp;<br>
@@ -164,7 +248,14 @@ Returns:<br>
 &nbsp;<br>
 Raises:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;ValueError:&nbsp;If&nbsp;any&nbsp;required&nbsp;argument&nbsp;is&nbsp;missing.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;Exception:&nbsp;If&nbsp;the&nbsp;API&nbsp;response&nbsp;status&nbsp;code&nbsp;is&nbsp;&gt;=&nbsp;400.</span></dd></dl>
+&nbsp;&nbsp;&nbsp;&nbsp;Exception:&nbsp;If&nbsp;the&nbsp;API&nbsp;response&nbsp;status&nbsp;code&nbsp;is&nbsp;&gt;=&nbsp;400.<br>
+&nbsp;<br>
+Example::<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;result&nbsp;=&nbsp;api.<a href="#TruenumbersRestApi-delete_saved_query">delete_saved_query</a>(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;numberspace="my_space",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;id="query-id-123",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;)</span></dd></dl>
 
 <dl><dt><a name="TruenumbersRestApi-delete_truenumbers"><strong>delete_truenumbers</strong></a>(self, **kwargs)</dt><dd><span class="code">Delete&nbsp;Truenumbers&nbsp;that&nbsp;match&nbsp;a&nbsp;TNQL&nbsp;query.<br>
 &nbsp;<br>
@@ -182,7 +273,14 @@ Returns:<br>
 &nbsp;<br>
 Raises:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;ValueError:&nbsp;If&nbsp;``numberspace``&nbsp;or&nbsp;``tnql``&nbsp;is&nbsp;missing.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;Exception:&nbsp;If&nbsp;the&nbsp;API&nbsp;response&nbsp;status&nbsp;code&nbsp;is&nbsp;&gt;=&nbsp;400.</span></dd></dl>
+&nbsp;&nbsp;&nbsp;&nbsp;Exception:&nbsp;If&nbsp;the&nbsp;API&nbsp;response&nbsp;status&nbsp;code&nbsp;is&nbsp;&gt;=&nbsp;400.<br>
+&nbsp;<br>
+Example::<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;result&nbsp;=&nbsp;api.<a href="#TruenumbersRestApi-delete_truenumbers">delete_truenumbers</a>(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;numberspace="my_space",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tnql="*&nbsp;has&nbsp;*",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;)</span></dd></dl>
 
 <dl><dt><a name="TruenumbersRestApi-delete_truenumbers_by_id"><strong>delete_truenumbers_by_id</strong></a>(self, **kwargs)</dt><dd><span class="code">Delete&nbsp;a&nbsp;single&nbsp;Truenumber&nbsp;by&nbsp;its&nbsp;unique&nbsp;identifier.<br>
 &nbsp;<br>
@@ -199,7 +297,14 @@ Returns:<br>
 &nbsp;<br>
 Raises:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;ValueError:&nbsp;If&nbsp;``numberspace``&nbsp;or&nbsp;``id``&nbsp;is&nbsp;missing.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;Exception:&nbsp;If&nbsp;the&nbsp;API&nbsp;response&nbsp;status&nbsp;code&nbsp;is&nbsp;&gt;=&nbsp;400.</span></dd></dl>
+&nbsp;&nbsp;&nbsp;&nbsp;Exception:&nbsp;If&nbsp;the&nbsp;API&nbsp;response&nbsp;status&nbsp;code&nbsp;is&nbsp;&gt;=&nbsp;400.<br>
+&nbsp;<br>
+Example::<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;result&nbsp;=&nbsp;api.<a href="#TruenumbersRestApi-delete_truenumbers_by_id">delete_truenumbers_by_id</a>(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;numberspace="my_space",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;id="00000000-0000-0000-0000-000000000000",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;)</span></dd></dl>
 
 <dl><dt><a name="TruenumbersRestApi-execute_saved_query_by_id"><strong>execute_saved_query_by_id</strong></a>(self, **kwargs)</dt><dd><span class="code">Execute&nbsp;a&nbsp;saved&nbsp;query&nbsp;and&nbsp;return&nbsp;its&nbsp;results.<br>
 &nbsp;<br>
@@ -216,7 +321,14 @@ Returns:<br>
 &nbsp;<br>
 Raises:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;ValueError:&nbsp;If&nbsp;any&nbsp;required&nbsp;argument&nbsp;is&nbsp;missing.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;Exception:&nbsp;If&nbsp;the&nbsp;API&nbsp;response&nbsp;status&nbsp;code&nbsp;is&nbsp;&gt;=&nbsp;400.</span></dd></dl>
+&nbsp;&nbsp;&nbsp;&nbsp;Exception:&nbsp;If&nbsp;the&nbsp;API&nbsp;response&nbsp;status&nbsp;code&nbsp;is&nbsp;&gt;=&nbsp;400.<br>
+&nbsp;<br>
+Example::<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;rows&nbsp;=&nbsp;api.<a href="#TruenumbersRestApi-execute_saved_query_by_id">execute_saved_query_by_id</a>(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;numberspace="my_space",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;id="query-id-123",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;)</span></dd></dl>
 
 <dl><dt><a name="TruenumbersRestApi-get_numberspace"><strong>get_numberspace</strong></a>(self, numberspace: str)</dt><dd><span class="code">Retrieve&nbsp;a&nbsp;single&nbsp;numberspace&nbsp;by&nbsp;name.<br>
 &nbsp;<br>
@@ -228,7 +340,11 @@ Returns:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;and&nbsp;associated&nbsp;metadata.<br>
 &nbsp;<br>
 Raises:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;Exception:&nbsp;If&nbsp;the&nbsp;API&nbsp;response&nbsp;status&nbsp;code&nbsp;is&nbsp;&gt;=&nbsp;400.</span></dd></dl>
+&nbsp;&nbsp;&nbsp;&nbsp;Exception:&nbsp;If&nbsp;the&nbsp;API&nbsp;response&nbsp;status&nbsp;code&nbsp;is&nbsp;&gt;=&nbsp;400.<br>
+&nbsp;<br>
+Example::<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;info&nbsp;=&nbsp;api.<a href="#TruenumbersRestApi-get_numberspace">get_numberspace</a>("my_space")</span></dd></dl>
 
 <dl><dt><a name="TruenumbersRestApi-get_numberspaces"><strong>get_numberspaces</strong></a>(self)</dt><dd><span class="code">List&nbsp;all&nbsp;numberspaces&nbsp;visible&nbsp;to&nbsp;the&nbsp;current&nbsp;user.<br>
 &nbsp;<br>
@@ -237,7 +353,11 @@ Returns:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;under&nbsp;a&nbsp;key&nbsp;like&nbsp;``"items"``&nbsp;or&nbsp;a&nbsp;similar&nbsp;collection&nbsp;field.<br>
 &nbsp;<br>
 Raises:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;Exception:&nbsp;If&nbsp;the&nbsp;API&nbsp;response&nbsp;status&nbsp;code&nbsp;is&nbsp;&gt;=&nbsp;400.</span></dd></dl>
+&nbsp;&nbsp;&nbsp;&nbsp;Exception:&nbsp;If&nbsp;the&nbsp;API&nbsp;response&nbsp;status&nbsp;code&nbsp;is&nbsp;&gt;=&nbsp;400.<br>
+&nbsp;<br>
+Example::<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;all_spaces&nbsp;=&nbsp;api.<a href="#TruenumbersRestApi-get_numberspaces">get_numberspaces</a>()</span></dd></dl>
 
 <dl><dt><a name="TruenumbersRestApi-get_saved_queries"><strong>get_saved_queries</strong></a>(self, numberspace: str)</dt><dd><span class="code">List&nbsp;saved&nbsp;queries&nbsp;in&nbsp;a&nbsp;numberspace.<br>
 &nbsp;<br>
@@ -251,7 +371,11 @@ Returns:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;identifiers,&nbsp;names,&nbsp;TNQL&nbsp;bodies&nbsp;and&nbsp;timestamps.<br>
 &nbsp;<br>
 Raises:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;Exception:&nbsp;If&nbsp;the&nbsp;API&nbsp;response&nbsp;status&nbsp;code&nbsp;is&nbsp;&gt;=&nbsp;400.</span></dd></dl>
+&nbsp;&nbsp;&nbsp;&nbsp;Exception:&nbsp;If&nbsp;the&nbsp;API&nbsp;response&nbsp;status&nbsp;code&nbsp;is&nbsp;&gt;=&nbsp;400.<br>
+&nbsp;<br>
+Example::<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;queries&nbsp;=&nbsp;api.<a href="#TruenumbersRestApi-get_saved_queries">get_saved_queries</a>("my_space")</span></dd></dl>
 
 <dl><dt><a name="TruenumbersRestApi-get_truenumber_by_id"><strong>get_truenumber_by_id</strong></a>(self, **kwargs)</dt><dd><span class="code">Fetch&nbsp;a&nbsp;single&nbsp;Truenumber&nbsp;by&nbsp;its&nbsp;GUID.<br>
 &nbsp;<br>
@@ -269,7 +393,14 @@ Returns:<br>
 &nbsp;<br>
 Raises:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;ValueError:&nbsp;If&nbsp;``numberspace``&nbsp;or&nbsp;``id``&nbsp;is&nbsp;missing.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;Exception:&nbsp;If&nbsp;the&nbsp;API&nbsp;response&nbsp;status&nbsp;code&nbsp;is&nbsp;&gt;=&nbsp;400.</span></dd></dl>
+&nbsp;&nbsp;&nbsp;&nbsp;Exception:&nbsp;If&nbsp;the&nbsp;API&nbsp;response&nbsp;status&nbsp;code&nbsp;is&nbsp;&gt;=&nbsp;400.<br>
+&nbsp;<br>
+Example::<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;tn&nbsp;=&nbsp;api.<a href="#TruenumbersRestApi-get_truenumber_by_id">get_truenumber_by_id</a>(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;numberspace="my_space",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;id="00000000-0000-0000-0000-000000000000",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;)</span></dd></dl>
 
 <dl><dt><a name="TruenumbersRestApi-login_user"><strong>login_user</strong></a>(self, **kwargs)</dt><dd><span class="code">Authenticate&nbsp;a&nbsp;user&nbsp;and&nbsp;obtain&nbsp;a&nbsp;session&nbsp;or&nbsp;token.<br>
 &nbsp;<br>
@@ -287,7 +418,15 @@ Returns:<br>
 &nbsp;<br>
 Raises:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;ValueError:&nbsp;If&nbsp;any&nbsp;required&nbsp;argument&nbsp;is&nbsp;missing.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;Exception:&nbsp;If&nbsp;the&nbsp;API&nbsp;response&nbsp;status&nbsp;code&nbsp;is&nbsp;&gt;=&nbsp;400.</span></dd></dl>
+&nbsp;&nbsp;&nbsp;&nbsp;Exception:&nbsp;If&nbsp;the&nbsp;API&nbsp;response&nbsp;status&nbsp;code&nbsp;is&nbsp;&gt;=&nbsp;400.<br>
+&nbsp;<br>
+Example::<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;session&nbsp;=&nbsp;api.<a href="#TruenumbersRestApi-login_user">login_user</a>(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;email="user@example.com",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;password="secret",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;organization="MY_PRODUCT",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;)</span></dd></dl>
 
 <dl><dt><a name="TruenumbersRestApi-register_user"><strong>register_user</strong></a>(self, **kwargs)</dt><dd><span class="code">Register&nbsp;a&nbsp;new&nbsp;user&nbsp;account.<br>
 &nbsp;<br>
@@ -305,7 +444,15 @@ Returns:<br>
 &nbsp;<br>
 Raises:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;ValueError:&nbsp;If&nbsp;any&nbsp;required&nbsp;argument&nbsp;is&nbsp;missing.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;Exception:&nbsp;If&nbsp;the&nbsp;API&nbsp;response&nbsp;status&nbsp;code&nbsp;is&nbsp;&gt;=&nbsp;400.</span></dd></dl>
+&nbsp;&nbsp;&nbsp;&nbsp;Exception:&nbsp;If&nbsp;the&nbsp;API&nbsp;response&nbsp;status&nbsp;code&nbsp;is&nbsp;&gt;=&nbsp;400.<br>
+&nbsp;<br>
+Example::<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;account&nbsp;=&nbsp;api.<a href="#TruenumbersRestApi-register_user">register_user</a>(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;email="newuser@example.com",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;password="secret",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;organization="MY_PRODUCT",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;)</span></dd></dl>
 
 <dl><dt><a name="TruenumbersRestApi-remove_tags_from_truenumber_by_id"><strong>remove_tags_from_truenumber_by_id</strong></a>(self, **kwargs)</dt><dd><span class="code">Remove&nbsp;tags&nbsp;from&nbsp;a&nbsp;single&nbsp;Truenumber&nbsp;by&nbsp;GUID.<br>
 &nbsp;<br>
@@ -324,7 +471,15 @@ Returns:<br>
 &nbsp;<br>
 Raises:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;ValueError:&nbsp;If&nbsp;any&nbsp;required&nbsp;argument&nbsp;is&nbsp;missing.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;Exception:&nbsp;If&nbsp;the&nbsp;API&nbsp;response&nbsp;status&nbsp;code&nbsp;is&nbsp;&gt;=&nbsp;400.</span></dd></dl>
+&nbsp;&nbsp;&nbsp;&nbsp;Exception:&nbsp;If&nbsp;the&nbsp;API&nbsp;response&nbsp;status&nbsp;code&nbsp;is&nbsp;&gt;=&nbsp;400.<br>
+&nbsp;<br>
+Example::<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;result&nbsp;=&nbsp;api.<a href="#TruenumbersRestApi-remove_tags_from_truenumber_by_id">remove_tags_from_truenumber_by_id</a>(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;numberspace="my_space",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;id="00000000-0000-0000-0000-000000000000",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tags=["priority"],<br>
+&nbsp;&nbsp;&nbsp;&nbsp;)</span></dd></dl>
 
 <dl><dt><a name="TruenumbersRestApi-remove_tags_from_truenumbers"><strong>remove_tags_from_truenumbers</strong></a>(self, **kwargs)</dt><dd><span class="code">Remove&nbsp;tags&nbsp;from&nbsp;all&nbsp;Truenumbers&nbsp;that&nbsp;match&nbsp;a&nbsp;TNQL&nbsp;query.<br>
 &nbsp;<br>
@@ -344,7 +499,15 @@ Returns:<br>
 &nbsp;<br>
 Raises:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;ValueError:&nbsp;If&nbsp;any&nbsp;required&nbsp;argument&nbsp;is&nbsp;missing.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;Exception:&nbsp;If&nbsp;the&nbsp;API&nbsp;response&nbsp;status&nbsp;code&nbsp;is&nbsp;&gt;=&nbsp;400.</span></dd></dl>
+&nbsp;&nbsp;&nbsp;&nbsp;Exception:&nbsp;If&nbsp;the&nbsp;API&nbsp;response&nbsp;status&nbsp;code&nbsp;is&nbsp;&gt;=&nbsp;400.<br>
+&nbsp;<br>
+Example::<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;result&nbsp;=&nbsp;api.<a href="#TruenumbersRestApi-remove_tags_from_truenumbers">remove_tags_from_truenumbers</a>(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;numberspace="my_space",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tnql="*&nbsp;has&nbsp;*",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tags=["stale"],<br>
+&nbsp;&nbsp;&nbsp;&nbsp;)</span></dd></dl>
 
 <dl><dt><a name="TruenumbersRestApi-tag_truenumber_by_id"><strong>tag_truenumber_by_id</strong></a>(self, **kwargs)</dt><dd><span class="code">Add&nbsp;tags&nbsp;to&nbsp;a&nbsp;single&nbsp;Truenumber&nbsp;by&nbsp;GUID.<br>
 &nbsp;<br>
@@ -363,7 +526,15 @@ Returns:<br>
 &nbsp;<br>
 Raises:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;ValueError:&nbsp;If&nbsp;any&nbsp;required&nbsp;argument&nbsp;is&nbsp;missing.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;Exception:&nbsp;If&nbsp;the&nbsp;API&nbsp;response&nbsp;status&nbsp;code&nbsp;is&nbsp;&gt;=&nbsp;400.</span></dd></dl>
+&nbsp;&nbsp;&nbsp;&nbsp;Exception:&nbsp;If&nbsp;the&nbsp;API&nbsp;response&nbsp;status&nbsp;code&nbsp;is&nbsp;&gt;=&nbsp;400.<br>
+&nbsp;<br>
+Example::<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;result&nbsp;=&nbsp;api.<a href="#TruenumbersRestApi-tag_truenumber_by_id">tag_truenumber_by_id</a>(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;numberspace="my_space",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;id="00000000-0000-0000-0000-000000000000",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tags=["priority"],<br>
+&nbsp;&nbsp;&nbsp;&nbsp;)</span></dd></dl>
 
 <dl><dt><a name="TruenumbersRestApi-tag_truenumbers"><strong>tag_truenumbers</strong></a>(self, **kwargs)</dt><dd><span class="code">Add&nbsp;tags&nbsp;to&nbsp;all&nbsp;Truenumbers&nbsp;that&nbsp;match&nbsp;a&nbsp;TNQL&nbsp;query.<br>
 &nbsp;<br>
@@ -383,7 +554,15 @@ Returns:<br>
 &nbsp;<br>
 Raises:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;ValueError:&nbsp;If&nbsp;any&nbsp;required&nbsp;argument&nbsp;is&nbsp;missing.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;Exception:&nbsp;If&nbsp;the&nbsp;API&nbsp;response&nbsp;status&nbsp;code&nbsp;is&nbsp;&gt;=&nbsp;400.</span></dd></dl>
+&nbsp;&nbsp;&nbsp;&nbsp;Exception:&nbsp;If&nbsp;the&nbsp;API&nbsp;response&nbsp;status&nbsp;code&nbsp;is&nbsp;&gt;=&nbsp;400.<br>
+&nbsp;<br>
+Example::<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;result&nbsp;=&nbsp;api.<a href="#TruenumbersRestApi-tag_truenumbers">tag_truenumbers</a>(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;numberspace="my_space",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tnql="*&nbsp;has&nbsp;*",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tags=["reviewed",&nbsp;"2024"],<br>
+&nbsp;&nbsp;&nbsp;&nbsp;)</span></dd></dl>
 
 <dl><dt><a name="TruenumbersRestApi-tnql"><strong>tnql</strong></a>(self, **kwargs)</dt><dd><span class="code">Execute&nbsp;a&nbsp;TNQL&nbsp;query&nbsp;against&nbsp;a&nbsp;numberspace.<br>
 &nbsp;<br>
@@ -402,7 +581,16 @@ Returns:<br>
 &nbsp;<br>
 Raises:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;ValueError:&nbsp;If&nbsp;``numberspace``&nbsp;or&nbsp;``tnql``&nbsp;is&nbsp;missing.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;Exception:&nbsp;If&nbsp;the&nbsp;API&nbsp;response&nbsp;status&nbsp;code&nbsp;is&nbsp;&gt;=&nbsp;400.</span></dd></dl>
+&nbsp;&nbsp;&nbsp;&nbsp;Exception:&nbsp;If&nbsp;the&nbsp;API&nbsp;response&nbsp;status&nbsp;code&nbsp;is&nbsp;&gt;=&nbsp;400.<br>
+&nbsp;<br>
+Example::<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;result&nbsp;=&nbsp;api.<a href="#TruenumbersRestApi-tnql">tnql</a>(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;numberspace="my_space",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tnql="*&nbsp;has&nbsp;*",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;limit=50,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;offset=0,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;)</span></dd></dl>
 
 <dl><dt><a name="TruenumbersRestApi-tnql_group_by"><strong>tnql_group_by</strong></a>(self, **kwargs)</dt><dd><span class="code">Execute&nbsp;a&nbsp;TNQL&nbsp;``GROUP&nbsp;BY``&nbsp;query&nbsp;against&nbsp;a&nbsp;numberspace.<br>
 &nbsp;<br>
@@ -424,7 +612,14 @@ Returns:<br>
 &nbsp;<br>
 Raises:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;ValueError:&nbsp;If&nbsp;``numberspace``&nbsp;or&nbsp;``tnql``&nbsp;is&nbsp;missing.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;Exception:&nbsp;If&nbsp;the&nbsp;API&nbsp;response&nbsp;status&nbsp;code&nbsp;is&nbsp;&gt;=&nbsp;400.</span></dd></dl>
+&nbsp;&nbsp;&nbsp;&nbsp;Exception:&nbsp;If&nbsp;the&nbsp;API&nbsp;response&nbsp;status&nbsp;code&nbsp;is&nbsp;&gt;=&nbsp;400.<br>
+&nbsp;<br>
+Example::<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;grouped&nbsp;=&nbsp;api.<a href="#TruenumbersRestApi-tnql_group_by">tnql_group_by</a>(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;numberspace="my_space",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tnql="*&nbsp;has&nbsp;*",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;)</span></dd></dl>
 
 <dl><dt><a name="TruenumbersRestApi-update_saved_query"><strong>update_saved_query</strong></a>(self, **kwargs)</dt><dd><span class="code">Update&nbsp;an&nbsp;existing&nbsp;saved&nbsp;query.<br>
 &nbsp;<br>
@@ -443,7 +638,16 @@ Returns:<br>
 &nbsp;<br>
 Raises:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;ValueError:&nbsp;If&nbsp;any&nbsp;required&nbsp;argument&nbsp;is&nbsp;missing.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;Exception:&nbsp;If&nbsp;the&nbsp;API&nbsp;response&nbsp;status&nbsp;code&nbsp;is&nbsp;&gt;=&nbsp;400.</span></dd></dl>
+&nbsp;&nbsp;&nbsp;&nbsp;Exception:&nbsp;If&nbsp;the&nbsp;API&nbsp;response&nbsp;status&nbsp;code&nbsp;is&nbsp;&gt;=&nbsp;400.<br>
+&nbsp;<br>
+Example::<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;updated&nbsp;=&nbsp;api.<a href="#TruenumbersRestApi-update_saved_query">update_saved_query</a>(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;numberspace="my_space",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;id="query-id-123",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name="Monthly&nbsp;rollup&nbsp;(revised)",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tnql="*&nbsp;has&nbsp;*",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;)</span></dd></dl>
 
 <dl><dt><a name="TruenumbersRestApi-update_truenumber_values_by_json"><strong>update_truenumber_values_by_json</strong></a>(self, **kwargs)</dt><dd><span class="code">Update&nbsp;Truenumber&nbsp;values&nbsp;using&nbsp;an&nbsp;explicit&nbsp;JSON&nbsp;payload.<br>
 &nbsp;<br>
@@ -464,7 +668,15 @@ Returns:<br>
 &nbsp;<br>
 Raises:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;ValueError:&nbsp;If&nbsp;any&nbsp;required&nbsp;argument&nbsp;is&nbsp;missing.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;Exception:&nbsp;If&nbsp;the&nbsp;API&nbsp;response&nbsp;status&nbsp;code&nbsp;is&nbsp;&gt;=&nbsp;400.</span></dd></dl>
+&nbsp;&nbsp;&nbsp;&nbsp;Exception:&nbsp;If&nbsp;the&nbsp;API&nbsp;response&nbsp;status&nbsp;code&nbsp;is&nbsp;&gt;=&nbsp;400.<br>
+&nbsp;<br>
+Example::<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;result&nbsp;=&nbsp;api.<a href="#TruenumbersRestApi-update_truenumber_values_by_json">update_truenumber_values_by_json</a>(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;numberspace="my_space",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;truenumbers_json=[{"guid":&nbsp;"...",&nbsp;"value":&nbsp;"2.0e6&nbsp;USD"}],<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tags=["bulk-edit"],<br>
+&nbsp;&nbsp;&nbsp;&nbsp;)</span></dd></dl>
 
 <dl><dt><a name="TruenumbersRestApi-update_truenumber_values_by_statement"><strong>update_truenumber_values_by_statement</strong></a>(self, **kwargs)</dt><dd><span class="code">Update&nbsp;Truenumber&nbsp;values&nbsp;based&nbsp;on&nbsp;a&nbsp;natural‑language&nbsp;statement.<br>
 &nbsp;<br>
@@ -485,7 +697,15 @@ Returns:<br>
 &nbsp;<br>
 Raises:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;ValueError:&nbsp;If&nbsp;any&nbsp;required&nbsp;argument&nbsp;is&nbsp;missing.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;Exception:&nbsp;If&nbsp;the&nbsp;API&nbsp;response&nbsp;status&nbsp;code&nbsp;is&nbsp;&gt;=&nbsp;400.</span></dd></dl>
+&nbsp;&nbsp;&nbsp;&nbsp;Exception:&nbsp;If&nbsp;the&nbsp;API&nbsp;response&nbsp;status&nbsp;code&nbsp;is&nbsp;&gt;=&nbsp;400.<br>
+&nbsp;<br>
+Example::<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;result&nbsp;=&nbsp;api.<a href="#TruenumbersRestApi-update_truenumber_values_by_statement">update_truenumber_values_by_statement</a>(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;numberspace="my_space",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;true_statement="Acme&nbsp;revenue&nbsp;is&nbsp;2.0&nbsp;million&nbsp;USD&nbsp;in&nbsp;2025",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tags=["correction"],<br>
+&nbsp;&nbsp;&nbsp;&nbsp;)</span></dd></dl>
 
 <dl><dt><a name="TruenumbersRestApi-verify_user"><strong>verify_user</strong></a>(self)</dt><dd><span class="code">Verify&nbsp;the&nbsp;current&nbsp;authenticated&nbsp;user&nbsp;session.<br>
 &nbsp;<br>
@@ -497,7 +717,11 @@ Returns:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;state&nbsp;(for&nbsp;example&nbsp;user&nbsp;id,&nbsp;email&nbsp;and&nbsp;token&nbsp;validity).<br>
 &nbsp;<br>
 Raises:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;Exception:&nbsp;If&nbsp;the&nbsp;API&nbsp;response&nbsp;status&nbsp;code&nbsp;is&nbsp;&gt;=&nbsp;400.</span></dd></dl>
+&nbsp;&nbsp;&nbsp;&nbsp;Exception:&nbsp;If&nbsp;the&nbsp;API&nbsp;response&nbsp;status&nbsp;code&nbsp;is&nbsp;&gt;=&nbsp;400.<br>
+&nbsp;<br>
+Example::<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;user&nbsp;=&nbsp;api.<a href="#TruenumbersRestApi-verify_user">verify_user</a>()</span></dd></dl>
 
 <hr>
 Data descriptors defined here:<br>
