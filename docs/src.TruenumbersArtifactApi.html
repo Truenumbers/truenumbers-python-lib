@@ -37,14 +37,42 @@
 <td class="section-title" colspan=3>&nbsp;<br><a name="TruenumbersArtifactApi">class <strong>TruenumbersArtifactApi</strong></a>(<a href="builtins.html#object">builtins.object</a>)</td></tr>
     
 <tr><td class="decor title-decor" rowspan=2><span class="code">&nbsp;&nbsp;&nbsp;</span></td>
-<td class="decor title-decor" colspan=2><span class="code"><a href="#TruenumbersArtifactApi">TruenumbersArtifactApi</a>(**kwargs)<br>
+<td class="decor title-decor" colspan=2><span class="code"><a href="#TruenumbersArtifactApi">TruenumbersArtifactApi</a>(*,&nbsp;base_url,&nbsp;shared_headers=None)<br>
 &nbsp;<br>
-<a href="#TruenumbersArtifactApi">TruenumbersArtifactApi</a>&nbsp;class&nbsp;for&nbsp;interacting&nbsp;with&nbsp;the&nbsp;Truenumbers&nbsp;Artifact&nbsp;API.<br>&nbsp;</span></td></tr>
+Client&nbsp;for&nbsp;the&nbsp;Truenumbers&nbsp;Artifact&nbsp;API.<br>
+&nbsp;<br>
+This&nbsp;class&nbsp;wraps&nbsp;HTTP&nbsp;endpoints&nbsp;for&nbsp;artifact&nbsp;operations.&nbsp;Methods&nbsp;raise<br>
+``ValueError``&nbsp;when&nbsp;required&nbsp;arguments&nbsp;are&nbsp;missing&nbsp;and&nbsp;``Exception``&nbsp;when<br>
+the&nbsp;underlying&nbsp;HTTP&nbsp;request&nbsp;returns&nbsp;a&nbsp;status&nbsp;code&nbsp;&gt;=&nbsp;400.<br>
+&nbsp;<br>
+Example::<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;api&nbsp;=&nbsp;<a href="#TruenumbersArtifactApi">TruenumbersArtifactApi</a>(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;base_url="<a href="https://api.example.com/truenumbers-artifact-api">https://api.example.com/truenumbers-artifact-api</a>",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;shared_headers={"Authorization":&nbsp;"Bearer&nbsp;&lt;token&gt;"},<br>
+&nbsp;&nbsp;&nbsp;&nbsp;)<br>&nbsp;</span></td></tr>
 <tr><td>&nbsp;</td>
 <td class="singlecolumn">Methods defined here:<br>
-<dl><dt><a name="TruenumbersArtifactApi-__init__"><strong>__init__</strong></a>(self, **kwargs)</dt><dd><span class="code">Initializes&nbsp;the&nbsp;<a href="#TruenumbersArtifactApi">TruenumbersArtifactApi</a>.<br>
-:param&nbsp;base_url:&nbsp;str&nbsp;(required)&nbsp;-&nbsp;The&nbsp;base&nbsp;URL&nbsp;of&nbsp;the&nbsp;Truenumbers&nbsp;Artifact&nbsp;API.<br>
-:param&nbsp;shared_headers:&nbsp;dict&nbsp;(optional)&nbsp;-&nbsp;The&nbsp;shared&nbsp;headers&nbsp;to&nbsp;be&nbsp;used&nbsp;for&nbsp;all&nbsp;requests.</span></dd></dl>
+<dl><dt><a name="TruenumbersArtifactApi-__init__"><strong>__init__</strong></a>(self, *, base_url, shared_headers=None)</dt><dd><span class="code">Initialize&nbsp;a&nbsp;new&nbsp;Truenumbers&nbsp;Artifact&nbsp;API&nbsp;client.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;base_url&nbsp;(str):&nbsp;Base&nbsp;URL&nbsp;of&nbsp;the&nbsp;Artifact&nbsp;API.&nbsp;Required.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;shared_headers&nbsp;(dict,&nbsp;optional):&nbsp;Extra&nbsp;HTTP&nbsp;headers&nbsp;to&nbsp;send&nbsp;with&nbsp;every<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;request&nbsp;(for&nbsp;example&nbsp;authentication&nbsp;headers).&nbsp;Supplied&nbsp;keys<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;merge&nbsp;with&nbsp;the&nbsp;default&nbsp;``shared_headers``.<br>
+&nbsp;<br>
+Raises:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ValueError:&nbsp;If&nbsp;``base_url``&nbsp;is&nbsp;not&nbsp;provided.<br>
+&nbsp;<br>
+Example::<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;api&nbsp;=&nbsp;<a href="#TruenumbersArtifactApi">TruenumbersArtifactApi</a>(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;base_url="<a href="https://api.example.com/truenumbers-artifact-api">https://api.example.com/truenumbers-artifact-api</a>",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;api_auth&nbsp;=&nbsp;<a href="#TruenumbersArtifactApi">TruenumbersArtifactApi</a>(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;base_url="<a href="https://api.example.com/truenumbers-artifact-api">https://api.example.com/truenumbers-artifact-api</a>",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;shared_headers={"Authorization":&nbsp;"Bearer&nbsp;&lt;token&gt;"},<br>
+&nbsp;&nbsp;&nbsp;&nbsp;)</span></dd></dl>
 
 <hr>
 Data descriptors defined here:<br>
@@ -56,8 +84,6 @@ Data descriptors defined here:<br>
 </dl>
 <hr>
 Data and other attributes defined here:<br>
-<dl><dt><strong>__annotations__</strong> = {'base_url': &lt;class 'str'&gt;, 'shared_headers': &lt;class 'dict'&gt;}</dl>
-
 <dl><dt><strong>base_url</strong> = ''</dl>
 
 <dl><dt><strong>shared_headers</strong> = {'Accept': 'application/json', 'Content-Type': 'application/json'}</dl>
