@@ -37,7 +37,7 @@
 <td class="section-title" colspan=3>&nbsp;<br><a name="TruenumbersTriggerApi">class <strong>TruenumbersTriggerApi</strong></a>(<a href="builtins.html#object">builtins.object</a>)</td></tr>
     
 <tr><td class="decor title-decor" rowspan=2><span class="code">&nbsp;&nbsp;&nbsp;</span></td>
-<td class="decor title-decor" colspan=2><span class="code"><a href="#TruenumbersTriggerApi">TruenumbersTriggerApi</a>(**kwargs)<br>
+<td class="decor title-decor" colspan=2><span class="code"><a href="#TruenumbersTriggerApi">TruenumbersTriggerApi</a>(*,&nbsp;base_url,&nbsp;shared_headers=None)<br>
 &nbsp;<br>
 High-level&nbsp;client&nbsp;for&nbsp;the&nbsp;Truenumbers&nbsp;Trigger&nbsp;API.<br>
 &nbsp;<br>
@@ -59,7 +59,7 @@ Example::<br>
 &nbsp;&nbsp;&nbsp;&nbsp;)<br>&nbsp;</span></td></tr>
 <tr><td>&nbsp;</td>
 <td class="singlecolumn">Methods defined here:<br>
-<dl><dt><a name="TruenumbersTriggerApi-__init__"><strong>__init__</strong></a>(self, **kwargs)</dt><dd><span class="code">Initialize&nbsp;a&nbsp;new&nbsp;Truenumbers&nbsp;Trigger&nbsp;API&nbsp;client.<br>
+<dl><dt><a name="TruenumbersTriggerApi-__init__"><strong>__init__</strong></a>(self, *, base_url, shared_headers=None)</dt><dd><span class="code">Initialize&nbsp;a&nbsp;new&nbsp;Truenumbers&nbsp;Trigger&nbsp;API&nbsp;client.<br>
 &nbsp;<br>
 Args:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;base_url&nbsp;(str):&nbsp;Base&nbsp;URL&nbsp;of&nbsp;the&nbsp;Trigger&nbsp;API,&nbsp;for&nbsp;example<br>
@@ -82,7 +82,7 @@ Example::<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;shared_headers={"Authorization":&nbsp;"Bearer&nbsp;&lt;token&gt;"},<br>
 &nbsp;&nbsp;&nbsp;&nbsp;)</span></dd></dl>
 
-<dl><dt><a name="TruenumbersTriggerApi-create_trigger"><strong>create_trigger</strong></a>(self, **kwargs)</dt><dd><span class="code">Create&nbsp;a&nbsp;trigger&nbsp;definition.<br>
+<dl><dt><a name="TruenumbersTriggerApi-create_trigger"><strong>create_trigger</strong></a>(self, *, numberspace, name, execute_on, description=None, tnql=None, status=None, tag_on_trigger=None, load_historic_data=None, destinations=None)</dt><dd><span class="code">Create&nbsp;a&nbsp;trigger&nbsp;definition.<br>
 &nbsp;<br>
 This&nbsp;wraps&nbsp;``POST&nbsp;/v1/trigger-definition``.<br>
 &nbsp;<br>
@@ -90,12 +90,12 @@ Args:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;numberspace&nbsp;(str):&nbsp;Numberspace&nbsp;where&nbsp;the&nbsp;trigger&nbsp;will&nbsp;be&nbsp;created.<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Required.<br>
 &nbsp;&nbsp;&nbsp;&nbsp;name&nbsp;(str):&nbsp;Trigger&nbsp;name.&nbsp;Required.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;execute_on&nbsp;(list[str]):&nbsp;When&nbsp;the&nbsp;trigger&nbsp;fires.&nbsp;Common&nbsp;values&nbsp;include<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;``"CREATE"``,&nbsp;``"TAG"``,&nbsp;and&nbsp;``"CRON"``.&nbsp;Required.<br>
 &nbsp;&nbsp;&nbsp;&nbsp;description&nbsp;(str,&nbsp;optional):&nbsp;Human-readable&nbsp;description.<br>
 &nbsp;&nbsp;&nbsp;&nbsp;tnql&nbsp;(str,&nbsp;optional):&nbsp;TNQL&nbsp;query&nbsp;that&nbsp;selects&nbsp;which&nbsp;Truenumbers&nbsp;should<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;activate&nbsp;the&nbsp;trigger.&nbsp;Required&nbsp;when&nbsp;``execute_on``&nbsp;includes<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;``"CREATE"``&nbsp;or&nbsp;``"TAG"``.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;execute_on&nbsp;(list[str]):&nbsp;When&nbsp;the&nbsp;trigger&nbsp;fires.&nbsp;Common&nbsp;values&nbsp;include<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;``"CREATE"``,&nbsp;``"TAG"``,&nbsp;and&nbsp;``"CRON"``.&nbsp;Required.<br>
 &nbsp;&nbsp;&nbsp;&nbsp;status&nbsp;(str,&nbsp;optional):&nbsp;Trigger&nbsp;status&nbsp;(for&nbsp;example&nbsp;enabled/disabled).<br>
 &nbsp;&nbsp;&nbsp;&nbsp;tag_on_trigger&nbsp;(list[str],&nbsp;optional):&nbsp;Tags&nbsp;that&nbsp;should&nbsp;be&nbsp;applied&nbsp;to<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Truenumbers&nbsp;when&nbsp;the&nbsp;trigger&nbsp;executes&nbsp;(if&nbsp;supported&nbsp;by&nbsp;your&nbsp;server).<br>
@@ -128,7 +128,7 @@ Example::<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;destinations=[{"type":&nbsp;"WEB_SOCKET"}],<br>
 &nbsp;&nbsp;&nbsp;&nbsp;)</span></dd></dl>
 
-<dl><dt><a name="TruenumbersTriggerApi-delete_trigger"><strong>delete_trigger</strong></a>(self, **kwargs)</dt><dd><span class="code">Delete&nbsp;a&nbsp;trigger&nbsp;definition&nbsp;by&nbsp;GUID.<br>
+<dl><dt><a name="TruenumbersTriggerApi-delete_trigger"><strong>delete_trigger</strong></a>(self, *, id)</dt><dd><span class="code">Delete&nbsp;a&nbsp;trigger&nbsp;definition&nbsp;by&nbsp;GUID.<br>
 &nbsp;<br>
 This&nbsp;wraps&nbsp;``DELETE&nbsp;/v1/trigger-definitions/{guid}``.<br>
 &nbsp;<br>
@@ -148,7 +148,7 @@ Example::<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;id="00000000-0000-0000-0000-000000000000",<br>
 &nbsp;&nbsp;&nbsp;&nbsp;)</span></dd></dl>
 
-<dl><dt><a name="TruenumbersTriggerApi-get_trigger_by_id"><strong>get_trigger_by_id</strong></a>(self, **kwargs)</dt><dd><span class="code">Retrieve&nbsp;a&nbsp;single&nbsp;trigger&nbsp;definition&nbsp;by&nbsp;GUID.<br>
+<dl><dt><a name="TruenumbersTriggerApi-get_trigger_by_id"><strong>get_trigger_by_id</strong></a>(self, *, id)</dt><dd><span class="code">Retrieve&nbsp;a&nbsp;single&nbsp;trigger&nbsp;definition&nbsp;by&nbsp;GUID.<br>
 &nbsp;<br>
 This&nbsp;wraps&nbsp;``GET&nbsp;/v1/trigger-definitions/{guid}``.<br>
 &nbsp;<br>
@@ -170,7 +170,7 @@ Example::<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;id="00000000-0000-0000-0000-000000000000",<br>
 &nbsp;&nbsp;&nbsp;&nbsp;)</span></dd></dl>
 
-<dl><dt><a name="TruenumbersTriggerApi-get_triggers"><strong>get_triggers</strong></a>(self, **kwargs)</dt><dd><span class="code">List&nbsp;trigger&nbsp;definitions&nbsp;for&nbsp;a&nbsp;numberspace.<br>
+<dl><dt><a name="TruenumbersTriggerApi-get_triggers"><strong>get_triggers</strong></a>(self, *, numberspace, name=None, status=None)</dt><dd><span class="code">List&nbsp;trigger&nbsp;definitions&nbsp;for&nbsp;a&nbsp;numberspace.<br>
 &nbsp;<br>
 This&nbsp;wraps&nbsp;``GET&nbsp;/v1/trigger-definitions``.<br>
 &nbsp;<br>
@@ -197,7 +197,7 @@ Example::<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;status=["ENABLED",&nbsp;"DISABLED"],<br>
 &nbsp;&nbsp;&nbsp;&nbsp;)</span></dd></dl>
 
-<dl><dt><a name="TruenumbersTriggerApi-update_trigger"><strong>update_trigger</strong></a>(self, **kwargs)</dt><dd><span class="code">Partially&nbsp;update&nbsp;a&nbsp;trigger&nbsp;definition&nbsp;by&nbsp;GUID.<br>
+<dl><dt><a name="TruenumbersTriggerApi-update_trigger"><strong>update_trigger</strong></a>(self, *, id, name=None, description=None, tnql=None, execute_on=None, status=None, tag_on_trigger=None, destinations=None)</dt><dd><span class="code">Partially&nbsp;update&nbsp;a&nbsp;trigger&nbsp;definition&nbsp;by&nbsp;GUID.<br>
 &nbsp;<br>
 This&nbsp;wraps&nbsp;``PATCH&nbsp;/v1/trigger-definitions/{guid}``.<br>
 &nbsp;<br>
@@ -239,8 +239,6 @@ Data descriptors defined here:<br>
 </dl>
 <hr>
 Data and other attributes defined here:<br>
-<dl><dt><strong>__annotations__</strong> = {'base_url': &lt;class 'str'&gt;, 'shared_headers': &lt;class 'dict'&gt;}</dl>
-
 <dl><dt><strong>base_url</strong> = ''</dl>
 
 <dl><dt><strong>shared_headers</strong> = {'Accept': 'application/json', 'Content-Type': 'application/json'}</dl>
