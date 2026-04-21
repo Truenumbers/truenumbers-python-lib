@@ -7,6 +7,19 @@ class TruenumbersTriggerApi:
     This class wraps endpoints for managing trigger definitions. Methods raise
     ``ValueError`` when required arguments are missing and ``Exception`` when
     the underlying HTTP request returns a status code >= 400.
+
+    Example::
+
+        api = TruenumbersTriggerApi(
+            base_url="https://api.example.com/truenumbers-trigger-api",
+            shared_headers={"Authorization": "Bearer <token>"},
+        )
+        created = api.create_trigger(
+            numberspace="my_space",
+            name="on_create",
+            tnql="* has *",
+            execute_on=["CREATE"],
+        )
     """
     base_url: str = ""
     shared_headers: dict = {
@@ -27,6 +40,16 @@ class TruenumbersTriggerApi:
 
         Raises:
             ValueError: If ``base_url`` is not provided.
+
+        Example::
+
+            api = TruenumbersTriggerApi(
+                base_url="https://api.example.com/truenumbers-trigger-api",
+            )
+            api_auth = TruenumbersTriggerApi(
+                base_url="https://api.example.com/truenumbers-trigger-api",
+                shared_headers={"Authorization": "Bearer <token>"},
+            )
         """
         base_url = kwargs.get("base_url")
         if not base_url:
@@ -69,6 +92,20 @@ class TruenumbersTriggerApi:
         Raises:
             ValueError: If required arguments are missing or inconsistent.
             Exception: If the API response status code is >= 400.
+
+        Example::
+
+            created = api.create_trigger(
+                numberspace="my_space",
+                name="tagged_items",
+                description="Fires when matching Truenumbers are tagged",
+                tnql="* has *",
+                execute_on=["TAG"],
+                status="ENABLED",
+                tag_on_trigger=["processed"],
+                load_historic_data=True,
+                destinations=[{"type": "WEB_SOCKET"}],
+            )
         """
         numberspace = kwargs.get("numberspace")
         if not numberspace:
@@ -128,6 +165,15 @@ class TruenumbersTriggerApi:
         Raises:
             ValueError: If ``numberspace`` is missing.
             Exception: If the API response status code is >= 400.
+
+        Example::
+
+            all_triggers = api.get_triggers(numberspace="my_space")
+            filtered = api.get_triggers(
+                numberspace="my_space",
+                name="on_create",
+                status=["ENABLED", "DISABLED"],
+            )
         """
         numberspace = kwargs.get("numberspace")
         name = kwargs.get("name")
@@ -161,6 +207,12 @@ class TruenumbersTriggerApi:
         Raises:
             ValueError: If ``id`` is missing.
             Exception: If the API response status code is >= 400.
+
+        Example::
+
+            trigger = api.get_trigger_by_id(
+                id="00000000-0000-0000-0000-000000000000",
+            )
         """
         id = kwargs.get("id")
         if not id:
@@ -194,6 +246,16 @@ class TruenumbersTriggerApi:
         Raises:
             ValueError: If ``id`` is missing.
             Exception: If the API response status code is >= 400.
+
+        Example::
+
+            updated = api.update_trigger(
+                id="00000000-0000-0000-0000-000000000000",
+                name="tagged_items_v2",
+                tnql="* has *",
+                execute_on=["TAG", "CREATE"],
+                status="ENABLED",
+            )
         """
         id = kwargs.get("id")
         if not id:
@@ -237,6 +299,12 @@ class TruenumbersTriggerApi:
         Raises:
             ValueError: If ``id`` is missing.
             Exception: If the API response status code is >= 400.
+
+        Example::
+
+            result = api.delete_trigger(
+                id="00000000-0000-0000-0000-000000000000",
+            )
         """
         id = kwargs.get("id")
         if not id:

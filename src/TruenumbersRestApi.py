@@ -9,6 +9,14 @@ class TruenumbersRestApi:
     saved queries, and user accounts. All methods raise ``ValueError`` when a
     required argument is missing and ``Exception`` when the underlying HTTP
     request returns a status code >= 400.
+
+    Example::
+
+        api = TruenumbersRestApi(
+            base_url="https://api.example.com",
+            shared_headers={"Authorization": "Bearer <token>"},
+        )
+        rows = api.tnql(numberspace="my_space", tnql="* has *")
     """
     base_url: str = ""
     shared_headers: dict = {
@@ -29,6 +37,14 @@ class TruenumbersRestApi:
 
         Raises:
             ValueError: If ``base_url`` is not provided.
+
+        Example::
+
+            api = TruenumbersRestApi(base_url="https://api.example.com")
+            api_auth = TruenumbersRestApi(
+                base_url="https://api.example.com",
+                shared_headers={"Authorization": "Bearer <token>"},
+            )
         """
         base_url = kwargs.get("base_url")
         if not base_url:
@@ -58,6 +74,15 @@ class TruenumbersRestApi:
         Raises:
             ValueError: If ``numberspace`` or ``tnql`` is missing.
             Exception: If the API response status code is >= 400.
+
+        Example::
+
+            result = api.tnql(
+                numberspace="my_space",
+                tnql="* has *",
+                limit=50,
+                offset=0,
+            )
         """
         numberspace = kwargs.get("numberspace")
         if not numberspace:
@@ -99,6 +124,13 @@ class TruenumbersRestApi:
         Raises:
             ValueError: If ``numberspace`` or ``tnql`` is missing.
             Exception: If the API response status code is >= 400.
+
+        Example::
+
+            grouped = api.tnql_group_by(
+                numberspace="my_space",
+                tnql="* has *",
+            )
         """
         numberspace = kwargs.get("numberspace")
         if not numberspace:
@@ -130,6 +162,10 @@ class TruenumbersRestApi:
 
         Raises:
             Exception: If the API response status code is >= 400.
+
+        Example::
+
+            created = api.create_numberspace("my_space")
         """
         url = f"{self.base_url}/v2/numberflow/numberspace"
         json_payload = { "numberspace": numberspace}
@@ -148,6 +184,10 @@ class TruenumbersRestApi:
 
         Raises:
             Exception: If the API response status code is >= 400.
+
+        Example::
+
+            all_spaces = api.get_numberspaces()
         """
         url = f"{self.base_url}/v2/numberflow/numberspace"
         response = requests.get(url, headers=self.shared_headers)
@@ -168,6 +208,10 @@ class TruenumbersRestApi:
 
         Raises:
             Exception: If the API response status code is >= 400.
+
+        Example::
+
+            api.delete_numberspace("old_space")
         """
         url = f"{self.base_url}/v2/numberflow/numberspace"
         response = requests.delete(url, headers=self.shared_headers)
@@ -188,6 +232,10 @@ class TruenumbersRestApi:
 
         Raises:
             Exception: If the API response status code is >= 400.
+
+        Example::
+
+            info = api.get_numberspace("my_space")
         """
         url = f"{self.base_url}/v2/numberflow/numberspace"
         response = requests.get(url, headers=self.shared_headers)
@@ -224,6 +272,14 @@ class TruenumbersRestApi:
         Raises:
             ValueError: If ``numberspace`` or ``true_statement`` is missing.
             Exception: If the API response status code is >= 400.
+
+        Example::
+
+            created = api.create_truenumbers_from_statement(
+                numberspace="my_space",
+                true_statement="Acme revenue is 1.2 million USD in 2024",
+                tags=["imported"],
+            )
         """
         numberspace = kwargs.get("numberspace")
         if not numberspace:
@@ -243,52 +299,62 @@ class TruenumbersRestApi:
             raise Exception(f"Error: {response.status_code} {response.text}")
         return response.json()
 
-        def create_truenumbers_from_json(self, **kwargs):
-            """
-            Create one or more Truenumbers from a JSON payload.
+    def create_truenumbers_from_json(self, **kwargs):
+        """
+        Create one or more Truenumbers from a JSON payload.
 
-            This method maps to the
-            ``POST /v2/numberflow/numbers`` *Create Truenumbers* endpoint and uses
-            the ``truenumbers`` field of the request body.
+        This method maps to the
+        ``POST /v2/numberflow/numbers`` *Create Truenumbers* endpoint and uses
+        the ``truenumbers`` field of the request body.
 
-            Args:
-                numberspace (str): Numberspace in which the new Truenumbers will
-                    be created. Required.
-                truenumbers_json (list[dict]): List of JSON objects representing Truenumbers to create. Required.
-                noReturn (bool, optional): If ``True``, the API will not return the
-                    created Truenumbers in the response. Defaults to ``False``.
-                skipStore (bool, optional): If ``True``, creates Truenumbers
-                    without storing them. Defaults to ``False``.
-                tags (list, optional): Additional tags to attach to every created
-                    Truenumber. Defaults to an empty list.
+        Args:
+            numberspace (str): Numberspace in which the new Truenumbers will
+                be created. Required.
+            truenumbers_json (list[dict]): List of JSON objects representing Truenumbers to create. Required.
+            noReturn (bool, optional): If ``True``, the API will not return the
+                created Truenumbers in the response. Defaults to ``False``.
+            skipStore (bool, optional): If ``True``, creates Truenumbers
+                without storing them. Defaults to ``False``.
+            tags (list, optional): Additional tags to attach to every created
+                Truenumber. Defaults to an empty list.
 
-            Returns:
-                dict: A JSON object representing the created Truenumbers, typically
-                containing a list of Truenumber objects with fields such as
-                ``"guid"``, ``"subject"``, ``"property"``, ``"value"`` and
-                ``"tags"``.
+        Returns:
+            dict: A JSON object representing the created Truenumbers, typically
+            containing a list of Truenumber objects with fields such as
+            ``"guid"``, ``"subject"``, ``"property"``, ``"value"`` and
+            ``"tags"``.
 
-            Raises:
-                ValueError: If ``numberspace`` or ``truenumbers_json`` is missing.
-                Exception: If the API response status code is >= 400.
-            """
-            numberspace = kwargs.get("numberspace")
-            if not numberspace:
-                raise ValueError("numberspace is required")
-            truenumbers_json = kwargs.get("truenumbers_json")
-            if not truenumbers_json:
-                raise ValueError("truenumbers_json is required")
-            params = {
-                "noReturn": kwargs.get("noReturn", False),
-                "skipStore": kwargs.get("skipStore", False),
-                "tags": kwargs.get("tags", [])
-            }   
-            url = f"{self.base_url}/v2/numberflow/numbers"
-            json_payload = { "truenumbers": truenumbers_json, **params}
-            response = requests.post(url, headers=self.shared_headers, json=json_payload, params={"numberspace": numberspace})
-            if response.status_code >= 400:
-                raise Exception(f"Error: {response.status_code} {response.text}")
-            return response.json()
+        Raises:
+            ValueError: If ``numberspace`` or ``truenumbers_json`` is missing.
+            Exception: If the API response status code is >= 400.
+
+        Example::
+
+            created = api.create_truenumbers_from_json(
+                numberspace="my_space",
+                truenumbers_json=[
+                    {"subject": "Acme", "property": "revenue", "value": "1.2e6 USD"},
+                ],
+                tags=["bulk"],
+            )
+        """
+        numberspace = kwargs.get("numberspace")
+        if not numberspace:
+            raise ValueError("numberspace is required")
+        truenumbers_json = kwargs.get("truenumbers_json")
+        if not truenumbers_json:
+            raise ValueError("truenumbers_json is required")
+        params = {
+            "noReturn": kwargs.get("noReturn", False),
+            "skipStore": kwargs.get("skipStore", False),
+            "tags": kwargs.get("tags", [])
+        }
+        url = f"{self.base_url}/v2/numberflow/numbers"
+        json_payload = { "truenumbers": truenumbers_json, **params}
+        response = requests.post(url, headers=self.shared_headers, json=json_payload, params={"numberspace": numberspace})
+        if response.status_code >= 400:
+            raise Exception(f"Error: {response.status_code} {response.text}")
+        return response.json()
 
     def delete_truenumbers(self, **kwargs):
         """
@@ -309,6 +375,13 @@ class TruenumbersRestApi:
         Raises:
             ValueError: If ``numberspace`` or ``tnql`` is missing.
             Exception: If the API response status code is >= 400.
+
+        Example::
+
+            result = api.delete_truenumbers(
+                numberspace="my_space",
+                tnql="* has *",
+            )
         """
         url = f"{self.base_url}/v2/numberflow/numbers"
         numberspace = kwargs.get("numberspace")
@@ -341,6 +414,13 @@ class TruenumbersRestApi:
         Raises:
             ValueError: If ``numberspace`` or ``id`` is missing.
             Exception: If the API response status code is >= 400.
+
+        Example::
+
+            result = api.delete_truenumbers_by_id(
+                numberspace="my_space",
+                id="00000000-0000-0000-0000-000000000000",
+            )
         """
         numberspace = kwargs.get("numberspace")
         if not numberspace:
@@ -375,6 +455,14 @@ class TruenumbersRestApi:
         Raises:
             ValueError: If any required argument is missing.
             Exception: If the API response status code is >= 400.
+
+        Example::
+
+            result = api.tag_truenumbers(
+                numberspace="my_space",
+                tnql="* has *",
+                tags=["reviewed", "2024"],
+            )
         """
         numberspace = kwargs.get("numberspace")
         if not numberspace:
@@ -413,6 +501,14 @@ class TruenumbersRestApi:
         Raises:
             ValueError: If any required argument is missing.
             Exception: If the API response status code is >= 400.
+
+        Example::
+
+            result = api.remove_tags_from_truenumbers(
+                numberspace="my_space",
+                tnql="* has *",
+                tags=["stale"],
+            )
         """
         numberspace = kwargs.get("numberspace")
         if not numberspace:
@@ -449,6 +545,13 @@ class TruenumbersRestApi:
         Raises:
             ValueError: If ``numberspace`` or ``id`` is missing.
             Exception: If the API response status code is >= 400.
+
+        Example::
+
+            tn = api.get_truenumber_by_id(
+                numberspace="my_space",
+                id="00000000-0000-0000-0000-000000000000",
+            )
         """
         numberspace = kwargs.get("numberspace")
         if not numberspace:
@@ -482,6 +585,14 @@ class TruenumbersRestApi:
         Raises:
             ValueError: If any required argument is missing.
             Exception: If the API response status code is >= 400.
+
+        Example::
+
+            result = api.tag_truenumber_by_id(
+                numberspace="my_space",
+                id="00000000-0000-0000-0000-000000000000",
+                tags=["priority"],
+            )
         """
         numberspace = kwargs.get("numberspace")
         if not numberspace:
@@ -519,6 +630,14 @@ class TruenumbersRestApi:
         Raises:
             ValueError: If any required argument is missing.
             Exception: If the API response status code is >= 400.
+
+        Example::
+
+            result = api.remove_tags_from_truenumber_by_id(
+                numberspace="my_space",
+                id="00000000-0000-0000-0000-000000000000",
+                tags=["priority"],
+            )
         """
         numberspace = kwargs.get("numberspace")
         if not numberspace:
@@ -558,6 +677,14 @@ class TruenumbersRestApi:
         Raises:
             ValueError: If any required argument is missing.
             Exception: If the API response status code is >= 400.
+
+        Example::
+
+            result = api.update_truenumber_values_by_statement(
+                numberspace="my_space",
+                true_statement="Acme revenue is 2.0 million USD in 2025",
+                tags=["correction"],
+            )
         """
         numberspace = kwargs.get("numberspace")
         if not numberspace:
@@ -597,6 +724,14 @@ class TruenumbersRestApi:
         Raises:
             ValueError: If any required argument is missing.
             Exception: If the API response status code is >= 400.
+
+        Example::
+
+            result = api.update_truenumber_values_by_json(
+                numberspace="my_space",
+                truenumbers_json=[{"guid": "...", "value": "2.0e6 USD"}],
+                tags=["bulk-edit"],
+            )
         """
         numberspace = kwargs.get("numberspace")
         if not numberspace:
@@ -634,6 +769,13 @@ class TruenumbersRestApi:
         Raises:
             ValueError: If ``numberspace`` or ``operations`` is missing.
             Exception: If the API response status code is >= 400.
+
+        Example::
+
+            result = api.batched_truenumber_operations(
+                numberspace="my_space",
+                operations=[{"type": "CreateTruenumbers", "payload": {}}],
+            )
         """
         numberspace = kwargs.get("numberspace")
         if not numberspace:
@@ -663,6 +805,10 @@ class TruenumbersRestApi:
 
         Raises:
             Exception: If the API response status code is >= 400.
+
+        Example::
+
+            queries = api.get_saved_queries("my_space")
         """
         url = f"{self.base_url}/v2/numberflow/queries"
         response = requests.get(url, headers=self.shared_headers, params={"numberspace": numberspace})
@@ -689,6 +835,14 @@ class TruenumbersRestApi:
         Raises:
             ValueError: If any required argument is missing.
             Exception: If the API response status code is >= 400.
+
+        Example::
+
+            saved = api.create_saved_query(
+                numberspace="my_space",
+                name="Monthly rollup",
+                tnql="* has *",
+            )
         """
         numberspace = kwargs.get("numberspace")
         url = f"{self.base_url}/v2/numberflow/queries"
@@ -724,14 +878,23 @@ class TruenumbersRestApi:
         Raises:
             ValueError: If any required argument is missing.
             Exception: If the API response status code is >= 400.
+
+        Example::
+
+            updated = api.update_saved_query(
+                numberspace="my_space",
+                id="query-id-123",
+                name="Monthly rollup (revised)",
+                tnql="* has *",
+            )
         """
         numberspace = kwargs.get("numberspace")
         if not numberspace:
             raise ValueError("numberspace is required")
-        url = f"{self.base_url}/v2/numberflow/queries/{id}"
         id = kwargs.get("id")
         if not id:
             raise ValueError("id is required")
+        url = f"{self.base_url}/v2/numberflow/queries/{id}"
         name = kwargs.get("name")
         if not name:
             raise ValueError("name is required")
@@ -762,6 +925,13 @@ class TruenumbersRestApi:
         Raises:
             ValueError: If any required argument is missing.
             Exception: If the API response status code is >= 400.
+
+        Example::
+
+            result = api.delete_saved_query(
+                numberspace="my_space",
+                id="query-id-123",
+            )
         """
         numberspace = kwargs.get("numberspace")
         if not numberspace:
@@ -793,6 +963,13 @@ class TruenumbersRestApi:
         Raises:
             ValueError: If any required argument is missing.
             Exception: If the API response status code is >= 400.
+
+        Example::
+
+            rows = api.execute_saved_query_by_id(
+                numberspace="my_space",
+                id="query-id-123",
+            )
         """
         numberspace = kwargs.get("numberspace")
         if not numberspace:
@@ -825,6 +1002,14 @@ class TruenumbersRestApi:
         Raises:
             ValueError: If any required argument is missing.
             Exception: If the API response status code is >= 400.
+
+        Example::
+
+            session = api.login_user(
+                email="user@example.com",
+                password="secret",
+                organization="MY_PRODUCT",
+            )
         """
         email = kwargs.get("email")
         if not email:
@@ -861,6 +1046,14 @@ class TruenumbersRestApi:
         Raises:
             ValueError: If any required argument is missing.
             Exception: If the API response status code is >= 400.
+
+        Example::
+
+            account = api.register_user(
+                email="newuser@example.com",
+                password="secret",
+                organization="MY_PRODUCT",
+            )
         """
         email = kwargs.get("email")
         if not email:
@@ -891,6 +1084,10 @@ class TruenumbersRestApi:
 
         Raises:
             Exception: If the API response status code is >= 400.
+
+        Example::
+
+            user = api.verify_user()
         """
         url = f"{self.base_url}/v2/users/verify"
         response = requests.get(url, headers=self.shared_headers)
