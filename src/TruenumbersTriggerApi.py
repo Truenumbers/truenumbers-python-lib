@@ -21,12 +21,13 @@ class TruenumbersTriggerApi:
             execute_on=["CREATE"],
         )
     """
-    base_url: str = ""
-    shared_headers: dict = {
+    base_url = ""
+    shared_headers = {
         "Content-Type": "application/json",
         "Accept": "application/json"
     }
-    def __init__(self, **kwargs):
+
+    def __init__(self, *, base_url, shared_headers=None):
         """
         Initialize a new Truenumbers Trigger API client.
 
@@ -51,15 +52,13 @@ class TruenumbersTriggerApi:
                 shared_headers={"Authorization": "Bearer <token>"},
             )
         """
-        base_url = kwargs.get("base_url")
         if not base_url:
-            raise ValueError("base_url is required")
+            raise ValueError('base_url is required')
         self.base_url = base_url
-        shared_headers = kwargs.get("shared_headers")
         if shared_headers:
             self.shared_headers.update(shared_headers)
 
-    def create_trigger(self, **kwargs):
+    def create_trigger(self, *, numberspace, name, execute_on, description=None, tnql=None, status=None, tag_on_trigger=None, load_historic_data=None, destinations=None):
         """
         Create a trigger definition.
 
@@ -69,12 +68,12 @@ class TruenumbersTriggerApi:
             numberspace (str): Numberspace where the trigger will be created.
                 Required.
             name (str): Trigger name. Required.
+            execute_on (list[str]): When the trigger fires. Common values include
+                ``"CREATE"``, ``"TAG"``, and ``"CRON"``. Required.
             description (str, optional): Human-readable description.
             tnql (str, optional): TNQL query that selects which Truenumbers should
                 activate the trigger. Required when ``execute_on`` includes
                 ``"CREATE"`` or ``"TAG"``.
-            execute_on (list[str]): When the trigger fires. Common values include
-                ``"CREATE"``, ``"TAG"``, and ``"CRON"``. Required.
             status (str, optional): Trigger status (for example enabled/disabled).
             tag_on_trigger (list[str], optional): Tags that should be applied to
                 Truenumbers when the trigger executes (if supported by your server).
@@ -107,46 +106,24 @@ class TruenumbersTriggerApi:
                 destinations=[{"type": "WEB_SOCKET"}],
             )
         """
-        numberspace = kwargs.get("numberspace")
         if not numberspace:
-            raise ValueError("numberspace is required")
-        name = kwargs.get("name")
+            raise ValueError('numberspace is required')
         if not name:
-            raise ValueError("name is required")
-        description = kwargs.get("description")
-        tnql = kwargs.get("tnql")
-        execute_on = kwargs.get("execute_on")
+            raise ValueError('name is required')
         if not execute_on:
-            raise ValueError("execute_on is required")
-        status = kwargs.get("status")
-        tag_on_trigger = kwargs.get("tag_on_trigger")
-        load_historic_data = kwargs.get("load_historic_data")
-
-        if ("CREATE" in execute_on or "TAG" in execute_on) and not tnql:
-            raise ValueError("tnql is required for CREATE or TAG execute_on")
- 
-        params = {} if load_historic_data is None or load_historic_data is False else {"loadHistoricData": load_historic_data}
-
-        destinations = kwargs.get("destinations") or [{
-            "type": "WEB_SOCKET"
-        }]
-        payload = {
-            "numberspace": numberspace,
-            "name": name,
-            "description": description,
-            "tnql": tnql,
-            "executeOn": execute_on,
-            "status": status,
-            "tagOnTrigger": tag_on_trigger,
-            "destinations": destinations
-        }
-        url = f"{self.base_url}/v1/trigger-definition"
+            raise ValueError('execute_on is required')
+        if ('CREATE' in execute_on or 'TAG' in execute_on) and (not tnql):
+            raise ValueError('tnql is required for CREATE or TAG execute_on')
+        params = {} if load_historic_data is None or load_historic_data is False else {'loadHistoricData': load_historic_data}
+        dest = destinations if destinations else [{'type': 'WEB_SOCKET'}]
+        payload = {'numberspace': numberspace, 'name': name, 'description': description, 'tnql': tnql, 'executeOn': execute_on, 'status': status, 'tagOnTrigger': tag_on_trigger, 'destinations': dest}
+        url = f'{self.base_url}/v1/trigger-definition'
         response = requests.post(url, headers=self.shared_headers, json=payload, params=params)
         if response.status_code >= 400:
-            raise Exception(f"Failed to create trigger: {response.text}")
+            raise Exception(f'Failed to create trigger: {response.text}')
         return response.json()
 
-    def get_triggers(self, **kwargs):
+    def get_triggers(self, *, numberspace, name=None, status=None):
         """
         List trigger definitions for a numberspace.
 
@@ -175,22 +152,17 @@ class TruenumbersTriggerApi:
                 status=["ENABLED", "DISABLED"],
             )
         """
-        numberspace = kwargs.get("numberspace")
-        name = kwargs.get("name")
-        status = kwargs.get("status")
         if not numberspace:
-            raise ValueError("numberspace is required")
-        url = f"{self.base_url}/v1/trigger-definitions"
-
-        status_delimiter = ","
+            raise ValueError('numberspace is required')
+        url = f'{self.base_url}/v1/trigger-definitions'
+        status_delimiter = ','
         status_param = status_delimiter.join(status) if status else None
-        response = requests.get(url, headers=self.shared_headers, params={"numberspace": numberspace, "name": name, "status": status_param})
+        response = requests.get(url, headers=self.shared_headers, params={'numberspace': numberspace, 'name': name, 'status': status_param})
         if response.status_code >= 400:
-            raise Exception(f"Failed to get triggers: {response.text}")
+            raise Exception(f'Failed to get triggers: {response.text}')
         return response.json()
 
-
-    def get_trigger_by_id(self, **kwargs):
+    def get_trigger_by_id(self, *, id):
         """
         Retrieve a single trigger definition by GUID.
 
@@ -214,16 +186,15 @@ class TruenumbersTriggerApi:
                 id="00000000-0000-0000-0000-000000000000",
             )
         """
-        id = kwargs.get("id")
         if not id:
-            raise ValueError("id is required")
-        url = f"{self.base_url}/v1/trigger-definitions/{id}"
+            raise ValueError('id is required')
+        url = f'{self.base_url}/v1/trigger-definitions/{id}'
         response = requests.get(url, headers=self.shared_headers)
         if response.status_code >= 400:
-            raise Exception(f"Failed to get trigger by id: {response.text}")
+            raise Exception(f'Failed to get trigger by id: {response.text}')
         return response.json()
 
-    def update_trigger(self, **kwargs):
+    def update_trigger(self, *, id, name=None, description=None, tnql=None, execute_on=None, status=None, tag_on_trigger=None, destinations=None):
         """
         Partially update a trigger definition by GUID.
 
@@ -257,34 +228,16 @@ class TruenumbersTriggerApi:
                 status="ENABLED",
             )
         """
-        id = kwargs.get("id")
         if not id:
-            raise ValueError("id is required")
-        name = kwargs.get("name")
-        description = kwargs.get("description")
-        tnql = kwargs.get("tnql")
-        execute_on = kwargs.get("execute_on")
-        status = kwargs.get("status")
-        tag_on_trigger = kwargs.get("tag_on_trigger")
-        destinations = kwargs.get("destinations")
-
-        payload = {
-            "name": name,
-            "description": description,
-            "tnql": tnql,
-            "executeOn": execute_on,
-            "status": status,
-            "tagOnTrigger": tag_on_trigger,
-            "destinations": destinations
-        }
-
-        url = f"{self.base_url}/v1/trigger-definitions/{id}"
+            raise ValueError('id is required')
+        payload = {'name': name, 'description': description, 'tnql': tnql, 'executeOn': execute_on, 'status': status, 'tagOnTrigger': tag_on_trigger, 'destinations': destinations}
+        url = f'{self.base_url}/v1/trigger-definitions/{id}'
         response = requests.patch(url, headers=self.shared_headers, json=payload)
         if response.status_code >= 400:
-            raise Exception(f"Failed to update trigger: {response.text}")
+            raise Exception(f'Failed to update trigger: {response.text}')
         return response.json()
 
-    def delete_trigger(self, **kwargs):
+    def delete_trigger(self, *, id):
         """
         Delete a trigger definition by GUID.
 
@@ -306,11 +259,10 @@ class TruenumbersTriggerApi:
                 id="00000000-0000-0000-0000-000000000000",
             )
         """
-        id = kwargs.get("id")
         if not id:
-            raise ValueError("id is required")
-        url = f"{self.base_url}/v1/trigger-definitions/{id}"
+            raise ValueError('id is required')
+        url = f'{self.base_url}/v1/trigger-definitions/{id}'
         response = requests.delete(url, headers=self.shared_headers)
         if response.status_code >= 400:
-            raise Exception(f"Failed to delete trigger: {response.text}")
+            raise Exception(f'Failed to delete trigger: {response.text}')
         return response.json()

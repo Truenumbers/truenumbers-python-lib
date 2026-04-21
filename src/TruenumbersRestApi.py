@@ -18,13 +18,13 @@ class TruenumbersRestApi:
         )
         rows = api.tnql(numberspace="my_space", tnql="* has *")
     """
-    base_url: str = ""
-    shared_headers: dict = {
+    base_url = ""
+    shared_headers = {
         "Content-Type": "application/json",
         "Accept": "application/json"
     }
 
-    def __init__(self, **kwargs):
+    def __init__(self, *, base_url, shared_headers=None):
         """
         Initialize a new Truenumbers REST API client.
 
@@ -46,15 +46,13 @@ class TruenumbersRestApi:
                 shared_headers={"Authorization": "Bearer <token>"},
             )
         """
-        base_url = kwargs.get("base_url")
         if not base_url:
-            raise ValueError("base_url is required")
+            raise ValueError('base_url is required')
         self.base_url = base_url
-        shared_headers = kwargs.get("shared_headers")
         if shared_headers:
             self.shared_headers.update(shared_headers)
-    
-    def tnql(self, **kwargs):
+
+    def tnql(self, *, numberspace, tnql, limit=1000, offset=0):
         """
         Execute a TNQL query against a numberspace.
 
@@ -62,7 +60,7 @@ class TruenumbersRestApi:
             numberspace (str): Name of the numberspace to query. Required.
             tnql (str): TNQL query string to execute. Required.
             limit (int, optional): Maximum number of rows to return.
-                Defaults to ``100``.
+                Defaults to ``1000``.
             offset (int, optional): Number of rows to skip before returning
                 results. Defaults to ``0``.
 
@@ -84,24 +82,19 @@ class TruenumbersRestApi:
                 offset=0,
             )
         """
-        numberspace = kwargs.get("numberspace")
         if not numberspace:
-            raise ValueError("numberspace is required")
-        tnql = kwargs.get("tnql")
+            raise ValueError('numberspace is required')
         if not tnql:
-            raise ValueError("tnql is required")
-        params = {
-            "limit": kwargs.get("limit", 100),
-            "offset": kwargs.get("offset", 0)
-        }
-        url = f"{self.base_url}/v2/numberflow/tnql"
-        json_payload = { "tnql": tnql }
-        response = requests.post(url, headers=self.shared_headers, json=json_payload, params={"numberspace": numberspace, **params})
+            raise ValueError('tnql is required')
+        params = {'limit': limit, 'offset': offset}
+        url = f'{self.base_url}/v2/numberflow/tnql'
+        json_payload = {'tnql': tnql}
+        response = requests.post(url, headers=self.shared_headers, json=json_payload, params={'numberspace': numberspace, **params})
         if response.status_code >= 400:
-            raise Exception(f"Error: {response.status_code} {response.text}")
+            raise Exception(f'Error: {response.status_code} {response.text}')
         return response.json()
 
-    def tnql_group_by(self, **kwargs):
+    def tnql_group_by(self, *, numberspace, tnql, limit=1000, offset=0):
         """
         Execute a TNQL ``GROUP BY`` query against a numberspace.
 
@@ -113,7 +106,7 @@ class TruenumbersRestApi:
             tnql (str): TNQL query string containing a ``GROUP BY`` clause.
                 Required.
             limit (int, optional): Maximum number of grouped rows to return.
-                Defaults to ``100``.
+                Defaults to ``1000``.
             offset (int, optional): Number of groups to skip before returning
                 results. Defaults to ``0``.
 
@@ -132,24 +125,19 @@ class TruenumbersRestApi:
                 tnql="* has *",
             )
         """
-        numberspace = kwargs.get("numberspace")
         if not numberspace:
-            raise ValueError("numberspace is required")
-        tnql = kwargs.get("tnql")
+            raise ValueError('numberspace is required')
         if not tnql:
-            raise ValueError("tnql is required")
-        params = {
-            "limit": kwargs.get("limit", 100),
-            "offset": kwargs.get("offset", 0)
-        }
-        url = f"{self.base_url}/v2/numberflow/tnql/group-by"
-        json_payload = { "tnql": tnql }
-        response = requests.post(url, headers=self.shared_headers, json=json_payload, params={"numberspace": numberspace, **params})
+            raise ValueError('tnql is required')
+        params = {'limit': limit, 'offset': offset}
+        url = f'{self.base_url}/v2/numberflow/tnql/group-by'
+        json_payload = {'tnql': tnql}
+        response = requests.post(url, headers=self.shared_headers, json=json_payload, params={'numberspace': numberspace, **params})
         if response.status_code >= 400:
-            raise Exception(f"Error: {response.status_code} {response.text}")
+            raise Exception(f'Error: {response.status_code} {response.text}')
         return response.json()
 
-    def create_numberspace(self, numberspace: str):
+    def create_numberspace(self, numberspace):
         """
         Create a new numberspace.
 
@@ -167,11 +155,11 @@ class TruenumbersRestApi:
 
             created = api.create_numberspace("my_space")
         """
-        url = f"{self.base_url}/v2/numberflow/numberspace"
-        json_payload = { "numberspace": numberspace}
+        url = f'{self.base_url}/v2/numberflow/numberspace'
+        json_payload = {'numberspace': numberspace}
         response = requests.post(url, headers=self.shared_headers, json=json_payload)
         if response.status_code >= 400:
-            raise Exception(f"Error: {response.status_code} {response.text}")
+            raise Exception(f'Error: {response.status_code} {response.text}')
         return response.json()
 
     def get_numberspaces(self):
@@ -189,13 +177,13 @@ class TruenumbersRestApi:
 
             all_spaces = api.get_numberspaces()
         """
-        url = f"{self.base_url}/v2/numberflow/numberspace"
+        url = f'{self.base_url}/v2/numberflow/numberspace'
         response = requests.get(url, headers=self.shared_headers)
         if response.status_code >= 400:
-            raise Exception(f"Error: {response.status_code} {response.text}")
+            raise Exception(f'Error: {response.status_code} {response.text}')
         return response.json()
-    
-    def delete_numberspace(self, numberspace: str):
+
+    def delete_numberspace(self, numberspace):
         """
         Delete an existing numberspace.
 
@@ -213,37 +201,13 @@ class TruenumbersRestApi:
 
             api.delete_numberspace("old_space")
         """
-        url = f"{self.base_url}/v2/numberflow/numberspace"
+        url = f'{self.base_url}/v2/numberflow/numberspace'
         response = requests.delete(url, headers=self.shared_headers)
         if response.status_code >= 400:
-            raise Exception(f"Error: {response.status_code} {response.text}")
-        return response.json()
-    
-    def get_numberspace(self, numberspace: str):
-        """
-        Retrieve a single numberspace by name.
-
-        Args:
-            numberspace (str): Name of the numberspace to retrieve.
-
-        Returns:
-            dict: A JSON object describing the numberspace, including its name
-            and associated metadata.
-
-        Raises:
-            Exception: If the API response status code is >= 400.
-
-        Example::
-
-            info = api.get_numberspace("my_space")
-        """
-        url = f"{self.base_url}/v2/numberflow/numberspace"
-        response = requests.get(url, headers=self.shared_headers)
-        if response.status_code >= 400:
-            raise Exception(f"Error: {response.status_code} {response.text}")
+            raise Exception(f'Error: {response.status_code} {response.text}')
         return response.json()
 
-    def create_truenumbers_from_statement(self, **kwargs):
+    def create_truenumbers_from_statement(self, *, numberspace, true_statement, noReturn=False, skipStore=False, tags=None):
         """
         Create one or more Truenumbers from a natural‑language statement.
 
@@ -281,25 +245,20 @@ class TruenumbersRestApi:
                 tags=["imported"],
             )
         """
-        numberspace = kwargs.get("numberspace")
         if not numberspace:
-            raise ValueError("numberspace is required")
-        true_statement = kwargs.get("true_statement")
+            raise ValueError('numberspace is required')
         if not true_statement:
-            raise ValueError("true_statement is required")
-        params = {
-            "noReturn": kwargs.get("noReturn", False),
-            "skipStore": kwargs.get("skipStore", False),
-            "tags": kwargs.get("tags", [])
-        }
-        url = f"{self.base_url}/v2/numberflow/numbers"
-        json_payload = { "trueStatement": true_statement, **params}
-        response = requests.post(url, headers=self.shared_headers, json=json_payload, params={"numberspace": numberspace})
+            raise ValueError('true_statement is required')
+        tag_list = tags if tags is not None else []
+        params = {'noReturn': noReturn, 'skipStore': skipStore, 'tags': tag_list}
+        url = f'{self.base_url}/v2/numberflow/numbers'
+        json_payload = {'trueStatement': true_statement, **params}
+        response = requests.post(url, headers=self.shared_headers, json=json_payload, params={'numberspace': numberspace})
         if response.status_code >= 400:
-            raise Exception(f"Error: {response.status_code} {response.text}")
+            raise Exception(f'Error: {response.status_code} {response.text}')
         return response.json()
 
-    def create_truenumbers_from_json(self, **kwargs):
+    def create_truenumbers_from_json(self, *, numberspace, truenumbers_json, noReturn=False, skipStore=False, tags=None):
         """
         Create one or more Truenumbers from a JSON payload.
 
@@ -338,25 +297,20 @@ class TruenumbersRestApi:
                 tags=["bulk"],
             )
         """
-        numberspace = kwargs.get("numberspace")
         if not numberspace:
-            raise ValueError("numberspace is required")
-        truenumbers_json = kwargs.get("truenumbers_json")
+            raise ValueError('numberspace is required')
         if not truenumbers_json:
-            raise ValueError("truenumbers_json is required")
-        params = {
-            "noReturn": kwargs.get("noReturn", False),
-            "skipStore": kwargs.get("skipStore", False),
-            "tags": kwargs.get("tags", [])
-        }
-        url = f"{self.base_url}/v2/numberflow/numbers"
-        json_payload = { "truenumbers": truenumbers_json, **params}
-        response = requests.post(url, headers=self.shared_headers, json=json_payload, params={"numberspace": numberspace})
+            raise ValueError('truenumbers_json is required')
+        tag_list = tags if tags is not None else []
+        params = {'noReturn': noReturn, 'skipStore': skipStore, 'tags': tag_list}
+        url = f'{self.base_url}/v2/numberflow/numbers'
+        json_payload = {'truenumbers': truenumbers_json, **params}
+        response = requests.post(url, headers=self.shared_headers, json=json_payload, params={'numberspace': numberspace})
         if response.status_code >= 400:
-            raise Exception(f"Error: {response.status_code} {response.text}")
+            raise Exception(f'Error: {response.status_code} {response.text}')
         return response.json()
 
-    def delete_truenumbers(self, **kwargs):
+    def delete_truenumbers(self, *, numberspace, tnql):
         """
         Delete Truenumbers that match a TNQL query.
 
@@ -383,20 +337,18 @@ class TruenumbersRestApi:
                 tnql="* has *",
             )
         """
-        url = f"{self.base_url}/v2/numberflow/numbers"
-        numberspace = kwargs.get("numberspace")
         if not numberspace:
-            raise ValueError("numberspace is required")
-        tnql = kwargs.get("tnql")
+            raise ValueError('numberspace is required')
         if not tnql:
-            raise ValueError("tnql is required")
-        json_payload = { "tnql": tnql}
-        response = requests.delete(url, headers=self.shared_headers, json=json_payload, params={"numberspace": numberspace})
+            raise ValueError('tnql is required')
+        url = f'{self.base_url}/v2/numberflow/numbers'
+        json_payload = {'tnql': tnql}
+        response = requests.delete(url, headers=self.shared_headers, json=json_payload, params={'numberspace': numberspace})
         if response.status_code >= 400:
-            raise Exception(f"Error: {response.status_code} {response.text}")
+            raise Exception(f'Error: {response.status_code} {response.text}')
         return response.json()
 
-    def delete_truenumbers_by_id(self, **kwargs):
+    def delete_truenumbers_by_id(self, *, numberspace, id):
         """
         Delete a single Truenumber by its unique identifier.
 
@@ -422,19 +374,17 @@ class TruenumbersRestApi:
                 id="00000000-0000-0000-0000-000000000000",
             )
         """
-        numberspace = kwargs.get("numberspace")
         if not numberspace:
-            raise ValueError("numberspace is required")
-        id = kwargs.get("id")
+            raise ValueError('numberspace is required')
         if not id:
-            raise ValueError("id is required")
-        url = f"{self.base_url}/v2/numberflow/numbers/{id}"
-        response = requests.delete(url, headers=self.shared_headers, params={"numberspace": numberspace})
+            raise ValueError('id is required')
+        url = f'{self.base_url}/v2/numberflow/numbers/{id}'
+        response = requests.delete(url, headers=self.shared_headers, params={'numberspace': numberspace})
         if response.status_code >= 400:
-            raise Exception(f"Error: {response.status_code} {response.text}")
+            raise Exception(f'Error: {response.status_code} {response.text}')
         return response.json()
 
-    def tag_truenumbers(self, **kwargs):
+    def tag_truenumbers(self, *, numberspace, tnql, tags):
         """
         Add tags to all Truenumbers that match a TNQL query.
 
@@ -464,23 +414,20 @@ class TruenumbersRestApi:
                 tags=["reviewed", "2024"],
             )
         """
-        numberspace = kwargs.get("numberspace")
         if not numberspace:
-            raise ValueError("numberspace is required")
-        tnql = kwargs.get("tnql")
+            raise ValueError('numberspace is required')
         if not tnql:
-            raise ValueError("tnql is required")
-        tags = kwargs.get("tags")
+            raise ValueError('tnql is required')
         if not tags:
-            raise ValueError("tags is required")
-        url = f"{self.base_url}/v2/numberflow/numbers/tags"
-        json_payload = { "tnql": tnql, "addTags": tags}
-        response = requests.patch(url, headers=self.shared_headers, json=json_payload, params={"numberspace": numberspace})
+            raise ValueError('tags is required')
+        url = f'{self.base_url}/v2/numberflow/numbers/tags'
+        json_payload = {'tnql': tnql, 'addTags': tags}
+        response = requests.patch(url, headers=self.shared_headers, json=json_payload, params={'numberspace': numberspace})
         if response.status_code >= 400:
-            raise Exception(f"Error: {response.status_code} {response.text}")
+            raise Exception(f'Error: {response.status_code} {response.text}')
         return response.json()
 
-    def remove_tags_from_truenumbers(self, **kwargs):
+    def remove_tags_from_truenumbers(self, *, numberspace, tnql, tags):
         """
         Remove tags from all Truenumbers that match a TNQL query.
 
@@ -510,23 +457,20 @@ class TruenumbersRestApi:
                 tags=["stale"],
             )
         """
-        numberspace = kwargs.get("numberspace")
         if not numberspace:
-            raise ValueError("numberspace is required")
-        tnql = kwargs.get("tnql")
+            raise ValueError('numberspace is required')
         if not tnql:
-            raise ValueError("tnql is required")
-        tags = kwargs.get("tags")
+            raise ValueError('tnql is required')
         if not tags:
-            raise ValueError("tags is required")
-        url = f"{self.base_url}/v2/numberflow/numbers/tags"
-        json_payload = { "tnql": tnql, "removeTags": tags}
-        response = requests.patch(url, headers=self.shared_headers, json=json_payload, params={"numberspace": numberspace})
+            raise ValueError('tags is required')
+        url = f'{self.base_url}/v2/numberflow/numbers/tags'
+        json_payload = {'tnql': tnql, 'removeTags': tags}
+        response = requests.patch(url, headers=self.shared_headers, json=json_payload, params={'numberspace': numberspace})
         if response.status_code >= 400:
-            raise Exception(f"Error: {response.status_code} {response.text}")
+            raise Exception(f'Error: {response.status_code} {response.text}')
         return response.json()
 
-    def get_truenumber_by_id(self, **kwargs):
+    def get_truenumber_by_id(self, *, numberspace, id):
         """
         Fetch a single Truenumber by its GUID.
 
@@ -553,19 +497,17 @@ class TruenumbersRestApi:
                 id="00000000-0000-0000-0000-000000000000",
             )
         """
-        numberspace = kwargs.get("numberspace")
         if not numberspace:
-            raise ValueError("numberspace is required")
-        id = kwargs.get("id")
+            raise ValueError('numberspace is required')
         if not id:
-            raise ValueError("id is required")
-        url = f"{self.base_url}/v2/numberflow/numbers/{id}"
-        response = requests.get(url, headers=self.shared_headers, params={"numberspace": numberspace})
+            raise ValueError('id is required')
+        url = f'{self.base_url}/v2/numberflow/numbers/{id}'
+        response = requests.get(url, headers=self.shared_headers, params={'numberspace': numberspace})
         if response.status_code >= 400:
-            raise Exception(f"Error: {response.status_code} {response.text}")
+            raise Exception(f'Error: {response.status_code} {response.text}')
         return response.json()
 
-    def tag_truenumber_by_id(self, **kwargs):
+    def tag_truenumber_by_id(self, *, numberspace, id, tags):
         """
         Add tags to a single Truenumber by GUID.
 
@@ -594,23 +536,20 @@ class TruenumbersRestApi:
                 tags=["priority"],
             )
         """
-        numberspace = kwargs.get("numberspace")
         if not numberspace:
-            raise ValueError("numberspace is required")
-        id = kwargs.get("id")
+            raise ValueError('numberspace is required')
         if not id:
-            raise ValueError("id is required")
-        tags = kwargs.get("tags")
+            raise ValueError('id is required')
         if not tags:
-            raise ValueError("tags is required")
-        url = f"{self.base_url}/v2/numberflow/numbers/{id}/tags"
-        json_payload = { "addTags": tags}
-        response = requests.patch(url, headers=self.shared_headers, json=json_payload, params={"numberspace": numberspace})
+            raise ValueError('tags is required')
+        url = f'{self.base_url}/v2/numberflow/numbers/{id}/tags'
+        json_payload = {'addTags': tags}
+        response = requests.patch(url, headers=self.shared_headers, json=json_payload, params={'numberspace': numberspace})
         if response.status_code >= 400:
-            raise Exception(f"Error: {response.status_code} {response.text}")
+            raise Exception(f'Error: {response.status_code} {response.text}')
         return response.json()
-    
-    def remove_tags_from_truenumber_by_id(self, **kwargs):
+
+    def remove_tags_from_truenumber_by_id(self, *, numberspace, id, tags):
         """
         Remove tags from a single Truenumber by GUID.
 
@@ -639,23 +578,20 @@ class TruenumbersRestApi:
                 tags=["priority"],
             )
         """
-        numberspace = kwargs.get("numberspace")
         if not numberspace:
-            raise ValueError("numberspace is required")
-        id = kwargs.get("id")
+            raise ValueError('numberspace is required')
         if not id:
-            raise ValueError("id is required")
-        tags = kwargs.get("tags")
+            raise ValueError('id is required')
         if not tags:
-            raise ValueError("tags is required")
-        url = f"{self.base_url}/v2/numberflow/numbers/{id}/tags"
-        json_payload = { "removeTags": tags}
-        response = requests.patch(url, headers=self.shared_headers, json=json_payload, params={"numberspace": numberspace})
+            raise ValueError('tags is required')
+        url = f'{self.base_url}/v2/numberflow/numbers/{id}/tags'
+        json_payload = {'removeTags': tags}
+        response = requests.patch(url, headers=self.shared_headers, json=json_payload, params={'numberspace': numberspace})
         if response.status_code >= 400:
-            raise Exception(f"Error: {response.status_code} {response.text}")
+            raise Exception(f'Error: {response.status_code} {response.text}')
         return response.json()
-    
-    def update_truenumber_values_by_statement(self, **kwargs):
+
+    def update_truenumber_values_by_statement(self, *, numberspace, true_statement, tags):
         """
         Update Truenumber values based on a natural‑language statement.
 
@@ -686,23 +622,20 @@ class TruenumbersRestApi:
                 tags=["correction"],
             )
         """
-        numberspace = kwargs.get("numberspace")
         if not numberspace:
-            raise ValueError("numberspace is required")
-        true_statement = kwargs.get("true_statement")
+            raise ValueError('numberspace is required')
         if not true_statement:
-            raise ValueError("true_statement is required")
-        tags = kwargs.get("tags")
+            raise ValueError('true_statement is required')
         if not tags:
-            raise ValueError("tags is required")
-        url = f"{self.base_url}/v2/numberflow/numbers/value"
-        json_payload = { "trueStatement": true_statement, "tags": tags}
-        response = requests.put(url, headers=self.shared_headers, json=json_payload, params={"numberspace": numberspace})
+            raise ValueError('tags is required')
+        url = f'{self.base_url}/v2/numberflow/numbers/value'
+        json_payload = {'trueStatement': true_statement, 'tags': tags}
+        response = requests.put(url, headers=self.shared_headers, json=json_payload, params={'numberspace': numberspace})
         if response.status_code >= 400:
-            raise Exception(f"Error: {response.status_code} {response.text}")
+            raise Exception(f'Error: {response.status_code} {response.text}')
         return response.json()
-    
-    def update_truenumber_values_by_json(self, **kwargs):
+
+    def update_truenumber_values_by_json(self, *, numberspace, truenumbers_json, tags):
         """
         Update Truenumber values using an explicit JSON payload.
 
@@ -733,23 +666,20 @@ class TruenumbersRestApi:
                 tags=["bulk-edit"],
             )
         """
-        numberspace = kwargs.get("numberspace")
         if not numberspace:
-            raise ValueError("numberspace is required")
-        truenumbers_json = kwargs.get("truenumbers_json")
+            raise ValueError('numberspace is required')
         if not truenumbers_json:
-            raise ValueError("truenumbers_json is required")
-        tags = kwargs.get("tags")
+            raise ValueError('truenumbers_json is required')
         if not tags:
-            raise ValueError("tags is required")
-        url = f"{self.base_url}/v2/numberflow/numbers/value"
-        json_payload = { "truenumbers": truenumbers_json, "tags": tags}
-        response = requests.put(url, headers=self.shared_headers, json=json_payload, params={"numberspace": numberspace})
+            raise ValueError('tags is required')
+        url = f'{self.base_url}/v2/numberflow/numbers/value'
+        json_payload = {'truenumbers': truenumbers_json, 'tags': tags}
+        response = requests.put(url, headers=self.shared_headers, json=json_payload, params={'numberspace': numberspace})
         if response.status_code >= 400:
-            raise Exception(f"Error: {response.status_code} {response.text}")
+            raise Exception(f'Error: {response.status_code} {response.text}')
         return response.json()
 
-    def batched_truenumber_operations(self, **kwargs):
+    def batched_truenumber_operations(self, *, numberspace, operations):
         """
         Execute a batch of heterogeneous Truenumber operations in one call.
 
@@ -777,20 +707,18 @@ class TruenumbersRestApi:
                 operations=[{"type": "CreateTruenumbers", "payload": {}}],
             )
         """
-        numberspace = kwargs.get("numberspace")
         if not numberspace:
-            raise ValueError("numberspace is required")
-        operations = kwargs.get("operations")
+            raise ValueError('numberspace is required')
         if not operations:
-            raise ValueError("operations is required")
-        url = f"{self.base_url}/v2/numberflow/batch"
-        json_payload = { "operations": operations}
-        response = requests.post(url, headers=self.shared_headers, json=json_payload, params={"numberspace": numberspace})
+            raise ValueError('operations is required')
+        url = f'{self.base_url}/v2/numberflow/batch'
+        json_payload = {'operations': operations}
+        response = requests.post(url, headers=self.shared_headers, json=json_payload, params={'numberspace': numberspace})
         if response.status_code >= 400:
-            raise Exception(f"Error: {response.status_code} {response.text}")
+            raise Exception(f'Error: {response.status_code} {response.text}')
         return response.json()
 
-    def get_saved_queries(self, numberspace: str):
+    def get_saved_queries(self, numberspace):
         """
         List saved queries in a numberspace.
 
@@ -810,13 +738,13 @@ class TruenumbersRestApi:
 
             queries = api.get_saved_queries("my_space")
         """
-        url = f"{self.base_url}/v2/numberflow/queries"
-        response = requests.get(url, headers=self.shared_headers, params={"numberspace": numberspace})
+        url = f'{self.base_url}/v2/numberflow/queries'
+        response = requests.get(url, headers=self.shared_headers, params={'numberspace': numberspace})
         if response.status_code >= 400:
-            raise Exception(f"Error: {response.status_code} {response.text}")
+            raise Exception(f'Error: {response.status_code} {response.text}')
         return response.json()
 
-    def create_saved_query(self, **kwargs):
+    def create_saved_query(self, *, numberspace, name, tnql):
         """
         Create a new saved query.
 
@@ -844,21 +772,20 @@ class TruenumbersRestApi:
                 tnql="* has *",
             )
         """
-        numberspace = kwargs.get("numberspace")
-        url = f"{self.base_url}/v2/numberflow/queries"
-        name = kwargs.get("name")
+        if not numberspace:
+            raise ValueError('numberspace is required')
         if not name:
-            raise ValueError("name is required")
-        tnql = kwargs.get("tnql")
+            raise ValueError('name is required')
         if not tnql:
-            raise ValueError("tnql is required")
-        payload = { "name": name, "tnql": tnql}
-        response = requests.post(url, headers=self.shared_headers, json=payload, params={"numberspace": numberspace})
+            raise ValueError('tnql is required')
+        url = f'{self.base_url}/v2/numberflow/queries'
+        payload = {'name': name, 'tnql': tnql}
+        response = requests.post(url, headers=self.shared_headers, json=payload, params={'numberspace': numberspace})
         if response.status_code >= 400:
-            raise Exception(f"Error: {response.status_code} {response.text}")
+            raise Exception(f'Error: {response.status_code} {response.text}')
         return response.json()
-    
-    def update_saved_query(self, **kwargs):
+
+    def update_saved_query(self, *, numberspace, id, name, tnql):
         """
         Update an existing saved query.
 
@@ -888,26 +815,22 @@ class TruenumbersRestApi:
                 tnql="* has *",
             )
         """
-        numberspace = kwargs.get("numberspace")
         if not numberspace:
-            raise ValueError("numberspace is required")
-        id = kwargs.get("id")
+            raise ValueError('numberspace is required')
         if not id:
-            raise ValueError("id is required")
-        url = f"{self.base_url}/v2/numberflow/queries/{id}"
-        name = kwargs.get("name")
+            raise ValueError('id is required')
         if not name:
-            raise ValueError("name is required")
-        tnql = kwargs.get("tnql")
+            raise ValueError('name is required')
         if not tnql:
-            raise ValueError("tnql is required")
-        payload = { "name": name, "tnql": tnql}
-        response = requests.put(url, headers=self.shared_headers, json=payload, params={"numberspace": numberspace})
+            raise ValueError('tnql is required')
+        url = f'{self.base_url}/v2/numberflow/queries/{id}'
+        payload = {'name': name, 'tnql': tnql}
+        response = requests.put(url, headers=self.shared_headers, json=payload, params={'numberspace': numberspace})
         if response.status_code >= 400:
-            raise Exception(f"Error: {response.status_code} {response.text}")
+            raise Exception(f'Error: {response.status_code} {response.text}')
         return response.json()
-    
-    def delete_saved_query(self, **kwargs):
+
+    def delete_saved_query(self, *, numberspace, id):
         """
         Delete a saved query by ID.
 
@@ -933,19 +856,17 @@ class TruenumbersRestApi:
                 id="query-id-123",
             )
         """
-        numberspace = kwargs.get("numberspace")
         if not numberspace:
-            raise ValueError("numberspace is required")
-        id = kwargs.get("id")
+            raise ValueError('numberspace is required')
         if not id:
-            raise ValueError("id is required")
-        url = f"{self.base_url}/v2/numberflow/queries/{id}"
-        response = requests.delete(url, headers=self.shared_headers, params={"numberspace": numberspace})
+            raise ValueError('id is required')
+        url = f'{self.base_url}/v2/numberflow/queries/{id}'
+        response = requests.delete(url, headers=self.shared_headers, params={'numberspace': numberspace})
         if response.status_code >= 400:
-            raise Exception(f"Error: {response.status_code} {response.text}")
+            raise Exception(f'Error: {response.status_code} {response.text}')
         return response.json()
-    
-    def execute_saved_query_by_id(self, **kwargs):
+
+    def execute_saved_query_by_id(self, *, numberspace, id):
         """
         Execute a saved query and return its results.
 
@@ -971,19 +892,17 @@ class TruenumbersRestApi:
                 id="query-id-123",
             )
         """
-        numberspace = kwargs.get("numberspace")
         if not numberspace:
-            raise ValueError("numberspace is required")
-        id = kwargs.get("id")
+            raise ValueError('numberspace is required')
         if not id:
-            raise ValueError("id is required")
-        url = f"{self.base_url}/v2/numberflow/queries/{id}/results"
-        response = requests.get(url, headers=self.shared_headers, params={"numberspace": numberspace})
+            raise ValueError('id is required')
+        url = f'{self.base_url}/v2/numberflow/queries/{id}/results'
+        response = requests.get(url, headers=self.shared_headers, params={'numberspace': numberspace})
         if response.status_code >= 400:
-            raise Exception(f"Error: {response.status_code} {response.text}")
+            raise Exception(f'Error: {response.status_code} {response.text}')
         return response.json()
 
-    def login_user(self, **kwargs):
+    def login_user(self, *, email, password, organization):
         """
         Authenticate a user and obtain a session or token.
 
@@ -1011,23 +930,20 @@ class TruenumbersRestApi:
                 organization="MY_PRODUCT",
             )
         """
-        email = kwargs.get("email")
         if not email:
-            raise ValueError("email is required")
-        password = kwargs.get("password")
+            raise ValueError('email is required')
         if not password:
-            raise ValueError("password is required")
-        organization = kwargs.get("organization")
+            raise ValueError('password is required')
         if not organization:
-            raise ValueError("organization is required")
-        url = f"{self.base_url}/v2/users/login"
-        json_payload = { "email": email, "password": password, "productCode": organization}
+            raise ValueError('organization is required')
+        url = f'{self.base_url}/v2/users/login'
+        json_payload = {'email': email, 'password': password, 'productCode': organization}
         response = requests.post(url, headers=self.shared_headers, json=json_payload)
         if response.status_code >= 400:
-            raise Exception(f"Error: {response.status_code} {response.text}")
+            raise Exception(f'Error: {response.status_code} {response.text}')
         return response.json()
-    
-    def register_user(self, **kwargs):
+
+    def register_user(self, *, email, password, organization):
         """
         Register a new user account.
 
@@ -1055,20 +971,17 @@ class TruenumbersRestApi:
                 organization="MY_PRODUCT",
             )
         """
-        email = kwargs.get("email")
         if not email:
-            raise ValueError("email is required")
-        password = kwargs.get("password")
+            raise ValueError('email is required')
         if not password:
-            raise ValueError("password is required")
-        organization = kwargs.get("organization")
+            raise ValueError('password is required')
         if not organization:
-            raise ValueError("organization is required")
-        url = f"{self.base_url}/v2/users/register"
-        json_payload = { "email": email, "password": password, "productCode": organization}
+            raise ValueError('organization is required')
+        url = f'{self.base_url}/v2/users/register'
+        json_payload = {'email': email, 'password': password, 'productCode': organization}
         response = requests.post(url, headers=self.shared_headers, json=json_payload)
         if response.status_code >= 400:
-            raise Exception(f"Error: {response.status_code} {response.text}")
+            raise Exception(f'Error: {response.status_code} {response.text}')
         return response.json()
 
     def verify_user(self):
@@ -1089,9 +1002,8 @@ class TruenumbersRestApi:
 
             user = api.verify_user()
         """
-        url = f"{self.base_url}/v2/users/verify"
+        url = f'{self.base_url}/v2/users/verify'
         response = requests.get(url, headers=self.shared_headers)
         if response.status_code >= 400:
-            raise Exception(f"Error: {response.status_code} {response.text}")
+            raise Exception(f'Error: {response.status_code} {response.text}')
         return response.json()
-    
