@@ -1,4 +1,5 @@
 test-main.py
+.venv/
 __pycache__/
 *.egg-info/
 build/
