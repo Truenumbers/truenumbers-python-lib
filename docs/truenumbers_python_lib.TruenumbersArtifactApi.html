@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Python: class TruenumbersArtifactApi</title>
+</head><body>
+<p>
+<table class="section">
+<tr class="decor title-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><strong>truenumbers_python_lib.TruenumbersArtifactApi</strong> = <a name="truenumbers_python_lib.TruenumbersArtifactApi">class TruenumbersArtifactApi</a>(<a href="builtins.html#object">builtins.object</a>)</td></tr>
+    
+<tr><td class="decor title-decor" rowspan=2><span class="code">&nbsp;&nbsp;&nbsp;</span></td>
+<td class="decor title-decor" colspan=2><span class="code">truenumbers_python_lib.TruenumbersArtifactApi(*,&nbsp;base_url,&nbsp;shared_headers=None)<br>
+&nbsp;<br>
+Client&nbsp;for&nbsp;the&nbsp;Truenumbers&nbsp;Artifact&nbsp;API.<br>
+&nbsp;<br>
+This&nbsp;class&nbsp;wraps&nbsp;HTTP&nbsp;endpoints&nbsp;for&nbsp;artifact&nbsp;operations.&nbsp;Methods&nbsp;raise<br>
+``ValueError``&nbsp;when&nbsp;required&nbsp;arguments&nbsp;are&nbsp;missing&nbsp;and&nbsp;``Exception``&nbsp;when<br>
+the&nbsp;underlying&nbsp;HTTP&nbsp;request&nbsp;returns&nbsp;a&nbsp;status&nbsp;code&nbsp;&gt;=&nbsp;400.<br>
+&nbsp;<br>
+Example::<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;api&nbsp;=&nbsp;TruenumbersArtifactApi(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;base_url="<a href="https://api.example.com/truenumbers-artifact-api">https://api.example.com/truenumbers-artifact-api</a>",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;shared_headers={"Authorization":&nbsp;"Bearer&nbsp;&lt;token&gt;"},<br>
+&nbsp;&nbsp;&nbsp;&nbsp;)<br>&nbsp;</span></td></tr>
+<tr><td>&nbsp;</td>
+<td class="singlecolumn">Methods defined here:<br>
+<dl><dt><a name="TruenumbersArtifactApi-__init__"><strong>__init__</strong></a>(self, *, base_url, shared_headers=None)</dt><dd><span class="code">Initialize&nbsp;a&nbsp;new&nbsp;Truenumbers&nbsp;Artifact&nbsp;API&nbsp;client.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;base_url&nbsp;(str):&nbsp;Base&nbsp;URL&nbsp;of&nbsp;the&nbsp;Artifact&nbsp;API.&nbsp;Required.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;shared_headers&nbsp;(dict,&nbsp;optional):&nbsp;Extra&nbsp;HTTP&nbsp;headers&nbsp;to&nbsp;send&nbsp;with&nbsp;every<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;request&nbsp;(for&nbsp;example&nbsp;authentication&nbsp;headers).&nbsp;Supplied&nbsp;keys<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;merge&nbsp;with&nbsp;the&nbsp;default&nbsp;``shared_headers``.<br>
+&nbsp;<br>
+Raises:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ValueError:&nbsp;If&nbsp;``base_url``&nbsp;is&nbsp;not&nbsp;provided.<br>
+&nbsp;<br>
+Example::<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;api&nbsp;=&nbsp;TruenumbersArtifactApi(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;base_url="<a href="https://api.example.com/truenumbers-artifact-api">https://api.example.com/truenumbers-artifact-api</a>",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;api_auth&nbsp;=&nbsp;TruenumbersArtifactApi(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;base_url="<a href="https://api.example.com/truenumbers-artifact-api">https://api.example.com/truenumbers-artifact-api</a>",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;shared_headers={"Authorization":&nbsp;"Bearer&nbsp;&lt;token&gt;"},<br>
+&nbsp;&nbsp;&nbsp;&nbsp;)</span></dd></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><span class="code">dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</span></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><span class="code">list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</span></dd>
+</dl>
+<hr>
+Data and other attributes defined here:<br>
+<dl><dt><strong>base_url</strong> = ''</dl>
+
+<dl><dt><strong>shared_headers</strong> = {'Accept': 'application/json', 'Content-Type': 'application/json'}</dl>
+
+</td></tr></table>
+</body></html>
