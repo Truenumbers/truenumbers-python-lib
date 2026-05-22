@@ -5,10 +5,13 @@ def cleanup_html(html: str) -> str:
     """
     - Remove any <td class="extra">...</td> elements that pydoc puts
       in the header of generated HTML files.
-    - Rewrite the src index link from "src.html" to "/" for nicer URLs.
+    - Rewrite package index links from "{package}.html" to "/" for nicer URLs.
+
+    pydoc emits href="truenumbers_python_lib.html" etc. pointing at the
+    package overview file (which we rename to index.html).
     """
     html = re.sub(r'<td class="extra">.*?</td>', "", html, flags=re.DOTALL)
-    html = html.replace('href="src.html"', 'href="/"')
+    html = html.replace('href="truenumbers_python_lib.html"', 'href="/"')
     return html
 
 
