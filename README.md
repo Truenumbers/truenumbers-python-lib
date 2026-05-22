@@ -1,5 +1,4 @@
-Truenumbers Python Libraries
-============================
+# Truenumbers Python Libraries
 
 Distribution name (pip): **`truenumbers-python-lib`**
 
@@ -8,7 +7,7 @@ import paths; this is the conventional mapping).
 
 Installation::
 
-    pip install truenumbers-python-lib
+    pip install truenumbers-python-lib @ git+https://github.com/Truenumbers/truenumbers-python-lib
 
 Usage::
 
