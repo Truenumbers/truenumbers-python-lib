@@ -2,6 +2,8 @@
 set -e
 ROOT="$(cd "$(dirname "$0")" && pwd)"
 cd "$ROOT"
+# Refresh editable metadata (version, etc.) from pyproject.toml before pydoc reads it
+python -m pip install -e "${ROOT}" --no-deps -q
 export PYTHONPATH="${ROOT}/src${PYTHONPATH:+:$PYTHONPATH}"
 
 rm -rf docs/*.html

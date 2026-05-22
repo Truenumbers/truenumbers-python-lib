@@ -7,7 +7,7 @@
 
 <table class="heading">
 <tr class="heading-text decor">
-<td class="title">&nbsp;<br><strong class="title">truenumbers_python_lib</strong> (version 0.0.3)</td>
+<td class="title">&nbsp;<br><strong class="title">truenumbers_python_lib</strong> (version 0.0.4)</td>
 </tr></table>
     <p><span class="code">Truenumbers&nbsp;Python&nbsp;library:&nbsp;clients&nbsp;for&nbsp;REST,&nbsp;Trigger,&nbsp;and&nbsp;Artifact&nbsp;APIs.<br>
 &nbsp;<br>
@@ -302,6 +302,26 @@ Raises:<br>
 Example::<br>
 &nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;api.<a href="#TruenumbersRestApi-delete_numberspace">delete_numberspace</a>("old_space")</span></dd></dl>
+
+<dl><dt><a name="TruenumbersRestApi-delete_saved_queries"><strong>delete_saved_queries</strong></a>(self, *, numberspace)</dt><dd><span class="code">Delete&nbsp;all&nbsp;saved&nbsp;queries&nbsp;in&nbsp;a&nbsp;numberspace.<br>
+&nbsp;<br>
+This&nbsp;wraps&nbsp;``DELETE&nbsp;/v2/numberflow/queries``.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;numberspace&nbsp;(str):&nbsp;Numberspace&nbsp;to&nbsp;delete&nbsp;saved&nbsp;queries&nbsp;from.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Required.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;dict:&nbsp;A&nbsp;JSON&nbsp;<a href="builtins.html#object">object</a>&nbsp;confirming&nbsp;deletion&nbsp;of&nbsp;the&nbsp;saved&nbsp;queries&nbsp;and&nbsp;any<br>
+&nbsp;&nbsp;&nbsp;&nbsp;additional&nbsp;status&nbsp;information.<br>
+&nbsp;<br>
+Raises:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ValueError:&nbsp;If&nbsp;any&nbsp;required&nbsp;argument&nbsp;is&nbsp;missing.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Exception:&nbsp;If&nbsp;the&nbsp;API&nbsp;response&nbsp;status&nbsp;code&nbsp;is&nbsp;&gt;=&nbsp;400.<br>
+&nbsp;<br>
+Example::<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;api.<a href="#TruenumbersRestApi-delete_saved_queries">delete_saved_queries</a>("my_space")</span></dd></dl>
 
 <dl><dt><a name="TruenumbersRestApi-delete_saved_query"><strong>delete_saved_query</strong></a>(self, *, numberspace, id)</dt><dd><span class="code">Delete&nbsp;a&nbsp;saved&nbsp;query&nbsp;by&nbsp;ID.<br>
 &nbsp;<br>
@@ -907,6 +927,14 @@ Example::<br>
 &nbsp;&nbsp;&nbsp;&nbsp;result&nbsp;=&nbsp;api.<a href="#TruenumbersTriggerApi-delete_trigger">delete_trigger</a>(<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;id="00000000-0000-0000-0000-000000000000",<br>
 &nbsp;&nbsp;&nbsp;&nbsp;)</span></dd></dl>
+
+<dl><dt><a name="TruenumbersTriggerApi-delete_triggers"><strong>delete_triggers</strong></a>(self, *, numberspace)</dt><dd><span class="code">Delete&nbsp;all&nbsp;trigger&nbsp;definitions&nbsp;in&nbsp;a&nbsp;numberspace.<br>
+&nbsp;<br>
+This&nbsp;wraps&nbsp;``DELETE&nbsp;/v1/trigger-definitions``.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;numberspace&nbsp;(str):&nbsp;Numberspace&nbsp;to&nbsp;delete&nbsp;trigger&nbsp;definitions&nbsp;from.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Required.</span></dd></dl>
 
 <dl><dt><a name="TruenumbersTriggerApi-get_trigger_by_id"><strong>get_trigger_by_id</strong></a>(self, *, id)</dt><dd><span class="code">Retrieve&nbsp;a&nbsp;single&nbsp;trigger&nbsp;definition&nbsp;by&nbsp;GUID.<br>
 &nbsp;<br>
