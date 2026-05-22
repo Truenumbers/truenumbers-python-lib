@@ -809,7 +809,7 @@ class TruenumbersRestApi:
         if not tnql:
             raise ValueError('tnql is required')
         url = f'{self.base_url}/v2/numberflow/queries'
-        payload = {'name': name, 'tnql': tnql}
+        payload = { 'query': {'name': name, 'tnql': tnql} }
         response = requests.post(url, headers=self.shared_headers, json=payload, params={'numberspace': numberspace})
         if response.status_code >= 400:
             raise Exception(f'Error: {response.status_code} {response.text}')
@@ -854,7 +854,7 @@ class TruenumbersRestApi:
         if not tnql:
             raise ValueError('tnql is required')
         url = f'{self.base_url}/v2/numberflow/queries/{id}'
-        payload = {'name': name, 'tnql': tnql}
+        payload = { 'query': {'name': name, 'tnql': tnql} }
         response = requests.put(url, headers=self.shared_headers, json=payload, params={'numberspace': numberspace})
         if response.status_code >= 400:
             raise Exception(f'Error: {response.status_code} {response.text}')

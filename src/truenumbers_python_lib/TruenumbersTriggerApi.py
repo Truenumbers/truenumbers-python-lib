@@ -149,15 +149,21 @@ class TruenumbersTriggerApi:
             filtered = api.get_triggers(
                 numberspace="my_space",
                 name="on_create",
-                status=["ENABLED", "DISABLED"],
+                status=["ACTIVE", "INACTIVE"],
             )
         """
         if not numberspace:
             raise ValueError('numberspace is required')
         url = f'{self.base_url}/v1/trigger-definitions'
-        status_delimiter = ','
-        status_param = status_delimiter.join(status) if status else None
-        response = requests.get(url, headers=self.shared_headers, params={'numberspace': numberspace, 'name': name, 'status': status_param})
+        
+        params = {'numberspace': numberspace}
+        if name is not None:
+            params['name'] = name
+        if status is not None:
+            status_delimiter = ','
+            status_param = status_delimiter.join(status)
+            params['status'] = status_param
+        response = requests.get(url, headers=self.shared_headers, params=params)
         if response.status_code >= 400:
             raise Exception(f'Failed to get triggers: {response.text}')
         return response.json()
