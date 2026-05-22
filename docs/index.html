@@ -7,7 +7,7 @@
 
 <table class="heading">
 <tr class="heading-text decor">
-<td class="title">&nbsp;<br><strong class="title">truenumbers_python_lib</strong> (version 0.0.4)</td>
+<td class="title">&nbsp;<br><strong class="title">truenumbers_python_lib</strong> (version 0.0.5)</td>
 </tr></table>
     <p><span class="code">Truenumbers&nbsp;Python&nbsp;library:&nbsp;clients&nbsp;for&nbsp;REST,&nbsp;Trigger,&nbsp;and&nbsp;Artifact&nbsp;APIs.<br>
 &nbsp;<br>
@@ -982,7 +982,7 @@ Example::<br>
 &nbsp;&nbsp;&nbsp;&nbsp;filtered&nbsp;=&nbsp;api.<a href="#TruenumbersTriggerApi-get_triggers">get_triggers</a>(<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;numberspace="my_space",<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name="on_create",<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;status=["ENABLED",&nbsp;"DISABLED"],<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;status=["ACTIVE",&nbsp;"INACTIVE"],<br>
 &nbsp;&nbsp;&nbsp;&nbsp;)</span></dd></dl>
 
 <dl><dt><a name="TruenumbersTriggerApi-update_trigger"><strong>update_trigger</strong></a>(self, *, id, name=None, description=None, tnql=None, execute_on=None, status=None, tag_on_trigger=None, destinations=None)</dt><dd><span class="code">Partially&nbsp;update&nbsp;a&nbsp;trigger&nbsp;definition&nbsp;by&nbsp;GUID.<br>
