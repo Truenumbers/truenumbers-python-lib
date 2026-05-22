@@ -896,7 +896,7 @@ class TruenumbersRestApi:
         response = requests.delete(url, headers=headers, params={'numberspace': numberspace})
         if response.status_code >= 400:
             raise Exception(f'Error: {response.status_code} {response.text}')
-        return response.json()
+        return None
 
     def execute_saved_query_by_id(self, *, numberspace, id):
         """
