@@ -891,7 +891,9 @@ class TruenumbersRestApi:
         if not id:
             raise ValueError('id is required')
         url = f'{self.base_url}/v2/numberflow/queries/{id}'
-        response = requests.delete(url, headers=self.shared_headers, params={'numberspace': numberspace})
+        headers = self.shared_headers.copy()
+        headers.pop('Content-Type')
+        response = requests.delete(url, headers=headers, params={'numberspace': numberspace})
         if response.status_code >= 400:
             raise Exception(f'Error: {response.status_code} {response.text}')
         return response.json()
