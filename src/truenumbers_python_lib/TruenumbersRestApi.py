@@ -744,6 +744,36 @@ class TruenumbersRestApi:
             raise Exception(f'Error: {response.status_code} {response.text}')
         return response.json()
 
+    def delete_saved_queries(self, *, numberspace):
+        """
+        Delete all saved queries in a numberspace.
+
+        This wraps ``DELETE /v2/numberflow/queries``.
+
+        Args:
+            numberspace (str): Numberspace to delete saved queries from.
+                Required.
+
+        Returns:
+            dict: A JSON object confirming deletion of the saved queries and any
+            additional status information.
+
+        Raises:
+            ValueError: If any required argument is missing.
+            Exception: If the API response status code is >= 400.
+
+        Example::
+
+            api.delete_saved_queries("my_space")
+        """
+        if not numberspace:
+            raise ValueError('numberspace is required')
+        url = f'{self.base_url}/v2/numberflow/queries'
+        response = requests.delete(url, headers=self.shared_headers, params={'numberspace': numberspace})
+        if response.status_code >= 400:
+            raise Exception(f'Error: {response.status_code} {response.text}')
+        return response.json()
+
     def create_saved_query(self, *, numberspace, name, tnql):
         """
         Create a new saved query.

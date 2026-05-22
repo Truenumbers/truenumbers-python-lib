@@ -162,6 +162,24 @@ class TruenumbersTriggerApi:
             raise Exception(f'Failed to get triggers: {response.text}')
         return response.json()
 
+    def delete_triggers(self, *, numberspace):
+        """
+        Delete all trigger definitions in a numberspace.
+
+        This wraps ``DELETE /v1/trigger-definitions``.
+
+        Args:
+            numberspace (str): Numberspace to delete trigger definitions from.
+            Required.
+        """
+        if not numberspace:
+            raise ValueError('numberspace is required')
+        url = f'{self.base_url}/v1/trigger-definitions'
+        response = requests.delete(url, headers=self.shared_headers, params={'numberspace': numberspace})
+        if response.status_code >= 400:
+            raise Exception(f'Failed to delete triggers: {response.text}')
+        return response.json()
+
     def get_trigger_by_id(self, *, id):
         """
         Retrieve a single trigger definition by GUID.
