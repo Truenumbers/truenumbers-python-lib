@@ -5,10 +5,9 @@ Examples::
 
     from truenumbers_python_lib import TruenumbersRestApi, TruenumbersTriggerApi
     from truenumbers_python_lib import TruenumbersArtifactApi
+    from truenumbers_python_lib import truenumber_helpers
 
-Submodules remain importable::
-
-    from truenumbers_python_lib.TruenumbersRestApi import TruenumbersRestApi
+    truenumber_helpers.get_truenumber_type({...})
 """
 
 import re
@@ -56,6 +55,7 @@ def _version_from_matching_pyproject():
 
 __version__ = _version_from_matching_pyproject() or _read_dist_version()
 
+from . import truenumber_helpers
 from .TruenumbersArtifactApi import TruenumbersArtifactApi
 from .TruenumbersRestApi import TruenumbersRestApi
 from .TruenumbersTriggerApi import TruenumbersTriggerApi
@@ -65,4 +65,5 @@ __all__ = [
     "TruenumbersArtifactApi",
     "TruenumbersRestApi",
     "TruenumbersTriggerApi",
+    "truenumber_helpers",
 ]
