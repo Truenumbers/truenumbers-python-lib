@@ -22,7 +22,6 @@ def is_json_truenumber(truenumber: dict) -> bool:
     return get_truenumber_type(truenumber) == "json"
 
 
-
 SRD_PARTITION_REGEXP = re.compile(r'(:|/)')
 
 

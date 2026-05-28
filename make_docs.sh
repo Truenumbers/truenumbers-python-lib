@@ -8,9 +8,10 @@ export PYTHONPATH="${ROOT}/src${PYTHONPATH:+:$PYTHONPATH}"
 
 rm -rf docs/*.html
 python -m pydoc -w truenumbers_python_lib
-# python -m pydoc -w truenumbers_python_lib.TruenumbersRestApi
-# python -m pydoc -w truenumbers_python_lib.TruenumbersTriggerApi
-# python -m pydoc -w truenumbers_python_lib.TruenumbersArtifactApi
+python -m pydoc -w truenumbers_python_lib.TruenumbersRestApi
+python -m pydoc -w truenumbers_python_lib.TruenumbersTriggerApi
+python -m pydoc -w truenumbers_python_lib.TruenumbersArtifactApi
+python -m pydoc -w truenumbers_python_lib.truenumber_helpers
 mv *.html docs
 mv docs/truenumbers_python_lib.html docs/index.html
 python prepare_html_docs.py

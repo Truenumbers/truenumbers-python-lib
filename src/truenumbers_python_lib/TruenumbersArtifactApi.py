@@ -71,12 +71,22 @@ class TruenumbersArtifactApi:
             raise Exception(f"Error: {response.status_code} {response.text}")
         return response
 
-    def create_artifact(self, *, file_path):
+    def create_artifact(self, *, file_path, artifact_id=None):
         """
         Create an artifact.
+
+        Args:
+            file_path (str): Path to the file to upload. Required.
+            artifact_id (str, optional): ID of the artifact to create. If not provided, a new artifact will be created.
+
+        Returns:
+            dict: A JSON object describing the created artifact.
         """
+        params = {}
+        if artifact_id:
+            params['artifactId'] = artifact_id
         url = f"{self.base_url}/v1/artifact"
-        response = requests.post(url, headers=self.shared_headers, files={'file': open(file_path, 'rb')})
+        response = requests.post(url, headers=self.shared_headers, files={'file': open(file_path, 'rb')}, params=params)
         if response.status_code >= 400:
             raise Exception(f"Error: {response.status_code} {response.text}")
         return response.json()
