@@ -47,11 +47,12 @@ Example::<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;shared_headers={"Authorization":&nbsp;"Bearer&nbsp;&lt;token&gt;"},<br>
 &nbsp;&nbsp;&nbsp;&nbsp;)</span></dd></dl>
 
-<dl><dt><a name="TruenumbersArtifactApi-create_artifact"><strong>create_artifact</strong></a>(self, *, file_path, artifact_id=None)</dt><dd><span class="code">Create&nbsp;an&nbsp;artifact.<br>
+<dl><dt><a name="TruenumbersArtifactApi-create_artifact"><strong>create_artifact</strong></a>(self, *, file_path, artifact_id=None, file_name_override=None)</dt><dd><span class="code">Create&nbsp;an&nbsp;artifact.<br>
 &nbsp;<br>
 Args:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;file_path&nbsp;(str):&nbsp;Path&nbsp;to&nbsp;the&nbsp;file&nbsp;to&nbsp;upload.&nbsp;Required.<br>
 &nbsp;&nbsp;&nbsp;&nbsp;artifact_id&nbsp;(str,&nbsp;optional):&nbsp;ID&nbsp;of&nbsp;the&nbsp;artifact&nbsp;to&nbsp;create.&nbsp;If&nbsp;not&nbsp;provided,&nbsp;a&nbsp;new&nbsp;artifact&nbsp;will&nbsp;be&nbsp;created.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;file_name_override&nbsp;(str,&nbsp;optional):&nbsp;Name&nbsp;of&nbsp;the&nbsp;file&nbsp;to&nbsp;upload.&nbsp;If&nbsp;not&nbsp;provided,&nbsp;the&nbsp;file&nbsp;name&nbsp;will&nbsp;be&nbsp;the&nbsp;same&nbsp;as&nbsp;the&nbsp;file&nbsp;path.<br>
 &nbsp;<br>
 Returns:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;dict:&nbsp;A&nbsp;JSON&nbsp;object&nbsp;describing&nbsp;the&nbsp;created&nbsp;artifact.</span></dd></dl>
