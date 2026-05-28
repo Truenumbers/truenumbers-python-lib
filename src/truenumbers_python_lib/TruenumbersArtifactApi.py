@@ -86,9 +86,9 @@ class TruenumbersArtifactApi:
         url = f"{self.base_url}/v1/artifact"
         if artifact_id:
             url += f"/{artifact_id}"
-        files_payload = {'file': open(file_path, 'rb')}
+        files_payload = {'artifact': open(file_path, 'rb')}
         if file_name_override:
-            files_payload['file'] = (file_name_override, open(file_path, 'rb'))
+            files_payload['artifact'] = (file_name_override, open(file_path, 'rb'))
         response = requests.post(url, headers=self.shared_headers, files=files_payload)
         if response.status_code >= 400:
             raise Exception(f"Error: {response.status_code} {response.text}")
