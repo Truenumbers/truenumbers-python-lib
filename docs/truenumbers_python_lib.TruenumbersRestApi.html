@@ -684,6 +684,15 @@ Example::<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tags=["correction"],<br>
 &nbsp;&nbsp;&nbsp;&nbsp;)</span></dd></dl>
 
+<dl><dt><a name="TruenumbersRestApi-upsert_truenumbers"><strong>upsert_truenumbers</strong></a>(self, *, truenumbers_json, numberspace_override=None, regenerate_id=False)</dt><dd><span class="code">Upsert&nbsp;Truenumbers.<br>
+&nbsp;<br>
+This&nbsp;wraps&nbsp;``PUT&nbsp;/v2/numberflow/numbers``.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;truenumbers_json&nbsp;(list[dict]):&nbsp;List&nbsp;of&nbsp;Truenumber&nbsp;dictionaries&nbsp;to&nbsp;upsert.&nbsp;Required.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;numberspace_override&nbsp;(str):&nbsp;Numberspace&nbsp;to&nbsp;upsert&nbsp;Truenumbers&nbsp;into.&nbsp;If&nbsp;not&nbsp;provided,&nbsp;the&nbsp;numberspace&nbsp;will&nbsp;be&nbsp;inferred&nbsp;from&nbsp;the&nbsp;Truenumbers.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;regenerate_id&nbsp;(bool):&nbsp;Whether&nbsp;to&nbsp;regenerate&nbsp;the&nbsp;ID&nbsp;for&nbsp;each&nbsp;Truenumber.</span></dd></dl>
+
 <dl><dt><a name="TruenumbersRestApi-verify_user"><strong>verify_user</strong></a>(self)</dt><dd><span class="code">Verify&nbsp;the&nbsp;current&nbsp;authenticated&nbsp;user&nbsp;session.<br>
 &nbsp;<br>
 This&nbsp;wraps&nbsp;``GET&nbsp;/v2/users/verify``&nbsp;and&nbsp;typically&nbsp;checks&nbsp;that&nbsp;the<br>
