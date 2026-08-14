@@ -591,6 +591,28 @@ class TruenumbersRestApi:
             raise Exception(f'Error: {response.status_code} {response.text}')
         return response.json()
 
+    def upsert_truenumbers(self, *, truenumbers_json, numberspace_override=None, regenerate_id=False):
+        """
+        Upsert Truenumbers.
+        
+        This wraps ``PUT /v2/numberflow/numbers``.
+        
+        Args:
+            truenumbers_json (list[dict]): List of Truenumber dictionaries to upsert. Required.
+            numberspace_override (str): Numberspace to upsert Truenumbers into. If not provided, the numberspace will be inferred from the Truenumbers.
+            regenerate_id (bool): Whether to regenerate the ID for each Truenumber.
+        """
+        if not truenumbers_json:
+            raise ValueError('truenumbers_json is required')
+        if numberspace_override and not regenerate_id:
+            raise ValueError('regenerate_id is required if numberspace_override is provided')
+        url = f'{self.base_url}/v2/numberflow/numbers'
+        json_payload = {'truenumbers': truenumbers_json}
+        response = requests.put(url, headers=self.shared_headers, json=json_payload, params={'numberspace_override': numberspace_override, 'regenerate_id': regenerate_id})
+        if response.status_code >= 400:
+            raise Exception(f'Error: {response.status_code} {response.text}')
+        return True
+
     def update_truenumber_values_by_statement(self, *, numberspace, true_statement, tags):
         """
         Update Truenumber values based on a natural‑language statement.
