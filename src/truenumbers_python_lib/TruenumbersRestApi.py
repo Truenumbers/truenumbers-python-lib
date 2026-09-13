@@ -715,8 +715,7 @@ class TruenumbersRestApi:
                 conforming to the ``BatchOperations`` schema. Required.
 
         Returns:
-            dict: A JSON object summarizing the result of each operation in the
-            batch, typically keyed by operation identifier.
+            None
 
         Raises:
             ValueError: If ``numberspace`` or ``operations`` is missing.
@@ -738,7 +737,7 @@ class TruenumbersRestApi:
         response = requests.post(url, headers=self.shared_headers, json=json_payload, params={'numberspace': numberspace})
         if response.status_code >= 400:
             raise Exception(f'Error: {response.status_code} {response.text}')
-        return response.json()
+        return None
 
     def get_saved_queries(self, numberspace):
         """
@@ -894,8 +893,7 @@ class TruenumbersRestApi:
             id (str): Identifier of the saved query to delete. Required.
 
         Returns:
-            dict: A JSON object confirming deletion of the saved query and any
-            additional status information.
+            None
 
         Raises:
             ValueError: If any required argument is missing.
