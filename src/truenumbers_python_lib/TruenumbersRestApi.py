@@ -648,7 +648,7 @@ class TruenumbersRestApi:
             raise ValueError('numberspace is required')
         if not true_statement:
             raise ValueError('true_statement is required')
-        if not tags:
+        if tags is None:
             raise ValueError('tags is required')
         url = f'{self.base_url}/v2/numberflow/numbers/value'
         json_payload = {'trueStatement': true_statement, 'tags': tags}
@@ -692,7 +692,7 @@ class TruenumbersRestApi:
             raise ValueError('numberspace is required')
         if not truenumbers_json:
             raise ValueError('truenumbers_json is required')
-        if not tags:
+        if tags is None:
             raise ValueError('tags is required')
         url = f'{self.base_url}/v2/numberflow/numbers/value'
         json_payload = {'truenumbers': truenumbers_json, 'tags': tags}
