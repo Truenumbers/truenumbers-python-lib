@@ -2,15 +2,42 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Python: class TruenumbersTriggerApi</title>
+<title>Python: module truenumbers_python_lib.TruenumbersTriggerApi</title>
 </head><body>
+
+<table class="heading">
+<tr class="heading-text decor">
+<td class="title">&nbsp;<br><strong class="title"><a href="/" class="white">truenumbers_python_lib</a>.TruenumbersTriggerApi</strong></td>
+</tr></table>
+    <p></p>
 <p>
 <table class="section">
+<tr class="decor pkg-content-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><strong class="bigsection">Modules</strong></td></tr>
+    
+<tr><td class="decor pkg-content-decor"><span class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td><td>&nbsp;</td>
+<td class="singlecolumn"><table><tr><td class="multicolumn"><a href="requests.html">requests</a><br>
+</td><td class="multicolumn"></td><td class="multicolumn"></td><td class="multicolumn"></td></tr></table></td></tr></table><p>
+<table class="section">
+<tr class="decor index-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><strong class="bigsection">Classes</strong></td></tr>
+    
+<tr><td class="decor index-decor"><span class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td><td>&nbsp;</td>
+<td class="singlecolumn"><dl>
+<dt class="heading-text"><a href="builtins.html#object">builtins.object</a>
+</dt><dd>
+<dl>
+<dt class="heading-text"><a href="truenumbers_python_lib.TruenumbersTriggerApi.html#TruenumbersTriggerApi">TruenumbersTriggerApi</a>
+</dt></dl>
+</dd>
+</dl>
+ <p>
+<table class="section">
 <tr class="decor title-decor heading-text">
-<td class="section-title" colspan=3>&nbsp;<br><strong>truenumbers_python_lib.TruenumbersTriggerApi</strong> = <a name="truenumbers_python_lib.TruenumbersTriggerApi">class TruenumbersTriggerApi</a>(<a href="builtins.html#object">builtins.object</a>)</td></tr>
+<td class="section-title" colspan=3>&nbsp;<br><a name="TruenumbersTriggerApi">class <strong>TruenumbersTriggerApi</strong></a>(<a href="builtins.html#object">builtins.object</a>)</td></tr>
     
 <tr><td class="decor title-decor" rowspan=2><span class="code">&nbsp;&nbsp;&nbsp;</span></td>
-<td class="decor title-decor" colspan=2><span class="code">truenumbers_python_lib.TruenumbersTriggerApi(*,&nbsp;base_url,&nbsp;shared_headers=None)<br>
+<td class="decor title-decor" colspan=2><span class="code"><a href="#TruenumbersTriggerApi">TruenumbersTriggerApi</a>(*,&nbsp;base_url,&nbsp;shared_headers=None)<br>
 &nbsp;<br>
 High-level&nbsp;client&nbsp;for&nbsp;the&nbsp;Truenumbers&nbsp;Trigger&nbsp;API.<br>
 &nbsp;<br>
@@ -20,11 +47,11 @@ the&nbsp;underlying&nbsp;HTTP&nbsp;request&nbsp;returns&nbsp;a&nbsp;status&nbsp;
 &nbsp;<br>
 Example::<br>
 &nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;api&nbsp;=&nbsp;TruenumbersTriggerApi(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;api&nbsp;=&nbsp;<a href="#TruenumbersTriggerApi">TruenumbersTriggerApi</a>(<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;base_url="<a href="https://api.example.com/truenumbers-trigger-api">https://api.example.com/truenumbers-trigger-api</a>",<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;shared_headers={"Authorization":&nbsp;"Bearer&nbsp;&lt;token&gt;"},<br>
 &nbsp;&nbsp;&nbsp;&nbsp;)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;created&nbsp;=&nbsp;api.<a href="#truenumbers_python_lib.TruenumbersTriggerApi-create_trigger">create_trigger</a>(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;created&nbsp;=&nbsp;api.<a href="#TruenumbersTriggerApi-create_trigger">create_trigger</a>(<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;numberspace="my_space",<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name="on_create",<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tnql="*&nbsp;has&nbsp;*",<br>
@@ -47,15 +74,27 @@ Raises:<br>
 &nbsp;<br>
 Example::<br>
 &nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;api&nbsp;=&nbsp;TruenumbersTriggerApi(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;api&nbsp;=&nbsp;<a href="#TruenumbersTriggerApi">TruenumbersTriggerApi</a>(<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;base_url="<a href="https://api.example.com/truenumbers-trigger-api">https://api.example.com/truenumbers-trigger-api</a>",<br>
 &nbsp;&nbsp;&nbsp;&nbsp;)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;api_auth&nbsp;=&nbsp;TruenumbersTriggerApi(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;api_auth&nbsp;=&nbsp;<a href="#TruenumbersTriggerApi">TruenumbersTriggerApi</a>(<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;base_url="<a href="https://api.example.com/truenumbers-trigger-api">https://api.example.com/truenumbers-trigger-api</a>",<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;shared_headers={"Authorization":&nbsp;"Bearer&nbsp;&lt;token&gt;"},<br>
 &nbsp;&nbsp;&nbsp;&nbsp;)</span></dd></dl>
 
-<dl><dt><a name="TruenumbersTriggerApi-create_trigger"><strong>create_trigger</strong></a>(self, *, numberspace, name, execute_on, description=None, tnql=None, status=None, tag_on_trigger=None, load_historic_data=None, destinations=None)</dt><dd><span class="code">Create&nbsp;a&nbsp;trigger&nbsp;definition.<br>
+<dl><dt><a name="TruenumbersTriggerApi-create_trigger"><strong>create_trigger</strong></a>(
+    self,
+    *,
+    numberspace,
+    name,
+    execute_on,
+    description=None,
+    tnql=None,
+    status=None,
+    tag_on_trigger=None,
+    load_historic_data=None,
+    destinations=None
+)</dt><dd><span class="code">Create&nbsp;a&nbsp;trigger&nbsp;definition.<br>
 &nbsp;<br>
 This&nbsp;wraps&nbsp;``POST&nbsp;/v1/trigger-definition``.<br>
 &nbsp;<br>
@@ -75,11 +114,11 @@ Args:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;load_historic_data&nbsp;(bool,&nbsp;optional):&nbsp;If&nbsp;``True``,&nbsp;the&nbsp;server&nbsp;may&nbsp;backfill<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;trigger&nbsp;by&nbsp;evaluating&nbsp;historic&nbsp;matching&nbsp;Truenumbers.<br>
 &nbsp;&nbsp;&nbsp;&nbsp;destinations&nbsp;(list[dict],&nbsp;optional):&nbsp;Where&nbsp;trigger&nbsp;events&nbsp;are&nbsp;delivered.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Each&nbsp;destination&nbsp;is&nbsp;a&nbsp;JSON&nbsp;object;&nbsp;typical&nbsp;fields&nbsp;include&nbsp;``"type"``<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Each&nbsp;destination&nbsp;is&nbsp;a&nbsp;JSON&nbsp;<a href="builtins.html#object">object</a>;&nbsp;typical&nbsp;fields&nbsp;include&nbsp;``"type"``<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and&nbsp;destination-specific&nbsp;configuration.<br>
 &nbsp;<br>
 Returns:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;dict:&nbsp;A&nbsp;JSON&nbsp;object&nbsp;representing&nbsp;the&nbsp;created&nbsp;trigger&nbsp;definition.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;dict:&nbsp;A&nbsp;JSON&nbsp;<a href="builtins.html#object">object</a>&nbsp;representing&nbsp;the&nbsp;created&nbsp;trigger&nbsp;definition.<br>
 &nbsp;&nbsp;&nbsp;&nbsp;Common&nbsp;fields&nbsp;include&nbsp;``"guid"``/``"id"``,&nbsp;``"numberspace"``,&nbsp;``"name"``,<br>
 &nbsp;&nbsp;&nbsp;&nbsp;``"tnql"``,&nbsp;``"executeOn"``,&nbsp;``"status"``,&nbsp;``"destinations"``&nbsp;and&nbsp;timestamps.<br>
 &nbsp;<br>
@@ -89,7 +128,7 @@ Raises:<br>
 &nbsp;<br>
 Example::<br>
 &nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;created&nbsp;=&nbsp;api.<a href="#truenumbers_python_lib.TruenumbersTriggerApi-create_trigger">create_trigger</a>(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;created&nbsp;=&nbsp;api.<a href="#TruenumbersTriggerApi-create_trigger">create_trigger</a>(<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;numberspace="my_space",<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name="tagged_items",<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;description="Fires&nbsp;when&nbsp;matching&nbsp;Truenumbers&nbsp;are&nbsp;tagged",<br>
@@ -109,7 +148,7 @@ Args:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;id&nbsp;(str):&nbsp;GUID&nbsp;of&nbsp;the&nbsp;trigger&nbsp;definition&nbsp;to&nbsp;delete.&nbsp;Required.<br>
 &nbsp;<br>
 Returns:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;dict:&nbsp;A&nbsp;JSON&nbsp;object&nbsp;confirming&nbsp;deletion&nbsp;and&nbsp;any&nbsp;status&nbsp;details.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;dict:&nbsp;A&nbsp;JSON&nbsp;<a href="builtins.html#object">object</a>&nbsp;confirming&nbsp;deletion&nbsp;and&nbsp;any&nbsp;status&nbsp;details.<br>
 &nbsp;<br>
 Raises:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;ValueError:&nbsp;If&nbsp;``id``&nbsp;is&nbsp;missing.<br>
@@ -117,7 +156,7 @@ Raises:<br>
 &nbsp;<br>
 Example::<br>
 &nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;result&nbsp;=&nbsp;api.<a href="#truenumbers_python_lib.TruenumbersTriggerApi-delete_trigger">delete_trigger</a>(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;result&nbsp;=&nbsp;api.<a href="#TruenumbersTriggerApi-delete_trigger">delete_trigger</a>(<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;id="00000000-0000-0000-0000-000000000000",<br>
 &nbsp;&nbsp;&nbsp;&nbsp;)</span></dd></dl>
 
@@ -137,7 +176,7 @@ Args:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;id&nbsp;(str):&nbsp;GUID&nbsp;of&nbsp;the&nbsp;trigger&nbsp;definition.&nbsp;Required.<br>
 &nbsp;<br>
 Returns:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;dict:&nbsp;A&nbsp;JSON&nbsp;object&nbsp;representing&nbsp;the&nbsp;trigger&nbsp;definition,&nbsp;including<br>
+&nbsp;&nbsp;&nbsp;&nbsp;dict:&nbsp;A&nbsp;JSON&nbsp;<a href="builtins.html#object">object</a>&nbsp;representing&nbsp;the&nbsp;trigger&nbsp;definition,&nbsp;including<br>
 &nbsp;&nbsp;&nbsp;&nbsp;fields&nbsp;such&nbsp;as&nbsp;``"guid"``/``"id"``,&nbsp;``"numberspace"``,&nbsp;``"name"``,<br>
 &nbsp;&nbsp;&nbsp;&nbsp;``"tnql"``,&nbsp;``"executeOn"``,&nbsp;``"status"``,&nbsp;and&nbsp;``"destinations"``.<br>
 &nbsp;<br>
@@ -147,7 +186,7 @@ Raises:<br>
 &nbsp;<br>
 Example::<br>
 &nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;trigger&nbsp;=&nbsp;api.<a href="#truenumbers_python_lib.TruenumbersTriggerApi-get_trigger_by_id">get_trigger_by_id</a>(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;trigger&nbsp;=&nbsp;api.<a href="#TruenumbersTriggerApi-get_trigger_by_id">get_trigger_by_id</a>(<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;id="00000000-0000-0000-0000-000000000000",<br>
 &nbsp;&nbsp;&nbsp;&nbsp;)</span></dd></dl>
 
@@ -162,7 +201,7 @@ Args:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;status&nbsp;values.&nbsp;The&nbsp;wrapper&nbsp;sends&nbsp;them&nbsp;as&nbsp;a&nbsp;comma-separated&nbsp;string.<br>
 &nbsp;<br>
 Returns:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;dict:&nbsp;A&nbsp;JSON&nbsp;object&nbsp;containing&nbsp;a&nbsp;list&nbsp;of&nbsp;trigger&nbsp;definitions,&nbsp;typically<br>
+&nbsp;&nbsp;&nbsp;&nbsp;dict:&nbsp;A&nbsp;JSON&nbsp;<a href="builtins.html#object">object</a>&nbsp;containing&nbsp;a&nbsp;list&nbsp;of&nbsp;trigger&nbsp;definitions,&nbsp;typically<br>
 &nbsp;&nbsp;&nbsp;&nbsp;under&nbsp;a&nbsp;key&nbsp;like&nbsp;``"items"``&nbsp;or&nbsp;similar,&nbsp;plus&nbsp;optional&nbsp;paging&nbsp;metadata.<br>
 &nbsp;<br>
 Raises:<br>
@@ -171,14 +210,25 @@ Raises:<br>
 &nbsp;<br>
 Example::<br>
 &nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;all_triggers&nbsp;=&nbsp;api.<a href="#truenumbers_python_lib.TruenumbersTriggerApi-get_triggers">get_triggers</a>(numberspace="my_space")<br>
-&nbsp;&nbsp;&nbsp;&nbsp;filtered&nbsp;=&nbsp;api.<a href="#truenumbers_python_lib.TruenumbersTriggerApi-get_triggers">get_triggers</a>(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;all_triggers&nbsp;=&nbsp;api.<a href="#TruenumbersTriggerApi-get_triggers">get_triggers</a>(numberspace="my_space")<br>
+&nbsp;&nbsp;&nbsp;&nbsp;filtered&nbsp;=&nbsp;api.<a href="#TruenumbersTriggerApi-get_triggers">get_triggers</a>(<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;numberspace="my_space",<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name="on_create",<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;status=["ACTIVE",&nbsp;"INACTIVE"],<br>
 &nbsp;&nbsp;&nbsp;&nbsp;)</span></dd></dl>
 
-<dl><dt><a name="TruenumbersTriggerApi-update_trigger"><strong>update_trigger</strong></a>(self, *, id, name=None, description=None, tnql=None, execute_on=None, status=None, tag_on_trigger=None, destinations=None)</dt><dd><span class="code">Partially&nbsp;update&nbsp;a&nbsp;trigger&nbsp;definition&nbsp;by&nbsp;GUID.<br>
+<dl><dt><a name="TruenumbersTriggerApi-update_trigger"><strong>update_trigger</strong></a>(
+    self,
+    *,
+    id,
+    name=None,
+    description=None,
+    tnql=None,
+    execute_on=None,
+    status=None,
+    tag_on_trigger=None,
+    destinations=None
+)</dt><dd><span class="code">Partially&nbsp;update&nbsp;a&nbsp;trigger&nbsp;definition&nbsp;by&nbsp;GUID.<br>
 &nbsp;<br>
 This&nbsp;wraps&nbsp;``PATCH&nbsp;/v1/trigger-definitions/{guid}``.<br>
 &nbsp;<br>
@@ -194,7 +244,7 @@ Args:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;destinations&nbsp;(list[dict],&nbsp;optional):&nbsp;New&nbsp;destinations&nbsp;array.<br>
 &nbsp;<br>
 Returns:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;dict:&nbsp;A&nbsp;JSON&nbsp;object&nbsp;representing&nbsp;the&nbsp;updated&nbsp;trigger&nbsp;definition.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;dict:&nbsp;A&nbsp;JSON&nbsp;<a href="builtins.html#object">object</a>&nbsp;representing&nbsp;the&nbsp;updated&nbsp;trigger&nbsp;definition.<br>
 &nbsp;<br>
 Raises:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;ValueError:&nbsp;If&nbsp;``id``&nbsp;is&nbsp;missing.<br>
@@ -202,7 +252,7 @@ Raises:<br>
 &nbsp;<br>
 Example::<br>
 &nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;updated&nbsp;=&nbsp;api.<a href="#truenumbers_python_lib.TruenumbersTriggerApi-update_trigger">update_trigger</a>(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;updated&nbsp;=&nbsp;api.<a href="#TruenumbersTriggerApi-update_trigger">update_trigger</a>(<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;id="00000000-0000-0000-0000-000000000000",<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name="tagged_items_v2",<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tnql="*&nbsp;has&nbsp;*",<br>
@@ -213,10 +263,10 @@ Example::<br>
 <hr>
 Data descriptors defined here:<br>
 <dl><dt><strong>__dict__</strong></dt>
-<dd><span class="code">dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</span></dd>
+<dd><span class="code">dictionary&nbsp;for&nbsp;instance&nbsp;variables</span></dd>
 </dl>
 <dl><dt><strong>__weakref__</strong></dt>
-<dd><span class="code">list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</span></dd>
+<dd><span class="code">list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object</span></dd>
 </dl>
 <hr>
 Data and other attributes defined here:<br>
@@ -224,5 +274,5 @@ Data and other attributes defined here:<br>
 
 <dl><dt><strong>shared_headers</strong> = {'Accept': 'application/json', 'Content-Type': 'application/json'}</dl>
 
-</td></tr></table>
+</td></tr></table></td></tr></table>
 </body></html>

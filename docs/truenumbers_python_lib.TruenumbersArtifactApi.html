@@ -2,15 +2,42 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Python: class TruenumbersArtifactApi</title>
+<title>Python: module truenumbers_python_lib.TruenumbersArtifactApi</title>
 </head><body>
+
+<table class="heading">
+<tr class="heading-text decor">
+<td class="title">&nbsp;<br><strong class="title"><a href="/" class="white">truenumbers_python_lib</a>.TruenumbersArtifactApi</strong></td>
+</tr></table>
+    <p></p>
 <p>
 <table class="section">
+<tr class="decor pkg-content-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><strong class="bigsection">Modules</strong></td></tr>
+    
+<tr><td class="decor pkg-content-decor"><span class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td><td>&nbsp;</td>
+<td class="singlecolumn"><table><tr><td class="multicolumn"><a href="requests.html">requests</a><br>
+</td><td class="multicolumn"></td><td class="multicolumn"></td><td class="multicolumn"></td></tr></table></td></tr></table><p>
+<table class="section">
+<tr class="decor index-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><strong class="bigsection">Classes</strong></td></tr>
+    
+<tr><td class="decor index-decor"><span class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td><td>&nbsp;</td>
+<td class="singlecolumn"><dl>
+<dt class="heading-text"><a href="builtins.html#object">builtins.object</a>
+</dt><dd>
+<dl>
+<dt class="heading-text"><a href="truenumbers_python_lib.TruenumbersArtifactApi.html#TruenumbersArtifactApi">TruenumbersArtifactApi</a>
+</dt></dl>
+</dd>
+</dl>
+ <p>
+<table class="section">
 <tr class="decor title-decor heading-text">
-<td class="section-title" colspan=3>&nbsp;<br><strong>truenumbers_python_lib.TruenumbersArtifactApi</strong> = <a name="truenumbers_python_lib.TruenumbersArtifactApi">class TruenumbersArtifactApi</a>(<a href="builtins.html#object">builtins.object</a>)</td></tr>
+<td class="section-title" colspan=3>&nbsp;<br><a name="TruenumbersArtifactApi">class <strong>TruenumbersArtifactApi</strong></a>(<a href="builtins.html#object">builtins.object</a>)</td></tr>
     
 <tr><td class="decor title-decor" rowspan=2><span class="code">&nbsp;&nbsp;&nbsp;</span></td>
-<td class="decor title-decor" colspan=2><span class="code">truenumbers_python_lib.TruenumbersArtifactApi(*,&nbsp;base_url,&nbsp;shared_headers=None)<br>
+<td class="decor title-decor" colspan=2><span class="code"><a href="#TruenumbersArtifactApi">TruenumbersArtifactApi</a>(*,&nbsp;base_url,&nbsp;shared_headers=None)<br>
 &nbsp;<br>
 Client&nbsp;for&nbsp;the&nbsp;Truenumbers&nbsp;Artifact&nbsp;API.<br>
 &nbsp;<br>
@@ -20,7 +47,7 @@ the&nbsp;underlying&nbsp;HTTP&nbsp;request&nbsp;returns&nbsp;a&nbsp;status&nbsp;
 &nbsp;<br>
 Example::<br>
 &nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;api&nbsp;=&nbsp;TruenumbersArtifactApi(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;api&nbsp;=&nbsp;<a href="#TruenumbersArtifactApi">TruenumbersArtifactApi</a>(<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;base_url="<a href="https://api.example.com/truenumbers-artifact-api">https://api.example.com/truenumbers-artifact-api</a>",<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;shared_headers={"Authorization":&nbsp;"Bearer&nbsp;&lt;token&gt;"},<br>
 &nbsp;&nbsp;&nbsp;&nbsp;)<br>&nbsp;</span></td></tr>
@@ -39,10 +66,10 @@ Raises:<br>
 &nbsp;<br>
 Example::<br>
 &nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;api&nbsp;=&nbsp;TruenumbersArtifactApi(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;api&nbsp;=&nbsp;<a href="#TruenumbersArtifactApi">TruenumbersArtifactApi</a>(<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;base_url="<a href="https://api.example.com/truenumbers-artifact-api">https://api.example.com/truenumbers-artifact-api</a>",<br>
 &nbsp;&nbsp;&nbsp;&nbsp;)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;api_auth&nbsp;=&nbsp;TruenumbersArtifactApi(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;api_auth&nbsp;=&nbsp;<a href="#TruenumbersArtifactApi">TruenumbersArtifactApi</a>(<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;base_url="<a href="https://api.example.com/truenumbers-artifact-api">https://api.example.com/truenumbers-artifact-api</a>",<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;shared_headers={"Authorization":&nbsp;"Bearer&nbsp;&lt;token&gt;"},<br>
 &nbsp;&nbsp;&nbsp;&nbsp;)</span></dd></dl>
@@ -55,7 +82,7 @@ Args:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;file_name_override&nbsp;(str,&nbsp;optional):&nbsp;Name&nbsp;of&nbsp;the&nbsp;file&nbsp;to&nbsp;upload.&nbsp;If&nbsp;not&nbsp;provided,&nbsp;the&nbsp;file&nbsp;name&nbsp;will&nbsp;be&nbsp;the&nbsp;same&nbsp;as&nbsp;the&nbsp;file&nbsp;path.<br>
 &nbsp;<br>
 Returns:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;dict:&nbsp;A&nbsp;JSON&nbsp;object&nbsp;describing&nbsp;the&nbsp;created&nbsp;artifact.</span></dd></dl>
+&nbsp;&nbsp;&nbsp;&nbsp;dict:&nbsp;A&nbsp;JSON&nbsp;<a href="builtins.html#object">object</a>&nbsp;describing&nbsp;the&nbsp;created&nbsp;artifact.</span></dd></dl>
 
 <dl><dt><a name="TruenumbersArtifactApi-delete_artifact_by_id"><strong>delete_artifact_by_id</strong></a>(self, *, id)</dt><dd><span class="code">Delete&nbsp;an&nbsp;artifact&nbsp;by&nbsp;ID.</span></dd></dl>
 
@@ -64,10 +91,10 @@ Returns:<br>
 <hr>
 Data descriptors defined here:<br>
 <dl><dt><strong>__dict__</strong></dt>
-<dd><span class="code">dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</span></dd>
+<dd><span class="code">dictionary&nbsp;for&nbsp;instance&nbsp;variables</span></dd>
 </dl>
 <dl><dt><strong>__weakref__</strong></dt>
-<dd><span class="code">list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</span></dd>
+<dd><span class="code">list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object</span></dd>
 </dl>
 <hr>
 Data and other attributes defined here:<br>
@@ -75,5 +102,5 @@ Data and other attributes defined here:<br>
 
 <dl><dt><strong>shared_headers</strong> = {}</dl>
 
-</td></tr></table>
+</td></tr></table></td></tr></table>
 </body></html>

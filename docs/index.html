@@ -7,7 +7,7 @@
 
 <table class="heading">
 <tr class="heading-text decor">
-<td class="title">&nbsp;<br><strong class="title">truenumbers_python_lib</strong> (version 0.0.17)</td>
+<td class="title">&nbsp;<br><strong class="title">truenumbers_python_lib</strong> (version 0.0.19)</td>
 </tr></table>
     <p><span class="code">Truenumbers&nbsp;Python&nbsp;library:&nbsp;clients&nbsp;for&nbsp;REST,&nbsp;Trigger,&nbsp;and&nbsp;Artifact&nbsp;APIs.<br>
 &nbsp;<br>
@@ -104,10 +104,10 @@ Returns:<br>
 <hr>
 Data descriptors defined here:<br>
 <dl><dt><strong>__dict__</strong></dt>
-<dd><span class="code">dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</span></dd>
+<dd><span class="code">dictionary&nbsp;for&nbsp;instance&nbsp;variables</span></dd>
 </dl>
 <dl><dt><strong>__weakref__</strong></dt>
-<dd><span class="code">list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</span></dd>
+<dd><span class="code">list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object</span></dd>
 </dl>
 <hr>
 Data and other attributes defined here:<br>
@@ -227,7 +227,15 @@ Example::<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tnql="*&nbsp;has&nbsp;*",<br>
 &nbsp;&nbsp;&nbsp;&nbsp;)</span></dd></dl>
 
-<dl><dt><a name="TruenumbersRestApi-create_truenumbers_from_json"><strong>create_truenumbers_from_json</strong></a>(self, *, numberspace, truenumbers_json, noReturn=False, skipStore=False, tags=None)</dt><dd><span class="code">Create&nbsp;one&nbsp;or&nbsp;more&nbsp;Truenumbers&nbsp;from&nbsp;a&nbsp;JSON&nbsp;payload.<br>
+<dl><dt><a name="TruenumbersRestApi-create_truenumbers_from_json"><strong>create_truenumbers_from_json</strong></a>(
+    self,
+    *,
+    numberspace,
+    truenumbers_json,
+    noReturn=False,
+    skipStore=False,
+    tags=None
+)</dt><dd><span class="code">Create&nbsp;one&nbsp;or&nbsp;more&nbsp;Truenumbers&nbsp;from&nbsp;a&nbsp;JSON&nbsp;payload.<br>
 &nbsp;<br>
 This&nbsp;method&nbsp;maps&nbsp;to&nbsp;the<br>
 ``POST&nbsp;/v2/numberflow/numbers``&nbsp;*Create&nbsp;Truenumbers*&nbsp;endpoint&nbsp;and&nbsp;uses<br>
@@ -264,7 +272,15 @@ Example::<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tags=["bulk"],<br>
 &nbsp;&nbsp;&nbsp;&nbsp;)</span></dd></dl>
 
-<dl><dt><a name="TruenumbersRestApi-create_truenumbers_from_statement"><strong>create_truenumbers_from_statement</strong></a>(self, *, numberspace, true_statement, noReturn=False, skipStore=False, tags=None)</dt><dd><span class="code">Create&nbsp;one&nbsp;or&nbsp;more&nbsp;Truenumbers&nbsp;from&nbsp;a&nbsp;natural‑language&nbsp;statement.<br>
+<dl><dt><a name="TruenumbersRestApi-create_truenumbers_from_statement"><strong>create_truenumbers_from_statement</strong></a>(
+    self,
+    *,
+    numberspace,
+    true_statement,
+    noReturn=False,
+    skipStore=False,
+    tags=None
+)</dt><dd><span class="code">Create&nbsp;one&nbsp;or&nbsp;more&nbsp;Truenumbers&nbsp;from&nbsp;a&nbsp;natural‑language&nbsp;statement.<br>
 &nbsp;<br>
 This&nbsp;method&nbsp;maps&nbsp;to&nbsp;the<br>
 ``POST&nbsp;/v2/numberflow/numbers``&nbsp;*Create&nbsp;Truenumbers*&nbsp;endpoint&nbsp;and&nbsp;uses<br>
@@ -764,7 +780,13 @@ Example::<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tags=["bulk-edit"],<br>
 &nbsp;&nbsp;&nbsp;&nbsp;)</span></dd></dl>
 
-<dl><dt><a name="TruenumbersRestApi-update_truenumber_values_by_statement"><strong>update_truenumber_values_by_statement</strong></a>(self, *, numberspace, true_statement, tags)</dt><dd><span class="code">Update&nbsp;Truenumber&nbsp;values&nbsp;based&nbsp;on&nbsp;a&nbsp;natural‑language&nbsp;statement.<br>
+<dl><dt><a name="TruenumbersRestApi-update_truenumber_values_by_statement"><strong>update_truenumber_values_by_statement</strong></a>(
+    self,
+    *,
+    numberspace,
+    true_statement,
+    tags
+)</dt><dd><span class="code">Update&nbsp;Truenumber&nbsp;values&nbsp;based&nbsp;on&nbsp;a&nbsp;natural‑language&nbsp;statement.<br>
 &nbsp;<br>
 This&nbsp;wraps&nbsp;``PUT&nbsp;/v2/numberflow/numbers/value``&nbsp;using&nbsp;the<br>
 ``trueStatement``&nbsp;representation&nbsp;of&nbsp;Truenumbers.<br>
@@ -793,7 +815,13 @@ Example::<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tags=["correction"],<br>
 &nbsp;&nbsp;&nbsp;&nbsp;)</span></dd></dl>
 
-<dl><dt><a name="TruenumbersRestApi-upsert_truenumbers"><strong>upsert_truenumbers</strong></a>(self, *, truenumbers_json, numberspace_override=None, regenerate_id=False)</dt><dd><span class="code">Upsert&nbsp;Truenumbers.<br>
+<dl><dt><a name="TruenumbersRestApi-upsert_truenumbers"><strong>upsert_truenumbers</strong></a>(
+    self,
+    *,
+    truenumbers_json,
+    numberspace_override=None,
+    regenerate_id=False
+)</dt><dd><span class="code">Upsert&nbsp;Truenumbers.<br>
 &nbsp;<br>
 This&nbsp;wraps&nbsp;``PUT&nbsp;/v2/numberflow/numbers``.<br>
 &nbsp;<br>
@@ -821,10 +849,10 @@ Example::<br>
 <hr>
 Data descriptors defined here:<br>
 <dl><dt><strong>__dict__</strong></dt>
-<dd><span class="code">dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</span></dd>
+<dd><span class="code">dictionary&nbsp;for&nbsp;instance&nbsp;variables</span></dd>
 </dl>
 <dl><dt><strong>__weakref__</strong></dt>
-<dd><span class="code">list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</span></dd>
+<dd><span class="code">list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object</span></dd>
 </dl>
 <hr>
 Data and other attributes defined here:<br>
@@ -883,7 +911,19 @@ Example::<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;shared_headers={"Authorization":&nbsp;"Bearer&nbsp;&lt;token&gt;"},<br>
 &nbsp;&nbsp;&nbsp;&nbsp;)</span></dd></dl>
 
-<dl><dt><a name="TruenumbersTriggerApi-create_trigger"><strong>create_trigger</strong></a>(self, *, numberspace, name, execute_on, description=None, tnql=None, status=None, tag_on_trigger=None, load_historic_data=None, destinations=None)</dt><dd><span class="code">Create&nbsp;a&nbsp;trigger&nbsp;definition.<br>
+<dl><dt><a name="TruenumbersTriggerApi-create_trigger"><strong>create_trigger</strong></a>(
+    self,
+    *,
+    numberspace,
+    name,
+    execute_on,
+    description=None,
+    tnql=None,
+    status=None,
+    tag_on_trigger=None,
+    load_historic_data=None,
+    destinations=None
+)</dt><dd><span class="code">Create&nbsp;a&nbsp;trigger&nbsp;definition.<br>
 &nbsp;<br>
 This&nbsp;wraps&nbsp;``POST&nbsp;/v1/trigger-definition``.<br>
 &nbsp;<br>
@@ -1006,7 +1046,18 @@ Example::<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;status=["ACTIVE",&nbsp;"INACTIVE"],<br>
 &nbsp;&nbsp;&nbsp;&nbsp;)</span></dd></dl>
 
-<dl><dt><a name="TruenumbersTriggerApi-update_trigger"><strong>update_trigger</strong></a>(self, *, id, name=None, description=None, tnql=None, execute_on=None, status=None, tag_on_trigger=None, destinations=None)</dt><dd><span class="code">Partially&nbsp;update&nbsp;a&nbsp;trigger&nbsp;definition&nbsp;by&nbsp;GUID.<br>
+<dl><dt><a name="TruenumbersTriggerApi-update_trigger"><strong>update_trigger</strong></a>(
+    self,
+    *,
+    id,
+    name=None,
+    description=None,
+    tnql=None,
+    execute_on=None,
+    status=None,
+    tag_on_trigger=None,
+    destinations=None
+)</dt><dd><span class="code">Partially&nbsp;update&nbsp;a&nbsp;trigger&nbsp;definition&nbsp;by&nbsp;GUID.<br>
 &nbsp;<br>
 This&nbsp;wraps&nbsp;``PATCH&nbsp;/v1/trigger-definitions/{guid}``.<br>
 &nbsp;<br>
@@ -1041,10 +1092,10 @@ Example::<br>
 <hr>
 Data descriptors defined here:<br>
 <dl><dt><strong>__dict__</strong></dt>
-<dd><span class="code">dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</span></dd>
+<dd><span class="code">dictionary&nbsp;for&nbsp;instance&nbsp;variables</span></dd>
 </dl>
 <dl><dt><strong>__weakref__</strong></dt>
-<dd><span class="code">list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</span></dd>
+<dd><span class="code">list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object</span></dd>
 </dl>
 <hr>
 Data and other attributes defined here:<br>
