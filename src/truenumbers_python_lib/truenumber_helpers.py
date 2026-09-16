@@ -54,12 +54,11 @@ def format_path_to_phrase(srd_to_transform: str) -> str:
 
 
 
+def sanitize_path_phrase(path_phrase: str) -> str:
+    return re.sub(r'[^a-zA-Z_\-0-9:\/]', '', path_phrase.strip()).strip()
 
 
 def format_path_phrase_to_path(srd_to_format: str) -> str:
-
-    def sanitize_srd(srd: str) -> str:
-        return srd.strip()
 
     def remove_filler_srd_terms(srd: str) -> str:
         replacements = [
@@ -108,4 +107,4 @@ def format_path_phrase_to_path(srd_to_format: str) -> str:
 
     result = '/'.join(transformed)
 
-    return sanitize_srd(remove_filler_srd_terms(result))
+    return sanitize_path_phrase(remove_filler_srd_terms(result))
