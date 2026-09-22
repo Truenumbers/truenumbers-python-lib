@@ -110,13 +110,38 @@ def format_path_phrase_to_path(srd_to_format: str) -> str:
 
     return sanitize_path_phrase(remove_filler_srd_terms(result))
 
+def get_unquoted_string_value_from_truenumber(truenumber: dict):
+    if is_string_truenumber(truenumber):
+        value_string = truenumber.get('value', {}).get('value')
+        return value_string[1:-1] if value_string else None
+    elif is_path_truenumber(truenumber):
+        return format_path_to_phrase(truenumber.get('value', {}).get('value'))
+    elif is_numeric_truenumber(truenumber):
+        return truenumber.get('value', {}).get('value')
+    return None
+
 def get_json_value_from_truenumber(truenumber: dict):
     if is_json_truenumber(truenumber):
         return truenumber.get('value', {}).get('json', None)
     elif is_string_truenumber(truenumber):
-        val = truenumber.get('value', {}).get('value')
-        return json.loads(val[1:-1]) if val else None
+        return json.loads(get_unquoted_string_value_from_truenumber(truenumber)) if get_unquoted_string_value_from_truenumber(truenumber) else None
     return None
+
+def get_path_value_from_truenumber(truenumber: dict):
+    if is_path_truenumber(truenumber):
+        return truenumber.get('value', {}).get('value')
+    return None
+
+def get_path_phrase_value_from_truenumber(truenumber: dict):
+    if is_path_truenumber(truenumber):
+        return format_path_to_phrase(get_path_value_from_truenumber(truenumber))
+    return None
+
+def get_subject_path_phrase_from_truenumber(truenumber: dict):
+    return format_path_to_phrase(truenumber.get('subject', ''))
+
+def get_property_path_phrase_from_truenumber(truenumber: dict):
+    return format_path_to_phrase(truenumber.get('property', ''))
 
 def get_truenumbers_matching_property(truenumber_list: list[dict], property: str):
     return [truenumber for truenumber in truenumber_list if truenumber.get('property').lower() == property.lower()]
