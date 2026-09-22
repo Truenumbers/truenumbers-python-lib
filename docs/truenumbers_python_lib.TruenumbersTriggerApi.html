@@ -82,19 +82,7 @@ Example::<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;shared_headers={"Authorization":&nbsp;"Bearer&nbsp;&lt;token&gt;"},<br>
 &nbsp;&nbsp;&nbsp;&nbsp;)</span></dd></dl>
 
-<dl><dt><a name="TruenumbersTriggerApi-create_trigger"><strong>create_trigger</strong></a>(
-    self,
-    *,
-    numberspace,
-    name,
-    execute_on,
-    description=None,
-    tnql=None,
-    status=None,
-    tag_on_trigger=None,
-    load_historic_data=None,
-    destinations=None
-)</dt><dd><span class="code">Create&nbsp;a&nbsp;trigger&nbsp;definition.<br>
+<dl><dt><a name="TruenumbersTriggerApi-create_trigger"><strong>create_trigger</strong></a>(self, *, numberspace, name, execute_on, description=None, tnql=None, status=None, tag_on_trigger=None, load_historic_data=None, destinations=None)</dt><dd><span class="code">Create&nbsp;a&nbsp;trigger&nbsp;definition.<br>
 &nbsp;<br>
 This&nbsp;wraps&nbsp;``POST&nbsp;/v1/trigger-definition``.<br>
 &nbsp;<br>
@@ -217,18 +205,7 @@ Example::<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;status=["ACTIVE",&nbsp;"INACTIVE"],<br>
 &nbsp;&nbsp;&nbsp;&nbsp;)</span></dd></dl>
 
-<dl><dt><a name="TruenumbersTriggerApi-update_trigger"><strong>update_trigger</strong></a>(
-    self,
-    *,
-    id,
-    name=None,
-    description=None,
-    tnql=None,
-    execute_on=None,
-    status=None,
-    tag_on_trigger=None,
-    destinations=None
-)</dt><dd><span class="code">Partially&nbsp;update&nbsp;a&nbsp;trigger&nbsp;definition&nbsp;by&nbsp;GUID.<br>
+<dl><dt><a name="TruenumbersTriggerApi-update_trigger"><strong>update_trigger</strong></a>(self, *, id, name=None, description=None, tnql=None, execute_on=None, status=None, tag_on_trigger=None, destinations=None)</dt><dd><span class="code">Partially&nbsp;update&nbsp;a&nbsp;trigger&nbsp;definition&nbsp;by&nbsp;GUID.<br>
 &nbsp;<br>
 This&nbsp;wraps&nbsp;``PATCH&nbsp;/v1/trigger-definitions/{guid}``.<br>
 &nbsp;<br>
