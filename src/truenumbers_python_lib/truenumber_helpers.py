@@ -1,4 +1,5 @@
 import re
+import json
 
 def get_truenumber_type(truenumber: dict) -> str:
     return truenumber.get("value").get("type")
@@ -108,3 +109,17 @@ def format_path_phrase_to_path(srd_to_format: str) -> str:
     result = '/'.join(transformed)
 
     return sanitize_path_phrase(remove_filler_srd_terms(result))
+
+def get_json_value_from_truenumber(truenumber: dict):
+    if is_json_truenumber(truenumber):
+        return truenumber.get('value', {}).get('json', None)
+    elif is_string_truenumber(truenumber):
+        val = truenumber.get('value', {}).get('value')
+        return json.loads(val[1:-1]) if val else None
+    return None
+
+def get_truenumbers_matching_property(truenumber_list: list[dict], property: str):
+    return [truenumber for truenumber in truenumber_list if truenumber.get('property').lower() == property.lower()]
+
+def get_truenumbers_matching_subject(truenumber_list: list[dict], subject: str):
+    return [truenumber for truenumber in truenumber_list if truenumber.get('subject').lower() == subject.lower()]
