@@ -148,3 +148,9 @@ def get_truenumbers_matching_property(truenumber_list: list[dict], property: str
 
 def get_truenumbers_matching_subject(truenumber_list: list[dict], subject: str):
     return [truenumber for truenumber in truenumber_list if truenumber.get('subject').lower() == subject.lower()]
+
+def format_str_value_for_statement(value: str):
+    return f"\"{str(value)}\"" if value else None
+    
+def format_path_value_for_statement(value: str):
+    return format_path_to_phrase(format_path_phrase_to_path(str(value))) if value else None
